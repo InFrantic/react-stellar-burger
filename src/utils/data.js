@@ -217,17 +217,19 @@ export default class List extends React.Component {
       ]
    }
    render() {
-
+      const ingredientType = [...new Set(this.state.data.map(item => item.type))];
       const bun = this.state.data.filter(item => item.type === "bun");
       const sauce = this.state.data.filter(item => item.type === "sauce");
       const main = this.state.data.filter(item => item.type === "main");
+
       return (
-         <React.Fragment >
-            <div className={`${styles["scroll"]} custom-scroll`}>
-               {this.state.data.map(ingredient => (
-                  <div key={ingredient}>
-                     <p id={ingredient.type === 'bun' ? 'bun' : ingredient.type === 'sauce' ? 'sauce' : 'main'}>{ingredient.type === 'bun' ? 'Булки' : ingredient.type === 'sauce' ? 'Соусы' : 'Начинки'}</p>
-                     {ingredient.type === "bun" && bun.map(item => (
+
+         <div className={`${styles["scroll"]} custom-scroll`}>
+            {ingredientType.map((type) => (
+                  <div key={type}>
+                     <p id={type === 'bun' ? 'bun' : type === 'sauce' ? 'sauce' : 'main'}>
+                        {type === 'bun' ? 'Булки' : type === 'sauce' ? 'Соусы' : 'Начинки'}</p>
+                     { type === "bun" && bun.map(item => (
                         <div key={item._id}>
                            <img className={styles} src={item.image} alt={item.name} />
                            <div>
@@ -237,7 +239,7 @@ export default class List extends React.Component {
                            <p>{item.name}</p>
                         </div>
                      ))}
-                     {ingredient.type === "sauce" && sauce.map(item => (
+                     {type === "sauce" && sauce.map(item => (
                         <div key={item._id}>
                            <img className={styles} src={item.image} alt={item.name} />
                            <div>
@@ -247,7 +249,7 @@ export default class List extends React.Component {
                            <p>{item.name}</p>
                         </div>
                      ))}
-                     {ingredient.type === "main" && main.map(item => (
+                     {type === "main" && main.map(item => (
                         <div key={item._id}>
                            <img className={styles} src={item.image} alt={item.name} />
                            <div>
@@ -257,10 +259,10 @@ export default class List extends React.Component {
                            <p>{item.name}</p>
                         </div>
                      ))}
-                  </div>
-               ))}
-            </div>
-         </React.Fragment>
+                   </div>
+            ))}
+         </div>
+
       )
    }
 }
