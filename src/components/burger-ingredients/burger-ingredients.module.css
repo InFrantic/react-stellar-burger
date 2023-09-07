@@ -5,3 +5,10 @@
     align-self: center;
     margin-right: 40px;
 }
+
+.scroll {
+    max-height: 700px;
+    overflow: auto;
+    padding: 0 10px 10px 10px;
+    max-width: 635px;
+}

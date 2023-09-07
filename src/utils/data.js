@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../components/burger-ingredients/ingredients-list.module.css";
+import styles from "../components/burger-ingredients/burger-ingredients.module.css";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 export default class List extends React.Component {
    state = {
@@ -16,6 +16,20 @@ export default class List extends React.Component {
             image: "https://code.s3.yandex.net/react/code/bun-02.png",
             image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
             image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
+            __v: 0
+         },
+         {
+            _id: "60666c42cc7b410027a1a9b7",
+            name: "Соус Spicy-X",
+            type: "sauce",
+            proteins: 30,
+            fat: 20,
+            carbohydrates: 40,
+            calories: 30,
+            price: 90,
+            image: "https://code.s3.yandex.net/react/code/sauce-02.png",
+            image_mobile: "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
+            image_large: "https://code.s3.yandex.net/react/code/sauce-02-large.png",
             __v: 0
          },
          {
@@ -46,20 +60,7 @@ export default class List extends React.Component {
             image_large: "https://code.s3.yandex.net/react/code/meat-01-large.png",
             __v: 0
          },
-         {
-            _id: "60666c42cc7b410027a1a9b7",
-            name: "Соус Spicy-X",
-            type: "sauce",
-            proteins: 30,
-            fat: 20,
-            carbohydrates: 40,
-            calories: 30,
-            price: 90,
-            image: "https://code.s3.yandex.net/react/code/sauce-02.png",
-            image_mobile: "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
-            image_large: "https://code.s3.yandex.net/react/code/sauce-02-large.png",
-            __v: 0
-         },
+
          {
             _id: "60666c42cc7b410027a1a9b4",
             name: "Мясо бессмертных моллюсков Protostomia",
@@ -226,40 +227,40 @@ export default class List extends React.Component {
 
          <div className={`${styles["scroll"]} custom-scroll`}>
             {ingredientType.map((type) => (
-                  <div key={type}>
-                     <p id={type === 'bun' ? 'bun' : type === 'sauce' ? 'sauce' : 'main'}>
-                        {type === 'bun' ? 'Булки' : type === 'sauce' ? 'Соусы' : 'Начинки'}</p>
-                     { type === "bun" && bun.map(item => (
-                        <div key={item._id}>
-                           <img className={styles} src={item.image} alt={item.name} />
-                           <div>
-                              <p>{item.price}</p>
-                              <CurrencyIcon />
-                           </div>
-                           <p>{item.name}</p>
+               <div key={type}>
+                  <p id={type === 'bun' ? 'bun' : type === 'sauce' ? 'sauce' : 'main'}>
+                     {type === 'bun' ? 'Булки' : type === 'sauce' ? 'Соусы' : 'Начинки'}</p>
+                  {type === "bun" && bun.map(item => (
+                     <div key={item._id}>
+                        <img className={styles} src={item.image} alt={item.name} />
+                        <div>
+                           <p>{item.price}</p>
+                           <CurrencyIcon />
                         </div>
-                     ))}
-                     {type === "sauce" && sauce.map(item => (
-                        <div key={item._id}>
-                           <img className={styles} src={item.image} alt={item.name} />
-                           <div>
-                              <p>{item.price}</p>
-                              <CurrencyIcon />
-                           </div>
-                           <p>{item.name}</p>
+                        <p>{item.name}</p>
+                     </div>
+                  ))}
+                  {type === "sauce" && sauce.map(item => (
+                     <div key={item._id}>
+                        <img className={styles} src={item.image} alt={item.name} />
+                        <div>
+                           <p>{item.price}</p>
+                           <CurrencyIcon />
                         </div>
-                     ))}
-                     {type === "main" && main.map(item => (
-                        <div key={item._id}>
-                           <img className={styles} src={item.image} alt={item.name} />
-                           <div>
-                              <p>{item.price}</p>
-                              <CurrencyIcon />
-                           </div>
-                           <p>{item.name}</p>
+                        <p>{item.name}</p>
+                     </div>
+                  ))}
+                  {type === "main" && main.map(item => (
+                     <div key={item._id}>
+                        <img className={styles} src={item.image} alt={item.name} />
+                        <div>
+                           <p>{item.price}</p>
+                           <CurrencyIcon />
                         </div>
-                     ))}
-                   </div>
+                        <p>{item.name}</p>
+                     </div>
+                  ))}
+               </div>
             ))}
          </div>
 
