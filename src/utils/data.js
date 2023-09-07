@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../components/burger-ingredients/burger-ingredients.module.css";
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 export default class List extends React.Component {
    state = {
       data: [
@@ -228,37 +228,41 @@ export default class List extends React.Component {
          <div className={`${styles["scroll"]} custom-scroll`}>
             {ingredientType.map((type) => (
                <div key={type}>
-                  <p id={type === 'bun' ? 'bun' : type === 'sauce' ? 'sauce' : 'main'} className={`{styles.type-ingredient} pt-10 pb-5 text text_type_main-medium`}>
+                  <p id={type === 'bun' ? 'bun' : type === 'sauce' ? 'sauce' : 'main'}
+                     className={`${styles['type-ingredient']} pt-10 pb-5 text text_type_main-medium`}>
                      {type === 'bun' ? 'Булки' : type === 'sauce' ? 'Соусы' : 'Начинки'}</p>
                   <div className={`${styles['ingredient-list']}`}>
                      {type === "bun" && bun.map(item => (
                         <div key={item._id} className={`${styles["ingredient"]}`}>
-                           <img className={`${styles["ingredient-img"]} pl-4 pr-4`} src={item.image} alt={item.name} />
-                           <div>
-                              <p>{item.price}</p>
-                              <CurrencyIcon />
+                           <Counter count={1} size="default" extraClass="m-1" />
+                           <img className={`${styles["ingredient-img"]} pl-4 pr-4 pb-1`} src={item.image} alt={item.name} />
+                           <div className={`${styles["ingredient-price"]} pb-1`}>
+                              <p className={`${styles["price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}>{item.price}</p>
+                              <CurrencyIcon type="primary" />
                            </div>
-                           <p>{item.name}</p>
+                           <p className={`${styles["ingredient-name"]} text text_type_main-default`}>{item.name}</p>
                         </div>
                      ))}
                      {type === "sauce" && sauce.map(item => (
-                        <div key={item._id}>
-                           <img className={styles} src={item.image} alt={item.name} />
-                           <div>
-                              <p>{item.price}</p>
-                              <CurrencyIcon />
+                        <div key={item._id} className={`${styles["ingredient"]}`}>
+                           <Counter count={1} size="default" extraClass="m-1" />
+                           <img className={`${styles["ingredient-img"]} pl-4 pr-4 pb-1`} src={item.image} alt={item.name} />
+                           <div className={`${styles["ingredient-price"]} pb-1`}>
+                              <p className={`${styles["price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}>{item.price}</p>
+                              <CurrencyIcon type="primary" />
                            </div>
-                           <p>{item.name}</p>
+                           <p className={`${styles["ingredient-name"]} text text_type_main-default`}>{item.name}</p>
                         </div>
                      ))}
                      {type === "main" && main.map(item => (
-                        <div key={item._id}>
-                           <img className={styles} src={item.image} alt={item.name} />
-                           <div>
-                              <p>{item.price}</p>
-                              <CurrencyIcon />
+                        <div key={item._id} className={`${styles["ingredient"]}`}>
+                           <Counter count={1} size="default" extraClass="m-1" />
+                           <img className={`${styles["ingredient-img"]} pl-4 pr-4 pb-1`} src={item.image} alt={item.name} />
+                           <div className={`${styles["ingredient-price"]} pb-1`}>
+                              <p className={`${styles["price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}>{item.price}</p>
+                              <CurrencyIcon type="primary" />
                            </div>
-                           <p>{item.name}</p>
+                           <p className={`${styles["ingredient-name"]} text text_type_main-default`}>{item.name}</p>
                         </div>
                      ))}
                   </div>
