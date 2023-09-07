@@ -1,6 +1,5 @@
 import styles from "./burger-ingredients.module.css"
 import BurgerTab from './burger-tab'
-// import RenderList from './ingredients-list'
 import List from "../../utils/data"
 
 function BurgerIngredients() {

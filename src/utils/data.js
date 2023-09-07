@@ -228,38 +228,40 @@ export default class List extends React.Component {
          <div className={`${styles["scroll"]} custom-scroll`}>
             {ingredientType.map((type) => (
                <div key={type}>
-                  <p id={type === 'bun' ? 'bun' : type === 'sauce' ? 'sauce' : 'main'}>
+                  <p id={type === 'bun' ? 'bun' : type === 'sauce' ? 'sauce' : 'main'} className={`{styles.type-ingredient} pt-10 pb-5 text text_type_main-medium`}>
                      {type === 'bun' ? 'Булки' : type === 'sauce' ? 'Соусы' : 'Начинки'}</p>
-                  {type === "bun" && bun.map(item => (
-                     <div key={item._id}>
-                        <img className={styles} src={item.image} alt={item.name} />
-                        <div>
-                           <p>{item.price}</p>
-                           <CurrencyIcon />
+                  <div className={`${styles['ingredient-list']}`}>
+                     {type === "bun" && bun.map(item => (
+                        <div key={item._id} className={`${styles["ingredient"]}`}>
+                           <img className={`${styles["ingredient-img"]} pl-4 pr-4`} src={item.image} alt={item.name} />
+                           <div>
+                              <p>{item.price}</p>
+                              <CurrencyIcon />
+                           </div>
+                           <p>{item.name}</p>
                         </div>
-                        <p>{item.name}</p>
-                     </div>
-                  ))}
-                  {type === "sauce" && sauce.map(item => (
-                     <div key={item._id}>
-                        <img className={styles} src={item.image} alt={item.name} />
-                        <div>
-                           <p>{item.price}</p>
-                           <CurrencyIcon />
+                     ))}
+                     {type === "sauce" && sauce.map(item => (
+                        <div key={item._id}>
+                           <img className={styles} src={item.image} alt={item.name} />
+                           <div>
+                              <p>{item.price}</p>
+                              <CurrencyIcon />
+                           </div>
+                           <p>{item.name}</p>
                         </div>
-                        <p>{item.name}</p>
-                     </div>
-                  ))}
-                  {type === "main" && main.map(item => (
-                     <div key={item._id}>
-                        <img className={styles} src={item.image} alt={item.name} />
-                        <div>
-                           <p>{item.price}</p>
-                           <CurrencyIcon />
+                     ))}
+                     {type === "main" && main.map(item => (
+                        <div key={item._id}>
+                           <img className={styles} src={item.image} alt={item.name} />
+                           <div>
+                              <p>{item.price}</p>
+                              <CurrencyIcon />
+                           </div>
+                           <p>{item.name}</p>
                         </div>
-                        <p>{item.name}</p>
-                     </div>
-                  ))}
+                     ))}
+                  </div>
                </div>
             ))}
          </div>
