@@ -10,7 +10,6 @@ function App() {
         <AppHeader />
         <BurgerIngredients />
         <BurgerConstructor />
-
     </div >
   );
 }
