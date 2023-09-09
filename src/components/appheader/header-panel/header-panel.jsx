@@ -3,7 +3,7 @@ import styles from './header-panel.module.css';
 
 function HeaderPanel(props) {
   return (
-    <a className={`${styles.headerPanel} text text_type_main-default p-5 mb-4 mt-4 mr-2`}>
+    <a className={`${styles.headerPanel} text text_type_main-default pr-5 pl-5 pt-4 pb-4 mb-4 mt-4 mr-2`}>
      {props.children}
     </a>
   );

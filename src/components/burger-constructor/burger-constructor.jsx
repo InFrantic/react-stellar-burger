@@ -1,12 +1,11 @@
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement, DragIcon, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import bun02 from "../../images/bun-02.png"
-import meat02 from "../../images/meat-02.png"
-import mineralrings from "../../images/mineral_rings.png"
-import sauce03 from "../../images/sauce-03.png"
-import sp1 from "../../images/sp_1.png"
 import styles from "./burger-constructor.module.css"
+import { data } from "../../utils/data.js";
 
 const BurgerConstructor = () => {
+    const sauce = data.filter(item => item.type === "sauce");
+    const main = data.filter(item => item.type === "main");
     return (
         <div className={`${styles["main-container"]}`}>
             <div className={styles["constructor-container"]}>
@@ -18,19 +17,27 @@ const BurgerConstructor = () => {
                     thumbnail={bun02}
                 />
             </div>
-            <div>
-                <ConstructorElement
-                    text="Соус традиционный галактический"
-                    price={1337}
-                    thumbnail={sauce03}
-                />
-            </div>
-            <div>
-                <ConstructorElement
-                    text="Мясо бессмертных моллюсков Protostomia"
-                    price={1337}
-                    thumbnail={meat02}
-                />
+            <div className={`${styles["scroll-inside"]} custom-scroll`}>
+                {sauce.map(item => (
+                    <div key={item._id} className={`${styles["element"]} pb-2 pt-2 pr-2`}>
+                        <DragIcon type="primary" />
+                        <ConstructorElement
+                            text={item.name}
+                            price={item.price}
+                            thumbnail={item.image}
+                        />
+                    </div>
+                ))}
+                {main.map(item => (
+                    <div key={item._id} className={`${styles["element"]} pb-2 pt-2 pr-2`}>
+                        <DragIcon type="primary" />
+                        <ConstructorElement
+                            text={item.name}
+                            price={item.price}
+                            thumbnail={item.image}
+                        />
+                    </div>
+                ))}
             </div>
             <div className={styles["constructor-container"]}>
                 <ConstructorElement
@@ -40,11 +47,18 @@ const BurgerConstructor = () => {
                     price={1255}
                     thumbnail={bun02}
                 />
-
+            </div>
+            <div className={`${styles["button-constuctor"]} pr-4`}>
+                <div className={`${styles["sum"]}`}>
+                    <p className={`pr-2 text text_type_digits-medium`}>610</p>
+                    <CurrencyIcon type="primary" />
+                </div>
+                <Button htmlType="button" type="primary" size="large" >
+                    Оформить заказ
+                </Button>
             </div>
         </div>
-
     )
 }
 
-export default BurgerConstructor;
+export default BurgerConstructor

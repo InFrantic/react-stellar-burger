@@ -4,8 +4,8 @@ import IngredientsRender from "./ingredients-list"
 
 function BurgerIngredients() {
     return (
-        <div className={styles.ingredients}>
-            <p className="text text_type_main-large mb-5 mt-10">Соберите бургер</p>
+        <div className={`${styles['ingredients']}`}>
+            <p className="text text_type_main-large mb-5">Соберите бургер</p>
             <BurgerTab />
             <IngredientsRender />
         </div>

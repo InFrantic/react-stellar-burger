@@ -2,8 +2,8 @@
     width: 600px;
     display: flex;
     flex-direction: column;
-    align-self: center;
     margin-right: 40px;
+    margin-top: 40px;
 }
 
 .scroll {

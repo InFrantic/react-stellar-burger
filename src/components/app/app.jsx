@@ -7,9 +7,11 @@ function App() {
 
   return (
     <div className={styles.app}>
-        <AppHeader />
+      <AppHeader />
+      <div className={styles.burgers}>
         <BurgerIngredients />
         <BurgerConstructor />
+      </div>
     </div >
   );
 }
