@@ -1,12 +1,13 @@
 import styles from "./burger-ingredients.module.css";
-import {data} from "../../utils/data.js";
+// import {data} from "../../utils/data.js";
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useState, useMemo } from 'react';
 
-function IngredientsRender() {
-    const ingredientType = [...new Set(data.map(item => item.type))];
-    const bun = data.filter(item => item.type === "bun");
-    const sauce = data.filter(item => item.type === "sauce");
-    const main = data.filter(item => item.type === "main");
+const IngredientsRender = ({ingredients}) => {
+    const ingredientType = [...new Set(ingredients.map((item) => item.type))];
+    const bun = useMemo(() => ingredients.filter((item) => item.type === "bun"), [ingredients]);
+    const sauce = useMemo(() => ingredients.filter((item) => item.type === "sauce"), [ingredients]);
+    const main = useMemo(() => ingredients.filter((item) => item.type === "main"), [ingredients]);
 
     return (
 

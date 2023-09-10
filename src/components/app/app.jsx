@@ -14,7 +14,8 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('https://norma.nomoreparties.space/api/ingredients');
+      const url = 'https://norma.nomoreparties.space/api/ingredients';
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Error! status: ${response.status}`);
       }
@@ -29,8 +30,8 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       <div className={styles.burgers}>
-        {ingredients ? <BurgerIngredients ingredients={ingredients} /> : <p>Loading data...</p>}
-        {ingredients ? <BurgerConstructor ingredients={ingredients} /> : <p>Loading data...</p>}
+        {ingredients.length > 0 && <BurgerIngredients ingredients={ingredients} /> }
+        <BurgerConstructor /> 
       </div>
     </div >
   );
