@@ -1,6 +1,7 @@
 import styles from "./burger-ingredients.module.css";
 import {data} from "../../utils/data.js";
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+
 function IngredientsRender() {
     const ingredientType = [...new Set(data.map(item => item.type))];
     const bun = data.filter(item => item.type === "bun");
