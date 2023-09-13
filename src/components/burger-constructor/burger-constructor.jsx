@@ -1,11 +1,11 @@
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import bun02 from "../../images/bun-02.png"
 import styles from "./burger-constructor.module.css"
-import { data } from "../../utils/data.js";
+import { useMemo } from 'react';
 
-const BurgerConstructor = () => {
-    const sauce = data.filter(item => item.type === "sauce");
-    const main = data.filter(item => item.type === "main");
+const BurgerConstructor = ({ingredients}) => {
+    const sauce = useMemo(() => ingredients.filter((item) => item.type === "sauce"), [ingredients]);
+    const main = useMemo(() => ingredients.filter((item) => item.type === "main"), [ingredients]);
     return (
         <div className={`${styles["main-container"]}`}>
             <div className={styles["constructor-container"]}>
