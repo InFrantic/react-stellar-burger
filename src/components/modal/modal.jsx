@@ -1,9 +1,9 @@
 import styles from "./modal.module.css";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect, useCallback } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
+import ingredientPropType from '../../utils/prop-types';
 
 const modalRoot = document.getElementById("react-modals");
 
@@ -26,11 +26,11 @@ function Modal(props) {
 
     return ReactDOM.createPortal(
             <>
-                <div className={styles.container}>
+                <div className={styles.modal}>
                     <div className={styles.content}>
                         <h2 className={`${styles.title} text text_type_main-large pb-3 pt-3`}>{props.title}</h2>
-                        <div onClick={handleCloseModal} className={styles.closeIcon}>
-                            <CloseIcon type="primary" className={styles.closeIcon} onClick={handleCloseModal}/>
+                        <div onClick={handleCloseModal} className={styles.close}>
+                            <CloseIcon type="primary" className={styles.close} onClick={handleCloseModal}/>
                         </div>
                         {props.children}
                     </div>
@@ -40,8 +40,5 @@ function Modal(props) {
         modalRoot
     );
 }
-Modal.propTypes = {
-    children: PropTypes.node.isRequired,
-    onClose: PropTypes.func.isRequired,
-};
+Modal.propTypes = ingredientPropType;
 export default Modal;

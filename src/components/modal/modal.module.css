@@ -1,4 +1,4 @@
-.container{
+.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,7 +8,8 @@
     align-items: center;
     justify-content: center;
 }
-.content{
+
+.content {
     border-radius: 40px;
     width: 720px;
     padding: 40px 40px 60px 40px;
@@ -20,12 +21,14 @@
     align-items: center;
     position: relative
 }
-.closeIcon{
-   position: absolute;
-   top: 60px;
-   right: 40px;
-   cursor: pointer;
-}
-.title{
+
+.title {
     align-self: flex-start;
+}
+
+.close {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    cursor: pointer;
 }

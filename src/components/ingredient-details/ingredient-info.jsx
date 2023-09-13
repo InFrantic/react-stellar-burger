@@ -1,5 +1,6 @@
 import styles from './ingredient-info.module.css'
-import PropTypes from 'prop-types'
+import ingredientPropType from '../../utils/prop-types';
+
 function IngredientInfo({text, info}) {
   return (
     <div className={styles.info}>
@@ -12,8 +13,5 @@ function IngredientInfo({text, info}) {
     </div>
   );
 }
-IngredientInfo.propTypes = {
-    text: PropTypes.string.isRequired,
-    info: PropTypes.number.isRequired
-}
+IngredientInfo.propTypes = ingredientPropType;
 export default IngredientInfo

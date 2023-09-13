@@ -1,10 +1,11 @@
-.container{
+.details {
     width: 580px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.info{
+
+.info {
     display: flex;
     gap: 20px
 }
