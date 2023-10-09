@@ -1,21 +1,23 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./burger-ingredients.module.css";
 
 const BurgerTab = () => {
   const [current, setCurrent] = React.useState("Bun");
-  const tabScroll = (ingredientId) => {
+
+  function tabScroll(ingredientId) {
     const element = document.getElementById(ingredientId);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className={styles.tab}>
       <div onClick={() => tabScroll("bun")}>
         <Tab value="Bun" active={current === "Bun"} onClick={setCurrent}>
           Булки
         </Tab>
       </div>
-      <div onClick={() => tabScroll("sauce")}> 
+      <div onClick={() => tabScroll("sauce")}>
         <Tab value="Sauce" active={current === "Sauce"} onClick={setCurrent}>
           Соусы
         </Tab>
@@ -25,7 +27,6 @@ const BurgerTab = () => {
           Начинки
         </Tab>
       </div>
-
     </div>
   );
 };
