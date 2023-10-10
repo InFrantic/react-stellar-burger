@@ -8,7 +8,7 @@ import { ConstructorContext, IngredientsContext } from "../../services/appContex
 
 function App() {
   const [ingredients, setIngredients] = useState([])
-  const [ingredientConstrucror, setIngredientConstrucror] = useState({bun: null, ingredients: []})
+  const [ingredientConstrutor, setIngredientConstructor] = useState({ bun: null, ingredients: [] })
   useEffect(() => {
     getIngredients()
       .then(data => {
@@ -20,14 +20,14 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <IngredientsContext.Provider value={{ ingredients, setIngredients }}>
-        <ConstructorContext.Provider value={{ingredientConstrucror, setIngredientConstrucror}}>
-        <div className={styles.burgers}>
-          {ingredients.length > 0 && <BurgerIngredients />}
-          {ingredients.length > 0 && <BurgerConstructor />}
-        </div>
-        </ConstructorContext.Provider>
-      </IngredientsContext.Provider>
+      <ConstructorContext.Provider value={{ ingredientConstrutor, setIngredientConstructor }}>
+        <IngredientsContext.Provider value={{ ingredients, setIngredients }}>
+          <div className={styles.burgers}>
+            {ingredients.length > 0 && <BurgerIngredients />}
+            {ingredients.length > 0 && <BurgerConstructor />}
+          </div>
+        </IngredientsContext.Provider>
+      </ConstructorContext.Provider>
     </div >
   );
 }
