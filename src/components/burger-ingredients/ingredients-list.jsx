@@ -1,11 +1,13 @@
 import styles from "./burger-ingredients.module.css";
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useMemo } from 'react';
-import ingredientPropType from '../../utils/prop-types';
+import { useState, useMemo, useContext } from 'react';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import { ConstructorContext, IngredientsContext } from "../../services/appContext";
 
-const IngredientsRender = ({ ingredients }) => {
+function IngredientsRender() {
+    const { ingredients } = useContext(IngredientsContext);
+    const { ingredientConstrutor, setIngredientConstructor } = useContext(ConstructorContext);
     const ingredientType = [...new Set(ingredients.map((ingredient) => ingredient.type))];
     const bun = useMemo(() => ingredients.filter((item) => item.type === "bun"), [ingredients]);
     const sauce = useMemo(() => ingredients.filter((item) => item.type === "sauce"), [ingredients]);
@@ -14,9 +16,11 @@ const IngredientsRender = ({ ingredients }) => {
     const [selectedIngredient, setSelectedIngredient] = useState(null);
 
     const handleOpenModal = (item) => {
-        setSelectedIngredient(item)
-        setModalOpen(true)
-    }
+        setSelectedIngredient(item);
+        setModalOpen()
+        item.type === 'bun' ? setIngredientConstructor({...ingredientConstrutor, bun: item}) : setIngredientConstructor({...ingredientConstrutor, ingredients: [...ingredientConstrutor.ingredients, item] })
+     
+      };
     const handleCloseModal = () => {
         setModalOpen(false)
     };
@@ -75,5 +79,5 @@ const IngredientsRender = ({ ingredients }) => {
         </div>
     )
 }
-IngredientsRender.propTypes = ingredientPropType;
+
 export default IngredientsRender

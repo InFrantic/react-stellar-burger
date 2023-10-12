@@ -1,4 +1,4 @@
-const url = 'https://norma.nomoreparties.space/api/ingredients';
+const url = 'https://norma.nomoreparties.space/api';
 
 export const getIngredients = () => {
     return fetch(`${url}/ingredients`)

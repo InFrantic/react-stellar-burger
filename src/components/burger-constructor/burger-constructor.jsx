@@ -1,17 +1,16 @@
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import bun02 from "../../images/bun-02.png"
 import styles from "./burger-constructor.module.css"
-import { useState, useContext, useReducer, useMemo, useEffect } from 'react';
+import { useState, useContext, useReducer, useEffect } from 'react';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { ConstructorContext } from "../../services/appContext";
 import { getOrder } from "../../utils/api";
 import { v4 as uuid } from 'uuid';
 
-const BurgerConstructor = ({ ingredients }) => {
-    const { ingredientConstrutor, setIngredientConstructor } = useContext(ConstructorContext);
-    const sauce = useMemo(() => ingredients.filter((item) => item.type === "sauce"), [ingredients]);
-    const main = useMemo(() => ingredients.filter((item) => item.type === "main"), [ingredients]);
+function BurgerConstructor() {
+    const { ingredientConstrutor } = useContext(ConstructorContext);
+    const topping = ingredientConstrutor.ingredients.filter((item) => item.type !== "bun");
+    const bun = ingredientConstrutor.bun;
     const [clickedModal, setClickedModal] = useState(false);
     const [orderNumber, setOrderNumber] = useState('');
 
@@ -60,27 +59,19 @@ const BurgerConstructor = ({ ingredients }) => {
     return (
         <div className={`${styles["main-container"]}`}>
             <div className={styles["constructor-container"]}>
-                <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text="Краторная булка N-200i (верх)"
-                    price={1255}
-                    thumbnail={bun02}
-                />
+                {bun &&
+                    <ConstructorElement
+                        type={`${'top'} ${bun.type}`}
+                        isLocked
+                        text={`${bun.name} ${'(Верх)'}`}
+                        price={bun.price}
+                        thumbnail={bun.image_mobile}
+
+                    />}
             </div>
             <div className={`${styles["scroll-inside"]} custom-scroll`}>
-                {sauce.map(item => (
-                    <div key={item._id} className={`${styles["element"]} pb-2 pt-2 pr-2`}>
-                        <DragIcon type="primary" />
-                        <ConstructorElement
-                            text={item.name}
-                            price={item.price}
-                            thumbnail={item.image}
-                        />
-                    </div>
-                ))}
-                {main.map(item => (
-                    <div key={item._id} className={`${styles["element"]} pb-2 pt-2 pr-2`}>
+                {topping.map(item => (
+                    <div key={uuid()} className={`${styles["element"]} pb-2 pt-2 pr-2`} >
                         <DragIcon type="primary" />
                         <ConstructorElement
                             text={item.name}
@@ -91,13 +82,15 @@ const BurgerConstructor = ({ ingredients }) => {
                 ))}
             </div>
             <div className={styles["constructor-container"]}>
-                <ConstructorElement
-                    type="bottom"
-                    isLocked={true}
-                    text="Краторная булка N-200i (низ)"
-                    price={1255}
-                    thumbnail={bun02}
-                />
+                {bun &&
+                    <ConstructorElement
+                        type={`${'bottom'} ${bun.type}`}
+                        isLocked
+                        text={`${bun.name} ${'(Низ)'}`}
+                        price={bun.price}
+                        thumbnail={bun.image_mobile}
+
+                    />}
             </div>
             <div className={`${styles["button-constuctor"]} pr-4`}>
                 <div className={`${styles["sum"]}`}>
@@ -108,7 +101,7 @@ const BurgerConstructor = ({ ingredients }) => {
                     Оформить заказ
                 </Button>
             </div>
-            {clickedModal && <Modal onClose={handleCloseModal}><OrderDetails orderNumber={orderNumber}/></Modal>}
+            {clickedModal && <Modal onClose={handleCloseModal}><OrderDetails orderNumber={orderNumber} /></Modal>}
         </div>
     )
 }

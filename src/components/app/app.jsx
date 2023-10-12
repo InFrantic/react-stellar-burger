@@ -7,8 +7,9 @@ import { useEffect, useState } from "react";
 import { ConstructorContext, IngredientsContext } from "../../services/appContext";
 
 function App() {
-  const [ingredients, setIngredients] = useState([])
-  const [ingredientConstrutor, setIngredientConstructor] = useState({ bun: null, ingredients: [] })
+  const [ingredients, setIngredients] = useState([]);
+  const [ingredientConstrutor, setIngredientConstructor] = useState({ bun: null, ingredients: [] });
+  
   useEffect(() => {
     getIngredients()
       .then(data => {
