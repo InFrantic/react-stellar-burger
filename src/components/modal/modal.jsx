@@ -6,7 +6,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
 const modalRoot = document.getElementById("react-modals");
 
-function Modal({onClose, title, children, orderNumber}) {
+function Modal({onClose, title, children}) {
     const handleCloseModal = useCallback(() => {
         onClose(false);
     }, [onClose]);

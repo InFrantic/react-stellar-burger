@@ -1,5 +1,5 @@
 import styles from "./app.module.css";
-import AppHeader from "../appheader/appheader";
+import AppHeader from "../appheader/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { getIngredients } from "../../utils/api";
@@ -23,10 +23,10 @@ function App() {
       <AppHeader />
       <ConstructorContext.Provider value={{ ingredientConstrutor, setIngredientConstructor }}>
         <IngredientsContext.Provider value={{ ingredients, setIngredients }}>
-          <div className={styles.burgers}>
+          <main className={styles.burgers}>
             {ingredients.length > 0 && <BurgerIngredients />}
             {ingredients.length > 0 && <BurgerConstructor />}
-          </div>
+          </main>
         </IngredientsContext.Provider>
       </ConstructorContext.Provider>
     </div >

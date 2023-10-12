@@ -4,6 +4,7 @@ import { useState, useMemo, useContext } from 'react';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { ConstructorContext, IngredientsContext } from "../../services/appContext";
+import { useModal } from "../../hooks/useModal";
 
 function IngredientsRender() {
     const { ingredients } = useContext(IngredientsContext);
@@ -12,17 +13,17 @@ function IngredientsRender() {
     const bun = useMemo(() => ingredients.filter((item) => item.type === "bun"), [ingredients]);
     const sauce = useMemo(() => ingredients.filter((item) => item.type === "sauce"), [ingredients]);
     const main = useMemo(() => ingredients.filter((item) => item.type === "main"), [ingredients]);
-    const [modalOpen, setModalOpen] = useState(false);
     const [selectedIngredient, setSelectedIngredient] = useState(null);
+    const { isModalOpen, openModal, closeModal } = useModal();
 
     const handleOpenModal = (item) => {
         setSelectedIngredient(item);
-        setModalOpen()
+        openModal()
         item.type === 'bun' ? setIngredientConstructor({...ingredientConstrutor, bun: item}) : setIngredientConstructor({...ingredientConstrutor, ingredients: [...ingredientConstrutor.ingredients, item] })
      
       };
     const handleCloseModal = () => {
-        setModalOpen(false)
+        closeModal(false)
     };
     return (
 
@@ -74,7 +75,7 @@ function IngredientsRender() {
                     </div>
                 </div>
             ))}
-            {modalOpen && <Modal title="Детали ингредиента" onClose={handleCloseModal}>
+            {isModalOpen && <Modal title="Детали ингредиента" onClose={handleCloseModal}>
                 <IngredientDetails data={selectedIngredient}></IngredientDetails></Modal>}
         </div>
     )

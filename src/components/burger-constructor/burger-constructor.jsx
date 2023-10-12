@@ -5,7 +5,6 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { ConstructorContext } from "../../services/appContext";
 import { getOrder } from "../../utils/api";
-import { v4 as uuid } from 'uuid';
 
 function BurgerConstructor() {
     const { ingredientConstrutor } = useContext(ConstructorContext);
@@ -71,7 +70,7 @@ function BurgerConstructor() {
             </div>
             <div className={`${styles["scroll-inside"]} custom-scroll`}>
                 {topping.map(item => (
-                    <div key={uuid()} className={`${styles["element"]} pb-2 pt-2 pr-2`} >
+                    <div key={item._id} className={`${styles["element"]} pb-2 pt-2 pr-2`} >
                         <DragIcon type="primary" />
                         <ConstructorElement
                             text={item.name}
