@@ -7,21 +7,25 @@ import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails } from "../../services/action/order-details";
 import { optionalFunc } from "../../utils/prop-types";
+import {addFilling, chooseBun} from '../../services/action/burger-constructor'
+function BurgerConstructor() {
 
-function BurgerConstructor({ onDropHandler }) {
-
-    const [{ isHover, isCanD }, dropTarget] = useDrop({
-        accept: "burgerConstructor",
-        drop(ingredient) {
-            onDropHandler(ingredient);
+    const [{ isHover, canDrop }, dropTarget] = useDrop({
+        accept: "ingredient",
+        drop(item) {
+            dispatch(
+                item.type !== 'bun'
+                    ? addFilling(item)
+                    : chooseBun(item)
+            );
         },
         collect: monitor => ({
             isHover: monitor.isOver(),
-            isCanD: monitor.canDrop(),
+            canDrop: monitor.canDrop(),
         })
     });
 
-    const borderColor = isHover ? stylesConstr.borderLightgreen : (isCanD ? stylesConstr.borderLightgreen2 : stylesConstr.borderTransparent);
+    const borderColor = isHover ? stylesConstr.borderLightgreen : (canDrop ? stylesConstr.borderLightgreen2 : stylesConstr.borderTransparent);
 
     const dispatch = useDispatch();
     const selectedIngredients = useSelector(store => store.filling)
@@ -104,7 +108,7 @@ function BurgerConstructor({ onDropHandler }) {
         ;
 }
 
-BurgerConstructor.propTypes = {
-    onDropHandler: optionalFunc,
-};
+// BurgerConstructor.propTypes = {
+//     onDropHandler: optionalFunc,
+// };
 export default BurgerConstructor

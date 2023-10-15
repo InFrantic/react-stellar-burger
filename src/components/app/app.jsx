@@ -7,7 +7,7 @@ import { getIngred } from "../../services/action/burger-ingredients";
 import { useEffect, useMemo } from "react";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch, useSelector } from "react-redux";
-import {addFilling, chooseBun} from "../../services/action/burger-constructor";
+import { addFilling, chooseBun } from "../../services/action/burger-constructor";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,15 +34,15 @@ function App() {
   };
 
   return (
-    <div className={styles.app}>
-      <AppHeader />
-      <main className={styles.burgers}>
-        <DndProvider backend={HTML5Backend}>
-        {contentBurgerIngredients}
-          {<BurgerConstructor onDropHandler={handleDrop}/>}
-        </DndProvider >
-      </main>
-    </div >
+    <DndProvider backend={HTML5Backend}>
+      <div className={styles.app}>
+        <AppHeader />
+        <main className={styles.burgers}>
+          {contentBurgerIngredients}
+          {<BurgerConstructor  />}
+        </main>
+      </div >
+    </DndProvider >
   );
 }
 

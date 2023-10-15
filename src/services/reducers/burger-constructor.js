@@ -22,7 +22,7 @@ export function constructorReducer(state = initialState, action) {
     case ADD_FILLING:
       return {
         ...state,
-        other: [...state.other,
+        ingredients: [...state.ingredients,
           {
             numberIngredient: action.payload.numberIngredient,
             ingredient: action.payload.ingredient,
@@ -33,12 +33,12 @@ export function constructorReducer(state = initialState, action) {
     case DELETE_FILLING:
       return {
         ...state,
-        other: [...state.other].filter(item => item.numberIngredient !== action.payload),
+        ingredients: [...state.ingredients].filter(item => item.numberIngredient !== action.payload),
       };
     case MOVE_FILLING:
       return {
         ...state,
-        other: action.payload,
+        ingredients: action.payload,
       };
     default: {
       return state;
