@@ -62,10 +62,9 @@ export function ConstructorItem({moveCard, index, id, item}) {
     <div ref={ref} data-handler-id={handlerId} className={`${styles.elementConstructor} ${opacity}`}>
       <DragIcon type="primary"/>
       <ConstructorElement
-        extraClass='cursor cursor_type_nresize'
-        text={ingredients.name}
-        price={ingredients.price}
-        thumbnail={ingredients.image}
+        text={item.name}
+        price={item.price}
+        thumbnail={item.image}
         handleClose={(e) => {
           deleteCard(item.numberIngredient, e)
         }}/>

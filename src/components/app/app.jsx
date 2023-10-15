@@ -39,7 +39,7 @@ function App() {
         <AppHeader />
         <main className={styles.burgers}>
           {contentBurgerIngredients}
-          {<BurgerConstructor  />}
+          {<BurgerConstructor />}
         </main>
       </div >
     </DndProvider >

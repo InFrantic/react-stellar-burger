@@ -57,14 +57,14 @@ function BurgerIngredients() {
         }
     }
 
-    const totalCount = useCallback((item) => {
-        if (selectedBun && item.type === ingredient.bun) {
-            return selectedBun._id === item._id ? 2 : 0
-        } else {
-            return selectedIngredients.filter(ingred => ingred.ingredient._id === item._id).length
-        }
-    }, [selectedIngredients, selectedBun]
-    )
+    // const totalCount = useCallback((item) => {
+    //     if (selectedBun && item.type === ingredient.bun) {
+    //         return selectedBun._id === item._id ? 2 : 0
+    //     } else {
+    //         return selectedIngredients.filter(ingred => ingred.ingredient._id === item._id).length
+    //     }
+    // }, [selectedIngredients, selectedBun]
+    // )
 
     function tabScroll(ingredientId) {
         const element = document.getElementById(ingredientId);
@@ -100,7 +100,7 @@ function BurgerIngredients() {
                             img={item.image}
                             price={item.price}
                             description={item.name}
-                            count={selectedBun !== null ? totalCount(item) : 0}
+                            // count={selectedBun !== null ? totalCount(item) : 0}
                             item={item}
                         />
                     ))}
@@ -112,7 +112,7 @@ function BurgerIngredients() {
                             img={item.image}
                             price={item.price}
                             description={item.name}
-                            count={selectedIngredients.length !== 0 ? totalCount(item) : 0}
+                            // count={selectedIngredients.length !== 0 ? totalCount(item) : 0}
                             item={item}
                         />
                     ))}
@@ -124,7 +124,7 @@ function BurgerIngredients() {
                             img={item.image}
                             price={item.price}
                             description={item.name}
-                            count={selectedBun === null ? 0 : totalCount(item)}
+                            // count={selectedBun === null ? 0 : totalCount(item)}
                             item={item}
                         />
                     ))}
