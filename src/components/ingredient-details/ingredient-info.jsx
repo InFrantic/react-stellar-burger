@@ -2,6 +2,7 @@ import styles from './ingredient-info.module.css'
 import ingredientPropType from '../../utils/prop-types';
 
 function IngredientInfo({text, info}) {
+
   return (
     <div className={styles.info}>
       <p className="text text_type_main-default text_color_inactive">
@@ -13,5 +14,5 @@ function IngredientInfo({text, info}) {
     </div>
   );
 }
-IngredientInfo.propTypes = ingredientPropType;
+// IngredientInfo.propTypes = ingredientPropType;
 export default IngredientInfo

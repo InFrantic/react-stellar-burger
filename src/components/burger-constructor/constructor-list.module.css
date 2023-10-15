@@ -1,0 +1,25 @@
+.listScroll {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .scroll {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+  
+  .scroll::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .scroll::-webkit-scrollbar-thumb {
+    background: #8585ad;
+    border: none;
+    border-radius: 0;
+  }
+  
+  .topGap {
+    padding-top: 96px;
+  }
