@@ -38,12 +38,8 @@ function App() {
       <div className={styles.app}>
         <AppHeader />
         <main className={styles.burgers}>
-          <section className={`pl-5 pr-5 ${styles.sectionClass}`}>
             {contentBurgerIngredients}
-          </section>
-          <section className={`pl-5 pr-5 ${styles.sectionClass}`}>
-            <BurgerConstructor onDropHandler={handleDrop} />
-          </section>
+           <BurgerConstructor onDropHandler={handleDrop} />
         </main>
       </div >
     </DndProvider >

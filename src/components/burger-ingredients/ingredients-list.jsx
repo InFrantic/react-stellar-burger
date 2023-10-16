@@ -24,7 +24,6 @@ export default function IngredientsRender({ currentItem }) {
     function handleClick() {
         dispatch(setIngredientDetails(currentItem))
     }
-
     const count = useMemo(() => {
         let count = 0;
         if (currentItem.type === "bun") {
@@ -51,7 +50,7 @@ export default function IngredientsRender({ currentItem }) {
                 <CurrencyIcon type="primary" />
             </div>
             <p className={`${styles["ingredient-name"]} text text_type_main-default`}>{currentItem.name}</p>
-            {(count > 0) ? <Counter count={count} size="default"/> : null}
+            {(count > 0) ? <Counter count={count} size="default" /> : null}
         </div>
     )
 }

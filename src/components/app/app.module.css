@@ -10,11 +10,3 @@
   display: flex;
   align-self: center;
 }
-
-.sectionClass {
-  flex-direction: column;
-  display: flex;
-  width: 50%;
-  min-width: 640px;
-  box-sizing: border-box;
-}

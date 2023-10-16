@@ -4,10 +4,11 @@
     flex-direction: column;
     margin-right: 40px;
     margin-top: 40px;
+    max-height: calc(100vh - 130px);
 }
 
 .scroll {
-    max-height: 700px;
+    height: 100%;
     overflow: auto;
     padding: 0 10px 10px 10px;
     max-width: 635px;

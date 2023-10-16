@@ -6,22 +6,15 @@ import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails } from "../../services/action/order-details";
 import { optionalFunc } from "../../utils/prop-types";
-import { addFilling, chooseBun } from '../../services/action/burger-constructor'
 
 function BurgerConstructor({ onDropHandler }) {
 
-    const [{ isHover, isCanD }, dropTarget] = useDrop({
+    const [, dropTarget] = useDrop({
         accept: "burgerConstructor",
         drop(ingredient) {
             onDropHandler(ingredient);
         },
-        collect: monitor => ({
-            isHover: monitor.isOver(),
-            isCanD: monitor.canDrop(),
-        })
     });
-
-    const borderColor = isHover ? styles.borderLightgreen : (isCanD ? styles.borderLightgreen2 : styles.borderTransparent);
 
     const dispatch = useDispatch();
     const selectedIngredients = useSelector(store => store.filling)
@@ -67,9 +60,9 @@ function BurgerConstructor({ onDropHandler }) {
 
     return (
         <div className={`ml-4 mt-20 ${styles.burgerConstructor}`}>
-            <div ref={dropTarget} className={`pt-5 pb-5 ${styles.dropContainer} ${borderColor}`}>
+            <div ref={dropTarget} className={`pt-5 pb-5 ${styles.dropContainer}`}>
                 <div className={styles.list}>
-                    {bun && <div className={styles.elementConstructor}>
+                    {bun && <div>
                         <ConstructorElement extraClass='ml-8 mr-4 notAllowed'
                             type="top"
                             isLocked={true}
@@ -79,7 +72,7 @@ function BurgerConstructor({ onDropHandler }) {
                         />
                     </div>}
                     {(other.length > 0) && <ConstructorList />}
-                    {bun && <div className={styles.elementConstructor}>
+                    {bun && <div>
                         <ConstructorElement extraClass="ml-8 mr-4 notAllowed"
                             type="bottom"
                             isLocked={true}
