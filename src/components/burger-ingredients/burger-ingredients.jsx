@@ -57,15 +57,6 @@ function BurgerIngredients() {
         }
     }
 
-    // const totalCount = useCallback((item) => {
-    //     if (selectedBun && item.type === ingredient.bun) {
-    //         return selectedBun._id === item._id ? 2 : 0
-    //     } else {
-    //         return selectedIngredients.filter(ingred => ingred.ingredient._id === item._id).length
-    //     }
-    // }, [selectedIngredients, selectedBun]
-    // )
-
     function tabScroll(ingredientId) {
         const element = document.getElementById(ingredientId);
         if (element) element.scrollIntoView({ behavior: "smooth" });
@@ -95,37 +86,34 @@ function BurgerIngredients() {
 
                 <p id='bun' ref={bunsRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Булки</p>
                 <div className={`${styles['ingredient-list']}`}>
-                    {buns.map((item) => (
-                        <IngredientsRender key={item._id} onClick={() => handleOpenModal(item)}
-                            img={item.image}
-                            price={item.price}
-                            description={item.name}
-                            // count={selectedBun !== null ? totalCount(item) : 0}
-                            item={item}
+                    {buns.map((currentItem) => (
+                        <IngredientsRender key={currentItem._id} onClick={() => handleOpenModal(currentItem)}
+                            img={currentItem.image}
+                            price={currentItem.price}
+                            description={currentItem.name}
+                            currentItem={currentItem}
                         />
                     ))}
                 </div>
                 <p id='sauce' ref={saucesRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Соусы</p>
                 <div className={`${styles['ingredient-list']}`}>
-                    {sauces.map((item) => (
-                        <IngredientsRender key={item._id} onClick={() => handleOpenModal(item)}
-                            img={item.image}
-                            price={item.price}
-                            description={item.name}
-                            // count={selectedIngredients.length !== 0 ? totalCount(item) : 0}
-                            item={item}
+                    {sauces.map((currentItem) => (
+                        <IngredientsRender key={currentItem._id} onClick={() => handleOpenModal(currentItem)}
+                            img={currentItem.image}
+                            price={currentItem.price}
+                            description={currentItem.name}
+                            currentItem={currentItem}
                         />
                     ))}
                 </div>
                 <p id='main' ref={mainsRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Начинка</p>
                 <div className={`${styles['ingredient-list']}`}>
-                    {mains.map((item) => (
-                        <IngredientsRender key={item._id} onClick={() => handleOpenModal(item)}
-                            img={item.image}
-                            price={item.price}
-                            description={item.name}
-                            // count={selectedBun === null ? 0 : totalCount(item)}
-                            item={item}
+                    {mains.map((currentItem) => (
+                        <IngredientsRender key={currentItem._id} onClick={() => handleOpenModal(currentItem)}
+                            img={currentItem.image}
+                            price={currentItem.price}
+                            description={currentItem.name}
+                            currentItem={currentItem}
                         />
                     ))}
                 </div>

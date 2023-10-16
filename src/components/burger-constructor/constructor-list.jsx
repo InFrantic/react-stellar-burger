@@ -7,34 +7,33 @@ import update from 'immutability-helper'
 
 export function ConstructorList() {
 
-    const { bun, ingredients } = useSelector(store => store.filling)
-    const dispatch = useDispatch();
-    const topGap = !bun ? styles.topGap : '';
+  const { bun, other } = useSelector(store => store.filling)
+  const dispatch = useDispatch();
+  const topGap = !bun ? styles.topGap : '';
+  const moveCard = React.useCallback((dragIndex, hoverIndex, other) => {
 
-    const moveCard = React.useCallback((dragIndex, hoverIndex, ingredients) => {
+    const newOther = update(other, {
+      $splice: [
+        [dragIndex, 1],
+        [hoverIndex, 0, other[dragIndex]],
+      ],
+    })
 
-        const newOther = update(ingredients, {
-          $splice: [
-            [dragIndex, 1],
-            [hoverIndex, 0, ingredients[dragIndex]],
-          ],
-        })
-    
-        dispatch(moveFilling(newOther)
-        )
-      }, [])
-
-    return (
-        <div className={`${styles.listScroll} ${styles.scroll} ${topGap} custom-scroll`}>
-            {ingredients.map((item, i) => (
-                <ConstructorItem 
-                moveCard={moveCard} 
-                index={i} 
-                key={item.numberIngredient} 
-                id={item.numberIngredient} 
-                item={item}>
-                </ConstructorItem>
-            ))}
-        </div>
+    dispatch(moveFilling(newOther)
     )
+  }, [])
+
+  return (
+    <div className={`${styles.listScroll} ${styles.scroll} ${topGap} custom-scroll`}>
+      {other.map((item, i) => (
+        <ConstructorItem
+          moveCard={moveCard}
+          index={i}
+          key={item.numberIngredient}
+          id={item.numberIngredient}
+          item={item}>
+        </ConstructorItem>
+      ))}
+    </div>
+  )
 }

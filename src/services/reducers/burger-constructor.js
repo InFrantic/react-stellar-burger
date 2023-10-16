@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   bun: null,
-  ingredients: [],
+  other: [],
 };
 
 
@@ -22,7 +22,7 @@ export function constructorReducer(state = initialState, action) {
     case ADD_FILLING:
       return {
         ...state,
-        ingredients: [...state.ingredients,
+        other: [...state.other,
           {
             numberIngredient: action.payload.numberIngredient,
             ingredient: action.payload.ingredient,
@@ -33,12 +33,12 @@ export function constructorReducer(state = initialState, action) {
     case DELETE_FILLING:
       return {
         ...state,
-        ingredients: [...state.ingredients].filter(item => item.numberIngredient !== action.payload),
+        other: [...state.other].filter(item => item.numberIngredient !== action.payload),
       };
     case MOVE_FILLING:
       return {
         ...state,
-        ingredients: action.payload,
+        other: action.payload,
       };
     default: {
       return state;

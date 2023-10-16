@@ -14,7 +14,7 @@ export function addFilling(ingredientOther) {
   return {
     type: ADD_FILLING, payload: {
       numberIngredient: uuidv4(),
-      ingredients: ingredientOther,
+      ingredient: ingredientOther,
     }
   }
 }

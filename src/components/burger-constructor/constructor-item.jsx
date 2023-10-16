@@ -1,20 +1,20 @@
 import styles from "./constructor-item.module.css";
 import React from "react";
-import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from 'react-redux';
-import {deleteFilling} from "../../services/action/burger-constructor";
-import {useDrag, useDrop} from "react-dnd";
+import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteFilling } from "../../services/action/burger-constructor";
+import { useDrag, useDrop } from "react-dnd";
 
-export function ConstructorItem({moveCard, index, id, item}) {
+export function ConstructorItem({ moveCard, index, id, item }) {
   const dispatch = useDispatch();
-  const {ingredients} = useSelector(store => store.filling)
+  const { other } = useSelector(store => store.filling)
 
   function deleteCard(idItem) {
     dispatch(deleteFilling(idItem))
   }
 
   const ref = React.useRef(null)
-  const [{handlerId}, drop] = useDrop({
+  const [{ handlerId }, drop] = useDrop({
     accept: "move",
     collect(monitor) {
       return {
@@ -41,15 +41,15 @@ export function ConstructorItem({moveCard, index, id, item}) {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return
       }
-      moveCard(dragIndex, hoverIndex, ingredients)
+      moveCard(dragIndex, hoverIndex, other)
       item.index = hoverIndex
     },
   })
 
-  const [{isDragging}, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag({
     type: "move",
     item: () => {
-      return {id, index}
+      return { id, index }
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -60,14 +60,14 @@ export function ConstructorItem({moveCard, index, id, item}) {
 
   return (
     <div ref={ref} data-handler-id={handlerId} className={`${styles.elementConstructor} ${opacity}`}>
-      <DragIcon type="primary"/>
+      <DragIcon type="primary" />
       <ConstructorElement
-        text={item.name}
-        price={item.price}
-        thumbnail={item.image}
+        text={item.ingredient.name}
+        price={item.ingredient.price}
+        thumbnail={item.ingredient.image}
         handleClose={(e) => {
           deleteCard(item.numberIngredient, e)
-        }}/>
+        }} />
     </div>
   )
 }
