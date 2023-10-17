@@ -3,14 +3,13 @@ import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect, useCallback } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import ingredientPropType from '../../utils/prop-types';
-
+import PropTypes from "prop-types";
 const modalRoot = document.getElementById("react-modals");
 
-function Modal(props) {
+function Modal({onClose, title, children}) {
     const handleCloseModal = useCallback(() => {
-        props.onClose(false);
-    }, [props.onClose]);
+        onClose(false);
+    }, [onClose]);
 
     useEffect(() => {
         const handleEscape = (event) => {
@@ -28,11 +27,11 @@ function Modal(props) {
             <>
                 <div className={styles.modal}>
                     <div className={styles.content}>
-                        <h2 className={`${styles.title} text text_type_main-large pb-3 pt-3`}>{props.title}</h2>
+                        <h2 className={`${styles.title} text text_type_main-large pb-3 pt-3`}>{title}</h2>
                         <div onClick={handleCloseModal} className={styles.close}>
                             <CloseIcon type="primary" className={styles.close} onClick={handleCloseModal}/>
                         </div>
-                        {props.children}
+                        {children}
                     </div>
                     <ModalOverlay onClose={handleCloseModal}></ModalOverlay>
                 </div>
@@ -40,5 +39,9 @@ function Modal(props) {
         modalRoot
     );
 }
-Modal.propTypes = ingredientPropType;
+Modal.propTypes = {
+    children: PropTypes.node.isRequired,
+    onClose: PropTypes.func.isRequired,
+    title: PropTypes.string,
+  };
 export default Modal;

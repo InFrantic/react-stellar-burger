@@ -1,27 +1,34 @@
 import styles from "./app.module.css";
-import AppHeader from "../appheader/appheader";
+import AppHeader from "../appheader/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { getIngredients } from "../../utils/api";
 import { useEffect, useState } from "react";
+import { ConstructorContext, IngredientsContext } from "../../services/appContext";
 
 function App() {
-  const [ingredients, setIngredients] = useState([])
-
+  const [ingredients, setIngredients] = useState([]);
+  const [ingredientConstrutor, setIngredientConstructor] = useState({ bun: null, ingredients: [] });
+  
   useEffect(() => {
     getIngredients()
-    .then(data => {
-      setIngredients(data)})
-    .catch(err => console.log(err))
+      .then(data => {
+        setIngredients(data)
+      })
+      .catch(err => console.log(err))
   }, [])
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <div className={styles.burgers}>
-        {ingredients.length > 0 && <BurgerIngredients ingredients={ingredients} /> }
-        {ingredients.length > 0 && <BurgerConstructor ingredients={ingredients} /> } 
-      </div>
+      <ConstructorContext.Provider value={{ ingredientConstrutor, setIngredientConstructor }}>
+        <IngredientsContext.Provider value={{ ingredients, setIngredients }}>
+          <main className={styles.burgers}>
+            {ingredients.length > 0 && <BurgerIngredients />}
+            {ingredients.length > 0 && <BurgerConstructor />}
+          </main>
+        </IngredientsContext.Provider>
+      </ConstructorContext.Provider>
     </div >
   );
 }

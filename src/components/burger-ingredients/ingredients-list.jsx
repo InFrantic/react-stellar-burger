@@ -1,24 +1,29 @@
 import styles from "./burger-ingredients.module.css";
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useMemo } from 'react';
-import ingredientPropType from '../../utils/prop-types';
+import { useState, useMemo, useContext } from 'react';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import { ConstructorContext, IngredientsContext } from "../../services/appContext";
+import { useModal } from "../../hooks/useModal";
 
-const IngredientsRender = ({ ingredients }) => {
+function IngredientsRender() {
+    const { ingredients } = useContext(IngredientsContext);
+    const { ingredientConstrutor, setIngredientConstructor } = useContext(ConstructorContext);
     const ingredientType = [...new Set(ingredients.map((ingredient) => ingredient.type))];
     const bun = useMemo(() => ingredients.filter((item) => item.type === "bun"), [ingredients]);
     const sauce = useMemo(() => ingredients.filter((item) => item.type === "sauce"), [ingredients]);
     const main = useMemo(() => ingredients.filter((item) => item.type === "main"), [ingredients]);
-    const [modalOpen, setModalOpen] = useState(false);
     const [selectedIngredient, setSelectedIngredient] = useState(null);
+    const { isModalOpen, openModal, closeModal } = useModal();
 
     const handleOpenModal = (item) => {
-        setSelectedIngredient(item)
-        setModalOpen(true)
-    }
+        setSelectedIngredient(item);
+        openModal()
+        item.type === 'bun' ? setIngredientConstructor({...ingredientConstrutor, bun: item}) : setIngredientConstructor({...ingredientConstrutor, ingredients: [...ingredientConstrutor.ingredients, item] })
+     
+      };
     const handleCloseModal = () => {
-        setModalOpen(false)
+        closeModal(false)
     };
     return (
 
@@ -70,10 +75,10 @@ const IngredientsRender = ({ ingredients }) => {
                     </div>
                 </div>
             ))}
-            {modalOpen && <Modal title="Детали ингредиента" onClose={handleCloseModal}>
+            {isModalOpen && <Modal title="Детали ингредиента" onClose={handleCloseModal}>
                 <IngredientDetails data={selectedIngredient}></IngredientDetails></Modal>}
         </div>
     )
 }
-IngredientsRender.propTypes = ingredientPropType;
+
 export default IngredientsRender
