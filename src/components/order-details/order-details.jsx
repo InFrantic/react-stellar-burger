@@ -1,6 +1,7 @@
 import styles from './order-details.module.css';
 import doneImage from '../../images/done.svg'
 import { useSelector } from 'react-redux';
+import PropTypes from "prop-types";
 
 function OrderDetails() {
     const orderNumber = useSelector(state => state.order.orderNumber)
@@ -16,4 +17,7 @@ function OrderDetails() {
         </div>
     );
 }
+OrderDetails.propTypes = {
+    orderNumber: PropTypes.number
+  }
 export default OrderDetails

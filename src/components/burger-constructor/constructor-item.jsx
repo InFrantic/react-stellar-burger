@@ -4,6 +4,7 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFilling } from "../../services/action/burger-constructor";
 import { useDrag, useDrop } from "react-dnd";
+import {optionalFunc, optionalNum, optionalString, otherIngredient} from "../../utils/prop-types";
 
 export function ConstructorItem({ moveCard, index, id, item }) {
   const dispatch = useDispatch();
@@ -71,3 +72,9 @@ export function ConstructorItem({ moveCard, index, id, item }) {
     </div>
   )
 }
+ConstructorItem.propTypes = {
+  moveCard: optionalFunc,
+  index: optionalNum,
+  id: optionalString,
+  item: otherIngredient,
+};

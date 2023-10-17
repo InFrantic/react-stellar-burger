@@ -3,6 +3,8 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
+import {ingredientPropType} from "../../utils/prop-types";
+import PropTypes from "prop-types";
 
 export default function IngredientsRender({ currentItem, onClick }) {
 
@@ -42,3 +44,8 @@ export default function IngredientsRender({ currentItem, onClick }) {
         </div>
     )
 }
+
+IngredientsRender.propTypes = {
+    currentItem: ingredientPropType,
+    onClick: PropTypes.func.isRequired,
+  };

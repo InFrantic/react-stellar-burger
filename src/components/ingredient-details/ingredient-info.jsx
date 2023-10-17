@@ -1,4 +1,5 @@
 import styles from './ingredient-info.module.css'
+import PropTypes from 'prop-types'
 
 function IngredientInfo({text, info}) {
 
@@ -12,5 +13,9 @@ function IngredientInfo({text, info}) {
       </p>
     </div>
   );
+}
+IngredientInfo.propTypes = {
+  text: PropTypes.string.isRequired,
+  info: PropTypes.number.isRequired
 }
 export default IngredientInfo

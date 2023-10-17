@@ -11,6 +11,7 @@ import OrderDetails from "../order-details/order-details";
 import { clearIngredientDetails } from '../../services/action/ingredient-details';
 import { clearOrderDetails } from '../../services/action/order-details';
 import {clearBurgerConstructor} from '../../services/action/burger-constructor'
+
 function BurgerConstructor({ onDropHandler }) {
 
     const [, dropTarget] = useDrop({
