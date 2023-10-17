@@ -1,5 +1,4 @@
 import styles from './ingredient-info.module.css'
-import ingredientPropType from '../../utils/prop-types';
 
 function IngredientInfo({text, info}) {
 
@@ -14,5 +13,4 @@ function IngredientInfo({text, info}) {
     </div>
   );
 }
-// IngredientInfo.propTypes = ingredientPropType;
 export default IngredientInfo

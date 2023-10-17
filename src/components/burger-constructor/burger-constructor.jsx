@@ -10,7 +10,7 @@ import Modal from '../modal/modal';
 import OrderDetails from "../order-details/order-details";
 import { clearIngredientDetails } from '../../services/action/ingredient-details';
 import { clearOrderDetails } from '../../services/action/order-details';
-
+import {clearBurgerConstructor} from '../../services/action/burger-constructor'
 function BurgerConstructor({ onDropHandler }) {
 
     const [, dropTarget] = useDrop({
@@ -66,11 +66,10 @@ function BurgerConstructor({ onDropHandler }) {
     const showIngredientDetails = useSelector(store => store.details.details)
 
     function handleCloseModal() {
-        if (showIngredientDetails) {
-            dispatch(clearIngredientDetails())
-        } else {
-            dispatch(clearOrderDetails())
-        }
+        dispatch(clearIngredientDetails())
+        dispatch(clearOrderDetails())
+        dispatch(clearBurgerConstructor())
+        
     }
 
     return (
