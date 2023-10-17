@@ -7,14 +7,14 @@ export const getIngredients = () => {
         .then(checkResponse)
         
 } 
-export const getOrder = (ingredients) => {
+export const getOrder = (ingredientsOrder) => {
     return fetch(`${baseUrl}/orders`,{
        method: "POST",
        headers:{
         "Content-type": 'application/json'
        },
       body: JSON.stringify({
-        ingredients: ingredients
+        ingredients: ingredientsOrder
       })
     })
       .then(checkResponse)

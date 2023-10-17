@@ -21,10 +21,10 @@ export function clearOrderDetails() {
   return {type: CLEAR_ORDER};
 }
 
-export function getOrderDetails(ingredients) {
+export function getOrderDetails(ingredientsOrder) {
   return function (dispatch) {
     dispatch(orderDetailsRequest());
-    getOrder(ingredients)
+    getOrder(ingredientsOrder)
       .then(res => {
           dispatch(orderDetailsSuccess(res.order.number));
       })

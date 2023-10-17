@@ -17,14 +17,6 @@ function App() {
     dispatch(getIngred());
   }, []);
 
-  const contentBurgerIngredients = useMemo(() => {
-    if (!ingredients) {
-      return <div>Loading...</div>;
-    } else {
-      return <BurgerIngredients />;
-    }
-  }, [ingredients]);
-
   const handleDrop = (ingredient) => {
     if (ingredient.type === "bun") {
       dispatch(chooseBun(ingredient))
@@ -38,7 +30,7 @@ function App() {
       <AppHeader />
       <main className={styles.burgers}>
         <DndProvider backend={HTML5Backend}>
-          {contentBurgerIngredients}
+        <BurgerIngredients />
           <BurgerConstructor onDropHandler={handleDrop} />
         </DndProvider>
       </main>

@@ -20,25 +20,18 @@ export default function IngredientsRender({ currentItem, onClick }) {
     });
 
     const count = useMemo(() => {
-        let count = 0;
-        if (currentItem.type === "bun") {
-            if (bun !== null && bun._id === currentItem._id) {
-                count = 2;
-            }
-        } else {
-            other.forEach((other) => {
-                if (other._id === currentItem._id) {
-                    count += 1;
-                }
-            });
+        let count = 0
+        if (currentItem.type === 'bun' && bun && bun._id === currentItem._id) {
+            count = 2
         }
-        return count;
-    }, [currentItem.type, bun, other]);
-  
-    const canDraggabble = (currentItem?.type !== "bun") ? true : !(count)
-
+        if (currentItem.type !== 'bun' && other) {
+            count = other.filter(filling => filling.ingredient._id === currentItem._id).length;
+        }
+        return count
+    }, [other, bun])
+    
     return (
-        <div className={`${styles["ingredient"]}`} {...(canDraggabble && { ref: dragRef })} onClick={onClick}>
+        <div className={`${styles["ingredient"]}`} ref={dragRef} onClick={onClick}>
             <img alt={currentItem.name} src={currentItem.image} className={`${styles["ingredient-img"]} pl-4 pr-4 pb-1`} />
             <div className={`${styles["ingredient-price"]} pb-1`}>
                 <p className={`${styles["price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}>{currentItem.price}</p>

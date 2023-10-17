@@ -6,6 +6,10 @@ import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails } from "../../services/action/order-details";
 import { optionalFunc } from "../../utils/prop-types";
+import Modal from '../modal/modal';
+import OrderDetails from "../order-details/order-details";
+import { clearIngredientDetails } from '../../services/action/ingredient-details';
+import { clearOrderDetails } from '../../services/action/order-details';
 
 function BurgerConstructor({ onDropHandler }) {
 
@@ -33,6 +37,7 @@ function BurgerConstructor({ onDropHandler }) {
         const ingredientsOrder = getListIdIngredients();
         dispatch(getOrderDetails(ingredientsOrder))
     }
+
     function TotalPrice() {
 
         const { bun, other } = useSelector(store => store.filling)
@@ -44,7 +49,7 @@ function BurgerConstructor({ onDropHandler }) {
             const costBun = !!(bun) ? bun.price * 2 : 0
 
             if (numberOtherIngredients > 0) {
-                const arrayOtherPrice = other.map((item) => (item.price))
+                const arrayOtherPrice = other.map((item) => (item.ingredient.price))
                 const initialValue = 0;
                 sumWithInitial = arrayOtherPrice.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
             }
@@ -56,6 +61,16 @@ function BurgerConstructor({ onDropHandler }) {
         return (
             <p className="text text_type_digits-medium">{total}</p>
         )
+    }
+    const order = useSelector(state => state.order.orderNumber)
+    const showIngredientDetails = useSelector(store => store.details.details)
+
+    function handleCloseModal() {
+        if (showIngredientDetails) {
+            dispatch(clearIngredientDetails())
+        } else {
+            dispatch(clearOrderDetails())
+        }
     }
 
     return (
@@ -91,6 +106,7 @@ function BurgerConstructor({ onDropHandler }) {
                     Оформить заказ
                 </Button>
             </div>
+            {order && <Modal onClose={handleCloseModal}><OrderDetails /></Modal>}
         </div>
     )
 }
