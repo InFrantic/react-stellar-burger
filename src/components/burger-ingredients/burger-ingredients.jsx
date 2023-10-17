@@ -11,14 +11,6 @@ import Modal from '../modal/modal';
 function BurgerIngredients() {
     const ingredients = useSelector(store => store.burgerIngredients.ingredients);
     const dispatch = useDispatch()
-    const selectedBun = useSelector(state => state.filling.bun)
-    const selectedIngredients = useSelector(state => state.filling.ingredients)
-
-    const ingredient = {
-        main: 'main',
-        sauce: 'sauce',
-        bun: 'bun'
-    }
 
     const buns = useMemo(() => ingredients.filter(item => item.type === "bun"), [ingredients]);
     const mains = useMemo(() => ingredients.filter(item => item.type === "main"), [ingredients]);
