@@ -1,21 +1,20 @@
 import styles from './ingredient-details.module.css';
-import ingredientPropType from '../../utils/prop-types';
 import IngredientInfo from './ingredient-info'
+import {useSelector} from "react-redux";
 
-function IngredientDetails({ data }) {
+function IngredientDetails() {
+    const {proteins, calories, fat, carbohydrates, name, image_large} = useSelector(store => store.details.details)
     return (
         <div className={styles.details}>
-            <img src={data.image_large} alt={data.name}></img>
-            <p className="text text_type_main-medium pb-4 pt-4">{data.name}</p>
+            <img src={image_large} alt={name}></img>
+            <p className="text text_type_main-medium pb-4 pt-4">{name}</p>
             <div className={`${styles.info} pt-4`}>
-                <IngredientInfo text='Калории,ккал' info={data.calories}></IngredientInfo>
-                <IngredientInfo text='Белки, г' info={data.proteins}></IngredientInfo>
-                <IngredientInfo text='Жиры, г' info={data.fat}></IngredientInfo>
-                <IngredientInfo text='Углеводы, г' info={data.carbohydrates}></IngredientInfo>
+                <IngredientInfo text='Калории,ккал' info={calories}></IngredientInfo>
+                <IngredientInfo text='Белки, г' info={proteins}></IngredientInfo>
+                <IngredientInfo text='Жиры, г' info={fat}></IngredientInfo>
+                <IngredientInfo text='Углеводы, г' info={carbohydrates}></IngredientInfo>
             </div>
         </div>
     )
 }
-
-IngredientDetails.propTypes = ingredientPropType;
 export default IngredientDetails

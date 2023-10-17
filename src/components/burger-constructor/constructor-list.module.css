@@ -1,0 +1,15 @@
+.listScroll {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .scroll {
+    height: 100%;
+    overflow: auto;
+  }
+    
+  .topGap {
+    padding-top: 96px;
+  }

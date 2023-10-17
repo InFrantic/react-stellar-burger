@@ -1,34 +1,39 @@
+import { DndProvider } from "react-dnd";
 import styles from "./app.module.css";
-import AppHeader from "../appheader/app-header";
+import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import { getIngredients } from "../../utils/api";
-import { useEffect, useState } from "react";
-import { ConstructorContext, IngredientsContext } from "../../services/appContext";
+import { getIngred } from "../../services/action/burger-ingredients";
+import { useEffect, useMemo } from "react";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { useDispatch, useSelector } from "react-redux";
+import { addFilling, chooseBun } from "../../services/action/burger-constructor";
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
-  const [ingredientConstrutor, setIngredientConstructor] = useState({ bun: null, ingredients: [] });
-  
+  const dispatch = useDispatch();
+  const ingredients = useSelector((store) => store.burgerIngredients.ingredients);
+
   useEffect(() => {
-    getIngredients()
-      .then(data => {
-        setIngredients(data)
-      })
-      .catch(err => console.log(err))
-  }, [])
+    dispatch(getIngred());
+  }, []);
+
+  const handleDrop = (ingredient) => {
+    if (ingredient.type === "bun") {
+      dispatch(chooseBun(ingredient))
+    } else {
+      dispatch(addFilling(ingredient))
+    }
+  };
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <ConstructorContext.Provider value={{ ingredientConstrutor, setIngredientConstructor }}>
-        <IngredientsContext.Provider value={{ ingredients, setIngredients }}>
-          <main className={styles.burgers}>
-            {ingredients.length > 0 && <BurgerIngredients />}
-            {ingredients.length > 0 && <BurgerConstructor />}
-          </main>
-        </IngredientsContext.Provider>
-      </ConstructorContext.Provider>
+      <main className={styles.burgers}>
+        <DndProvider backend={HTML5Backend}>
+        <BurgerIngredients />
+          <BurgerConstructor onDropHandler={handleDrop} />
+        </DndProvider>
+      </main>
     </div >
   );
 }

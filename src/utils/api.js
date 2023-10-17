@@ -5,16 +5,16 @@ const baseUrl = 'https://norma.nomoreparties.space/api';
 export const getIngredients = () => {
     return fetch(`${baseUrl}/ingredients`)
         .then(checkResponse)
-        .then(data => data.data)
+        
 } 
-export const getOrder = (ingredients) => {
+export const getOrder = (ingredientsOrder) => {
     return fetch(`${baseUrl}/orders`,{
        method: "POST",
        headers:{
         "Content-type": 'application/json'
        },
       body: JSON.stringify({
-        ingredients: ingredients
+        ingredients: ingredientsOrder
       })
     })
       .then(checkResponse)
