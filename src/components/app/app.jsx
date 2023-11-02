@@ -1,38 +1,19 @@
-import { DndProvider } from "react-dnd";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import { getIngred } from "../../services/action/burger-ingredients";
-import { useEffect, useMemo } from "react";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDispatch, useSelector } from "react-redux";
-import { addFilling, chooseBun } from "../../services/action/burger-constructor";
+import { Route, Routes } from 'react-router-dom';
+import { Login } from '../../pages/login/login';
+import { Home } from '../../pages/home/home';
 
 function App() {
-  const dispatch = useDispatch();
-  const ingredients = useSelector((store) => store.burgerIngredients.ingredients);
-
-  useEffect(() => {
-    dispatch(getIngred());
-  }, []);
-
-  const handleDrop = (ingredient) => {
-    if (ingredient.type === "bun") {
-      dispatch(chooseBun(ingredient))
-    } else {
-      dispatch(addFilling(ingredient))
-    }
-  };
 
   return (
     <div className={styles.app}>
       <AppHeader />
       <main className={styles.burgers}>
-        <DndProvider backend={HTML5Backend}>
-        <BurgerIngredients />
-          <BurgerConstructor onDropHandler={handleDrop} />
-        </DndProvider>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+        </Routes>
       </main>
     </div >
   );

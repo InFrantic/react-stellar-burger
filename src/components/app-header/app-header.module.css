@@ -1,4 +1,4 @@
-.header{
+.header {
     background-color: #1C1C21;
     margin: 0;
     display: flex;
@@ -11,4 +11,14 @@
 .logo {
     padding-left: 108px;
     padding-right: 288.85px;
+}
+
+.text {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.active {
+    color: rgba(242, 242, 243, 1);
 }
