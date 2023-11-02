@@ -1,14 +1,13 @@
 import React from "react";
-import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './register.module.css';
+import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
+import styles from './reset-password.module.css';
 import { Link } from 'react-router-dom';
 
-export function Register() {
+export function ResetPassword() {
 
     const userData = {
-        name: '',
-        email: '',
-        password: ''
+        password: '',
+        token: ''
     }
 
     const [value, setValue] = React.useState(userData)
@@ -17,37 +16,31 @@ export function Register() {
     }
 
     return (
-        <div className={`${styles.register} `}>
+        <div className={`${styles.resetConfirm} `}>
             <form
                 name='register'
                 action='#'
                 onSubmit={onChange}
                 className={`${styles.form}`}
             >
-                <h3 className={`mb-6 text text_type_main-medium ${styles.text}`} >Регистрация</h3>
-                <Input
-                    type={'text'}
-                    placeholder={'Имя'}
-                    onChange={onChange}
-                    value={value.name}
-                    name={'name'}
-                    error={false}
-                    errorText={'Ошибка'}
-                    size={'default'}
-                    extraClass={`mb-6`}
-                />
-                <EmailInput
-                    extraClass={`mb-6`}
-                    onChange={onChange}
-                    value={value.email}
-                    name={'email'}
-                    isIcon={false}
-                />
+                <h3 className={`mb-6 text text_type_main-medium ${styles.text}`} >Восстановление пароля</h3>
                 <PasswordInput
                     extraClass={`mb-6`}
                     onChange={onChange}
                     value={value.password}
                     name={'password'}
+                    placeholder={'Введите новый пароль'}
+                />
+                <Input
+                    type={'text'}
+                    placeholder={'Введите код из письма'}
+                    onChange={onChange}
+                    value={value.token}
+                    name={'token'}
+                    error={false}
+                    errorText={'Ошибка'}
+                    size={'default'}
+                    extraClass={`mb-6`}
                 />
                 <Button
                     htmlType='submit'
@@ -55,10 +48,9 @@ export function Register() {
                     size="large"
                     extraClass={`mb-20`}
                 >
-                    Зарегистрироваться
+                    Сохранить
                 </Button>
-
-                <p className={`mb-4 text text_color_inactive text_type_main-default ${styles.text}`}>Уже зарегистрированы? &nbsp;
+                <p className={`mb-4 text text_color_inactive text_type_main-default ${styles.text}`}>Вспомнили пароль? &nbsp;
                     <span>
                         <Link to='/login' className={`text text_type_main-default ${styles.link}`}>
                             Войти

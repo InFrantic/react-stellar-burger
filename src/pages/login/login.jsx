@@ -3,7 +3,7 @@ import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer
 import styles from './login.module.css';
 import { Link,} from 'react-router-dom';
 
-export const Login = () => {
+export function Login() {
 
     const userData = {
         email: '',
