@@ -1,11 +1,12 @@
 import React from "react";
-import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './login.module.css';
-import { Link,} from 'react-router-dom';
+import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
+import styles from './register.module.css';
+import { Link } from 'react-router-dom';
 
-export const Login = () => {
+export const Register = () => {
 
     const userData = {
+        name: '',
         email: '',
         password: ''
     }
@@ -14,15 +15,27 @@ export const Login = () => {
     const onChange = e => {
         setValue(e.target.value)
     }
+
     return (
-        <div className={`${styles.login}`}>
+        <div className={`${styles.register} `}>
             <form
-                name='login'
+                name='register'
                 action='#'
                 onSubmit={onChange}
                 className={`${styles.form}`}
             >
-                <h3 className={`mb-6 text text_type_main-medium ${styles.text}`} >Вход</h3>
+                <h3 className={`mb-6 text text_type_main-medium ${styles.text}`} >Регистрация</h3>
+                <Input
+                    type={'text'}
+                    placeholder={'Имя'}
+                    onChange={onChange}
+                    value={value.name}
+                    name={'name'}
+                    error={false}
+                    errorText={'Ошибка'}
+                    size={'default'}
+                    extraClass={`mb-6`}
+                />
                 <EmailInput
                     extraClass={`mb-6`}
                     onChange={onChange}
@@ -42,19 +55,13 @@ export const Login = () => {
                     size="large"
                     extraClass={`mb-20`}
                 >
-                    Войти
+                    Зарегистрироваться
                 </Button>
-                <p className={`mb-4 text text_color_inactive text_type_main-default ${styles.text}`}>Вы — новый пользователь? &nbsp;
+
+                <p className={`mb-4 text text_color_inactive text_type_main-default ${styles.text}`}>Уже зарегистрированы? &nbsp;
                     <span>
-                        <Link to='/register' className={`text text_type_main-default ${styles.link}`}>
-                            Зарегистрироваться
-                        </Link>
-                    </span>
-                </p>
-                <p className={`text text_color_inactive text_type_main-default ${styles.text}`}>Забыли пароль? &nbsp;
-                    <span>
-                        <Link to='/forgot-password' className={`text text_type_main-default ${styles.link}`}>
-                            Восстановить пароль
+                        <Link to='/login' className={`text text_type_main-default ${styles.link}`}>
+                            Войти
                         </Link>
                     </span>
                 </p>
