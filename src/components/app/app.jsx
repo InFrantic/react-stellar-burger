@@ -27,7 +27,7 @@ function App() {
     pathname === '/' ? null : pathname === '/login' ? null : pathname === '/register' ? null : pathname === '/login' ? null : { display: 'block' }
   )
   const displayNone = useCallback(
-    pathname === '/' ? null : pathname === '/login' ? null : pathname === '/register' ? null : pathname === '/login' ? null : { display: 'none' }
+    pathname === '/' ? null : pathname === '/login' ? null : pathname === '/register' ? null : pathname === '/login' ? null : pathname === '/profile' ? null : { display: 'none' }
   )
 
   const handleCloseModals = () => {
