@@ -1,39 +1,57 @@
 import React from "react";
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './login.module.css';
-import { Link,} from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { getLoginUser } from '../../services/action/login';
+import { useDispatch } from 'react-redux';
 
 export function Login() {
 
-    const userData = {
-        email: '',
-        password: ''
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const login = JSON.parse(sessionStorage.getItem('login'));
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const user = {
+            email,
+            password
+        }
+        dispatch(getLoginUser(user))
+    }
+    React.useEffect(() => {
+        if (login) {
+            navigate.push('/')
+        }
+    }, [login, navigate])
+
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+
+    if (login) {
+        return (<Navigate to={'/profile'} />)
     }
 
-    const [value, setValue] = React.useState(userData)
-    const onChange = e => {
-        setValue(e.target.value)
-    }
     return (
         <div className={`${styles.login}`}>
             <form
                 name='login'
                 action='#'
-                onSubmit={onChange}
+                onSubmit={handleSubmit}
                 className={`${styles.form}`}
             >
                 <h3 className={`mb-6 text text_type_main-medium ${styles.text}`} >Вход</h3>
                 <EmailInput
                     extraClass={`mb-6`}
-                    onChange={onChange}
-                    value={value.email}
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
                     name={'email'}
                     isIcon={false}
                 />
                 <PasswordInput
                     extraClass={`mb-6`}
-                    onChange={onChange}
-                    value={value.password}
+                    onChange={e => setPassword(e.target.value)}
+                    value={password}
                     name={'password'}
                 />
                 <Button
