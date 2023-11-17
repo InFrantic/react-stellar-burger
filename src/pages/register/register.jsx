@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export function Register() {
 
-    const success = useSelector(state => state.user.success);
-   
+    const success = useSelector(state => state.register.success);
 
     const dispatch = useDispatch();
 
@@ -29,8 +28,6 @@ export function Register() {
     }
 
     const [value, setValue] = React.useState(userData)
-
-   
 
     return (
         <div className={`${styles.register} `}>

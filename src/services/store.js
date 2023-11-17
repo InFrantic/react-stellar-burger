@@ -17,8 +17,8 @@ export const store = configureStore({
         order: orderDetailsReducer,
         forgotPassword: forgotPasswordReducer,
         resetPassword: resetPasswordReducer,
-        user: registerUserReducer,
+        register: registerUserReducer,
         login: loginUserReducer,
-        info: getUserInfoReducer
+        user: getUserInfoReducer
     },
 });

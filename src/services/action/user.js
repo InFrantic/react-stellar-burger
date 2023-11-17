@@ -2,7 +2,6 @@ import { baseUrl } from "../../utils/api";
 import { request, refreshToken } from "../../utils/api";
 import { getCookie } from "../../utils/coockie";
 
-
 export const GET_USER_INFO = 'GET_USER_INFO';
 export const PATCH_USER_INFO = 'PATCH_USER_INFO';
 

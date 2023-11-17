@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './login.module.css';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getLoginUser } from '../../services/action/login';
 import { useDispatch } from 'react-redux';
 
@@ -21,16 +21,12 @@ export function Login() {
     }
     React.useEffect(() => {
         if (login) {
-            navigate.push('/')
+            navigate('/')
         }
     }, [login, navigate])
 
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
-
-    if (login) {
-        return (<Navigate to={'/profile'} />)
-    }
 
     return (
         <div className={`${styles.login}`}>

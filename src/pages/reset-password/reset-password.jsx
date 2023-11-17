@@ -1,18 +1,27 @@
 import React from "react";
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './reset-password.module.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { getResetPasswordSuccess } from "../../services/action/reset-password";
+import { useSelector } from "react-redux";
 
 export function ResetPassword() {
 
-    const userData = {
-        password: '',
-        token: ''
+    const login = JSON.parse(sessionStorage.getItem('login'));
+    const recovered = useSelector(state => state.recoverPassword.success)
+    const resetPassword = (e) => {
+        e.preventDefault();
+        getResetPasswordSuccess()
     }
 
-    const [value, setValue] = React.useState(userData)
-    const onChange = e => {
-        setValue(e.target.value)
+    const [value, setValue] = React.useState('')
+    
+    if (login) {
+        return (<Navigate to={'/profile'} />)
+    }
+
+    if (!recovered) {
+        return (<Navigate to={'/forgot-password'} />)
     }
 
     return (
@@ -20,22 +29,21 @@ export function ResetPassword() {
             <form
                 name='register'
                 action='#'
-                onSubmit={onChange}
+                onSubmit={resetPassword}
                 className={`${styles.form}`}
             >
                 <h3 className={`mb-6 text text_type_main-medium ${styles.text}`} >Восстановление пароля</h3>
                 <PasswordInput
                     extraClass={`mb-6`}
-                    onChange={onChange}
-                    value={value.password}
+                    onChange={e => setValue(e.target.value)}
                     name={'password'}
                     placeholder={'Введите новый пароль'}
                 />
                 <Input
                     type={'text'}
                     placeholder={'Введите код из письма'}
-                    onChange={onChange}
-                    value={value.token}
+                    onChange={e => setValue(e.target.value)}
+                    value={value}
                     name={'token'}
                     error={false}
                     errorText={'Ошибка'}
