@@ -3,10 +3,8 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsRender from "./ingredients-list";
 import { useState, useMemo, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import { setIngredientDetails } from '../../services/action/ingredient-details';
 import { useModal } from "../../hooks/useModal";
-import Modal from '../modal/modal';
 
 function BurgerIngredients() {
     const ingredients = useSelector(store => store.burgerIngredients.ingredients);
@@ -16,15 +14,12 @@ function BurgerIngredients() {
     const mains = useMemo(() => ingredients.filter(item => item.type === "main"), [ingredients]);
     const sauces = useMemo(() => ingredients.filter(item => item.type === "sauce"), [ingredients]);
 
-    const { isModalOpen, openModal, closeModal } = useModal();
+    const { openModal } = useModal();
 
     const handleOpenModal = (item) => {
         dispatch(setIngredientDetails(item))
         openModal(true);
     }
-    const handleCloseModal = (value) => {
-        closeModal(value)
-    };
 
     const [activeTab, setActiveTab] = useState('Bun')
     const bunsRef = useRef();
@@ -110,8 +105,6 @@ function BurgerIngredients() {
                     ))}
                 </div>
             </div>
-            {isModalOpen && <Modal title="Детали ингредиента" onClose={handleCloseModal}>
-                <IngredientDetails></IngredientDetails></Modal>}
         </div>
     )
 }

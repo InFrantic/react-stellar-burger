@@ -1,6 +1,8 @@
 @import 'https://fonts.googleapis.com/css?family=Inconsolata';
 
 .back {
+  display: flex;
+  justify-content: center;
   min-height: 100%;
   box-sizing: border-box;
   height: 100%;

@@ -10,7 +10,8 @@ import Modal from '../modal/modal';
 import OrderDetails from "../order-details/order-details";
 import { clearIngredientDetails } from '../../services/action/ingredient-details';
 import { clearOrderDetails } from '../../services/action/order-details';
-import {clearBurgerConstructor} from '../../services/action/burger-constructor'
+import { clearBurgerConstructor } from '../../services/action/burger-constructor'
+import { useNavigate } from "react-router-dom";
 
 function BurgerConstructor({ onDropHandler }) {
 
@@ -34,9 +35,16 @@ function BurgerConstructor({ onDropHandler }) {
         return idBun.concat(idOther, idBun)
     }
 
+    const navigate = useNavigate();
+    const login = JSON.parse(sessionStorage.getItem('login'));
+
     function handleSubmitOrder() {
-        const ingredientsOrder = getListIdIngredients();
-        dispatch(getOrderDetails(ingredientsOrder))
+        if (!login) {
+            navigate('/login')
+        } else {
+            const ingredientsOrder = getListIdIngredients();
+            dispatch(getOrderDetails(ingredientsOrder))
+        }
     }
 
     function TotalPrice() {
@@ -70,7 +78,7 @@ function BurgerConstructor({ onDropHandler }) {
         dispatch(clearIngredientDetails())
         dispatch(clearOrderDetails())
         dispatch(clearBurgerConstructor())
-        
+
     }
 
     return (

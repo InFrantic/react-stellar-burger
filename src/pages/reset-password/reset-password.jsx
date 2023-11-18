@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 export function ResetPassword() {
 
     const login = JSON.parse(sessionStorage.getItem('login'));
-    const recovered = useSelector(state => state.recoverPassword.success)
+    const recovered = useSelector(state => state.resetPassword.success)
     const resetPassword = (e) => {
         e.preventDefault();
         getResetPasswordSuccess()

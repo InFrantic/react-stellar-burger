@@ -89,7 +89,7 @@ export function Profile() {
                     type={'text'}
                     placeholder={'Имя'}
                     onChange={e => setValue({ ...value, name: e.target.value })}
-                    icon={'EditIcon'}
+                    icon='EditIcon'
                     value={value.name}
                     name={'name'}
                     error={false}
@@ -100,14 +100,14 @@ export function Profile() {
                 <EmailInput
                     extraClass={`mb-6`}
                     placeholder={'Логин'}
-                    onChange={e => setValue({ ...value, name: e.target.value })}
+                    onChange={e => setValue({ ...value, email: e.target.value })}
                     value={value.email}
                     name={'email'}
                     isIcon={true}
                 />
                 <PasswordInput
                     extraClass={`mb-6`}
-                    onChange={e => setValue({ ...value, name: e.target.value })}
+                    onChange={e => setValue({ ...value, password: e.target.value })}
                     value={value.password}
                     name={'password'}
                     icon="EditIcon"

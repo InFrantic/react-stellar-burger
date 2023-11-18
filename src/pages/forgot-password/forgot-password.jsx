@@ -9,7 +9,7 @@ export function ForgotPassword()  {
 
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const success = useSelector(state => state.recoverPassword.success);
+    const success = useSelector(state => state.forgotPassword.success);
     const login = JSON.parse(sessionStorage.getItem('login'));
   
     const [value, setValue] = React.useState('')
