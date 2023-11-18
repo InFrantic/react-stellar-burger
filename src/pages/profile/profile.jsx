@@ -48,8 +48,7 @@ export function Profile() {
 
     const logoutUser = React.useCallback(() => {
         dispatch(letLogoutUser());
-        sessionStorage
-            .setItem('login', JSON.stringify(false));
+        sessionStorage.setItem('login', JSON.stringify(false));
     }, [dispatch])
 
    useEffect(() => {

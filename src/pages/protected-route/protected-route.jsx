@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router";
 
-export default function ProtectedRoute ({ onlyUnAuth = false, component }) {
+ function ProtectedRoute ({ onlyUnAuth = false, component }) {
 
     const login = JSON.parse(sessionStorage.getItem('login'));
 

@@ -6,23 +6,31 @@ import { Home } from '../../pages/home/home';
 import { Register } from '../../pages/register/register';
 import { NotFound } from "../../pages/not-found/not-found";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useCallback } from "react";
+import { useEffect } from "react";
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
 import { ResetPassword } from "../../pages/reset-password/reset-password";
 import { Profile } from "../../pages/profile/profile";
 import { OnlyAuth, OnlyUnAuth } from "../../pages/protected-route/protected-route";
+import { getIngred } from "../../services/action/burger-ingredients";
+import { useDispatch } from "react-redux";
 
 function App() {
 
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getIngred());
+  }, []);
+
   const location = useLocation();
   const background = location.state && location.state.background;
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleCloseModals = () => {
-    history('/')
-  }
+    navigate(-1);
+  };
 
   return (
     <div className={styles.app} >
@@ -39,7 +47,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      {background && (
+      {background && 
         <Routes>
           <Route path="/ingredients/:id"
             element={
@@ -49,7 +57,6 @@ function App() {
             }
           />
         </Routes>
-      )
       }
     </div>
   );

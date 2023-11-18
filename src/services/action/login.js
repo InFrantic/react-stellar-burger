@@ -32,8 +32,7 @@ export const getLoginUser = (user) => {
       .then((data) => {
         const { success, refreshToken, accessToken } = data;
         if (success) {
-          sessionStorage
-            .setItem('login', JSON.stringify(true));
+          sessionStorage.setItem('login', JSON.stringify(true));
           dispatch(loginUser(data));
           setCookie('access', accessToken.split('Bearer ')[1]);
           setCookie('refresh', refreshToken);

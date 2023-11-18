@@ -72,7 +72,6 @@ function BurgerConstructor({ onDropHandler }) {
         )
     }
     const order = useSelector(state => state.order.orderNumber)
-    const showIngredientDetails = useSelector(store => store.details.details)
 
     function handleCloseModal() {
         dispatch(clearIngredientDetails())

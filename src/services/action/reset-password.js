@@ -20,7 +20,7 @@ export const getResetPasswordSuccess = () => {
   };
   return (dispatch) => {
     request(url, options)
-      .then(({ success, message }) => {
+      .then(({ success }) => {
         dispatch(resetPasswordSuccess(success));
       })
       .catch(console.warn)
