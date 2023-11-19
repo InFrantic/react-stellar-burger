@@ -47,7 +47,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      {background && 
+      {background && (
         <Routes>
           <Route path="/ingredients/:id"
             element={
@@ -57,7 +57,7 @@ function App() {
             }
           />
         </Routes>
-      }
+      )}
     </div>
   );
 }

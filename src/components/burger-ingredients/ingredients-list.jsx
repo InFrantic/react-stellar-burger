@@ -37,17 +37,22 @@ export default function IngredientsRender({ currentItem, onClick }) {
     const id = currentItem._id
 
     return (
-        <div key={id} className={`${styles["ingredient"]}`} ref={dragRef} onClick={onClick}>
-            <Link className={`${styles.link}`} to={`/ingredients/${id}`} state={{ background: location }}>
-                <img alt={currentItem.name} src={currentItem.image} className={`${styles["ingredient-img"]} pl-4 pr-4 pb-1`} />
-                <div className={`${styles["ingredient-price"]} pb-1`}>
-                    <p className={`${styles["price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}>{currentItem.price}</p>
-                    <CurrencyIcon type="primary" />
-                </div>
-                <p className={`${styles["ingredient-name"]} text text_type_main-default`}>{currentItem.name}</p>
-                {count > 0 && <Counter count={count} />}
-            </Link>
-        </div>
+        <Link
+            key={id}
+            className={`${styles.link}`}
+            to={`/ingredients/${id}`}
+            state={{ background: location }}
+            >
+            <div className={`${styles["ingredient"]}`} ref={dragRef} onClick={onClick}>
+                    <img alt={currentItem.name} src={currentItem.image} className={`${styles["ingredient-img"]} pl-4 pr-4 pb-1`} />
+                    <div className={`${styles["ingredient-price"]} pb-1`}>
+                        <p className={`${styles["price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}>{currentItem.price}</p>
+                        <CurrencyIcon type="primary" />
+                    </div>
+                    <p className={`${styles["ingredient-name"]} text text_type_main-default`}>{currentItem.name}</p>
+                    {count > 0 && <Counter count={count} />}
+            </div>
+        </Link >
     )
 }
 

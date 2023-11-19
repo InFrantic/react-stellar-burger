@@ -14,13 +14,6 @@ function BurgerIngredients() {
     const mains = useMemo(() => ingredients.filter(item => item.type === "main"), [ingredients]);
     const sauces = useMemo(() => ingredients.filter(item => item.type === "sauce"), [ingredients]);
 
-    const { openModal } = useModal();
-
-    const handleOpenModal = (item) => {
-        dispatch(setIngredientDetails(item))
-        openModal(true);
-    }
-
     const [activeTab, setActiveTab] = useState('Bun')
     const bunsRef = useRef();
     const saucesRef = useRef();
@@ -74,7 +67,7 @@ function BurgerIngredients() {
                 <p id='bun' ref={bunsRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Булки</p>
                 <div className={`${styles['ingredient-list']}`}>
                     {buns.map((currentItem) => (
-                        <IngredientsRender key={currentItem._id} onClick={() => handleOpenModal(currentItem)}
+                        <IngredientsRender key={currentItem._id} 
                             img={currentItem.image}
                             price={currentItem.price}
                             description={currentItem.name}
@@ -85,7 +78,7 @@ function BurgerIngredients() {
                 <p id='sauce' ref={saucesRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Соусы</p>
                 <div className={`${styles['ingredient-list']}`}>
                     {sauces.map((currentItem) => (
-                        <IngredientsRender key={currentItem._id} onClick={() => handleOpenModal(currentItem)}
+                        <IngredientsRender key={currentItem._id} 
                             img={currentItem.image}
                             price={currentItem.price}
                             description={currentItem.name}
@@ -96,7 +89,7 @@ function BurgerIngredients() {
                 <p id='main' ref={mainsRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Начинка</p>
                 <div className={`${styles['ingredient-list']}`}>
                     {mains.map((currentItem) => (
-                        <IngredientsRender key={currentItem._id} onClick={() => handleOpenModal(currentItem)}
+                        <IngredientsRender key={currentItem._id} 
                             img={currentItem.image}
                             price={currentItem.price}
                             description={currentItem.name}

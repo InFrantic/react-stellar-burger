@@ -1,6 +1,6 @@
 import { baseUrl } from "../../utils/api";
 import { request } from "../../utils/api";
-import { setCookie, getCookie } from "../../utils/coockie";
+import { setCookie, getCookie, deleteCookie } from "../../utils/coockie";
 
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
@@ -60,6 +60,7 @@ export const letLogoutUser = (user) => {
         const { success } = data;
         if (success) {
           dispatch(logoutUser(data));
+          deleteCookie("accessToken");
         }
       })
       .catch(console.warn)
