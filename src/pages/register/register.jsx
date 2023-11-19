@@ -1,13 +1,11 @@
 import React from "react";
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './register.module.css';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getRegisterUser } from '../../services/action/register'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export function Register() {
-
-    const success = useSelector(state => state.register.success);
 
     const dispatch = useDispatch();
 
@@ -78,7 +76,6 @@ export function Register() {
                         </Link>
                     </span>
                 </p>
-                {success ? <Navigate to={'/login'} /> : <Navigate to={'/register'} />}
             </form >
         </div>
     )

@@ -3,7 +3,6 @@ import { Navigate, useLocation } from "react-router";
  function ProtectedRoute ({ onlyUnAuth = false, component }) {
 
     const login = JSON.parse(sessionStorage.getItem('login'));
-
     const location = useLocation();
     const { from } = location.state || { from: { pathname: "/" } };
 

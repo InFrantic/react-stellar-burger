@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink } from 'react-router-dom';
 import styles from './profile.module.css';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -19,7 +19,7 @@ export function Profile() {
         password: '',
     });
 
-    useEffect(() => {
+    React.useEffect(() => {
         setValue({
             name: currentName,
             email: currentEmail,
@@ -51,7 +51,7 @@ export function Profile() {
         sessionStorage.setItem('login', JSON.stringify(false));
     }, [dispatch])
 
-   useEffect(() => {
+   React.useEffect(() => {
         if (login) {
             dispatch(getUserInfo());
         }

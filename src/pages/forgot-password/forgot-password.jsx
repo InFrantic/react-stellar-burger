@@ -10,7 +10,7 @@ export function ForgotPassword()  {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const success = useSelector(state => state.forgotPassword.success);
-    const login = JSON.parse(sessionStorage.getItem('login'));
+    // const login = JSON.parse(sessionStorage.getItem('login'));
   
     const [value, setValue] = React.useState('')
    
@@ -20,9 +20,9 @@ export function ForgotPassword()  {
       success ? navigate('/reset-password') : navigate('/forgot-password')
     }, [dispatch, navigate, success])
   
-    if (login) {
-      return (<Navigate to={'/profile'} />)
-    }
+    // if (login) {
+    //   return (<Navigate to={'/profile'} />)
+    // }
 
     return (
         <div className={`${styles.reset} `}>

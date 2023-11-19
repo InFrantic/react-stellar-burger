@@ -42,7 +42,7 @@ export const getLoginUser = (user) => {
   }
 }
 
-export const letLogoutUser = () => {
+export const letLogoutUser = (user) => {
   const url = `${baseUrl}/auth/logout`;
   const options = {
     method: 'POST',

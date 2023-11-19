@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './login.module.css';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
@@ -7,10 +7,11 @@ import { useDispatch } from 'react-redux';
 
 export function Login() {
 
+    const login = JSON.parse(sessionStorage.getItem('login'));
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const login = JSON.parse(sessionStorage.getItem('login'));
-
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const handleSubmit = (e) => {
         e.preventDefault();
         const user = {
@@ -19,14 +20,12 @@ export function Login() {
         }
         dispatch(getLoginUser(user))
     }
-    useEffect(() => {
+    React.useEffect(() => {
         if (login) {
             navigate('/')
         }
     }, [login, navigate])
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
 
     return (
         <div className={`${styles.login}`}>
