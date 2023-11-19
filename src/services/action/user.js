@@ -4,15 +4,21 @@ import { getCookie } from "../../utils/coockie";
 
 export const GET_USER_INFO = 'GET_USER_INFO';
 export const PATCH_USER_INFO = 'PATCH_USER_INFO';
+export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
 
 const userInfo = (payload) => ({
   type: GET_USER_INFO,
   payload
 });
 
-const newUserInfo = (payload) => ({
+const newUserInfo = (user) => ({
   type: PATCH_USER_INFO,
-  payload
+  payload: user
+});
+
+export const setAuthChecked = (value) => ({
+  type: SET_AUTH_CHECKED,
+  payload: value,
 });
 
 export const getUserInfo = () => {
@@ -69,4 +75,20 @@ export const setUserInfo = (email, name, password) => {
         }
       })
   }
+}
+
+export const checkUserAuth = () => {
+  return (dispatch) => {
+    if (localStorage.getItem("accessToken")) {
+      dispatch(getUserInfo())
+        .catch(() => {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          dispatch(setUserInfo(null));
+        })
+        .finally(() => dispatch(setAuthChecked(true)));
+    } else {
+      dispatch(setAuthChecked(true));
+    }
+  };
 }

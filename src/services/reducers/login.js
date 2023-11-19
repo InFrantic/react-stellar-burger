@@ -3,7 +3,7 @@ import { LOGIN_USER, LOGOUT_USER } from "../action/login";
 const initialState = {
   login: null,
   logout: false,
-  user: {},
+  user: null,
 };
 
 export const loginUserReducer = (state = initialState, action) => {
@@ -13,7 +13,7 @@ export const loginUserReducer = (state = initialState, action) => {
         ...state,
         login: !action.payload.success,
         logout: action.payload.success,
-        user: {}
+        user: null
       }
     }
     case LOGIN_USER: {

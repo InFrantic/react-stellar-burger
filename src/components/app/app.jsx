@@ -14,19 +14,32 @@ import { ResetPassword } from "../../pages/reset-password/reset-password";
 import { Profile } from "../../pages/profile/profile";
 import { OnlyAuth, OnlyUnAuth } from "../../pages/protected-route/protected-route";
 import { getIngred } from "../../services/action/burger-ingredients";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {checkUserAuth} from "../../services/action/user";
 
 function App() {
 
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
+    dispatch(checkUserAuth());
     dispatch(getIngred());
   }, []);
 
+  const { ingredients, isLoading, hasError } = useSelector(store => store.burgerIngredients);
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
+
+  if (isLoading) {
+    return <div className={`text text_type_main-default`}>Загрузка...</div>
+  } else {
+    if (hasError) {
+      return <div className={`text text_type_main-default`}>Произошла ошибка</div>
+    } else if (ingredients.length === 0) {
+      return <div className={`text text_type_main-default`}>Нет данных</div>
+    }
+  }
 
   const handleCloseModals = () => {
     navigate(-1);

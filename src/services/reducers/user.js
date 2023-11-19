@@ -1,7 +1,8 @@
-import { GET_USER_INFO, PATCH_USER_INFO } from "../action/user";
+import { GET_USER_INFO, PATCH_USER_INFO, SET_AUTH_CHECKED } from "../action/user";
 
 const initialState = {
   success: false,
+  isAuthChecked: false,
   user: {
     email: '',
     name: ''
@@ -24,6 +25,11 @@ export const getUserInfoReducer = (state = initialState, action) => {
         user: action.payload.user,
       }
     }
+    case SET_AUTH_CHECKED:
+      return {
+        ...state,
+        isAuthChecked: action.payload
+      }
     default: {
       return state;
     }

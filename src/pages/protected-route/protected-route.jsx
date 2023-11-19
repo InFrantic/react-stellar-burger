@@ -1,16 +1,22 @@
+import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router";
 
- function ProtectedRoute ({ onlyUnAuth = false, component }) {
+function ProtectedRoute({ onlyUnAuth = false, component }) {
 
-    const login = JSON.parse(sessionStorage.getItem('login'));
+    const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
+    const user = useSelector((store) => store.login.user);
     const location = useLocation();
     const { from } = location.state || { from: { pathname: "/" } };
 
-    if (onlyUnAuth && login) {
+    if (!isAuthChecked) {
+        return null;
+    }
+
+    if (onlyUnAuth && user) {
         return <Navigate to={from} />;
     }
 
-    if (!onlyUnAuth && !login) {
+    if (!onlyUnAuth && !user) {
         return <Navigate to="/login" state={{ from: location }} />;
     }
 
@@ -19,5 +25,5 @@ import { Navigate, useLocation } from "react-router";
 
 export const OnlyAuth = ProtectedRoute;
 export const OnlyUnAuth = ({ component }) => (
-  <ProtectedRoute onlyUnAuth={true} component={component} />
+    <ProtectedRoute onlyUnAuth={true} component={component} />
 );

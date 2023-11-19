@@ -1,14 +1,11 @@
 import styles from "./burger-ingredients.module.css";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsRender from "./ingredients-list";
-import { useState, useMemo, useRef, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setIngredientDetails } from '../../services/action/ingredient-details';
-import { useModal } from "../../hooks/useModal";
+import { useState, useMemo, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 function BurgerIngredients() {
     const ingredients = useSelector(store => store.burgerIngredients.ingredients);
-    const dispatch = useDispatch()
 
     const buns = useMemo(() => ingredients.filter(item => item.type === "bun"), [ingredients]);
     const mains = useMemo(() => ingredients.filter(item => item.type === "main"), [ingredients]);
