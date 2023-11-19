@@ -43,7 +43,7 @@ export default function IngredientsRender({ currentItem, onClick }) {
             to={`/ingredients/${id}`}
             state={{ background: location }}
             >
-            <div className={`${styles["ingredient"]}`} ref={dragRef} onClick={onClick}>
+            <div className={`${styles["ingredient"]}`} ref={dragRef} >
                     <img alt={currentItem.name} src={currentItem.image} className={`${styles["ingredient-img"]} pl-4 pr-4 pb-1`} />
                     <div className={`${styles["ingredient-price"]} pb-1`}>
                         <p className={`${styles["price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}>{currentItem.price}</p>
@@ -57,6 +57,4 @@ export default function IngredientsRender({ currentItem, onClick }) {
 }
 
 IngredientsRender.propTypes = {
-    currentItem: ingredientPropType,
-    onClick: PropTypes.func.isRequired,
-};
+    currentItem: ingredientPropType};
