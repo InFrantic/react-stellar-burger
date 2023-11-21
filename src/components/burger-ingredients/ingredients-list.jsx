@@ -4,7 +4,6 @@ import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import { ingredientPropType } from "../../utils/prop-types";
-import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
 
 export default function IngredientsRender({ currentItem }) {
