@@ -1,7 +1,6 @@
 import { EMAIL } from "../action/forgot-password";
 
 const initialState = {
-  success: false,
   email: '',
 }
 

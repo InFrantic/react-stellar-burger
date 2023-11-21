@@ -17,7 +17,7 @@ export function ResetPassword() {
         if (passwordValue && tokenValue) {
             getResetPasswordSuccess(passwordValue, tokenValue)
                 .then(() => {
-                    localStorage.removeItem("forgotConfirmed");
+                    localStorage.removeItem("forgotPasswordChecked");
                     navigate('/login', { replace: true });
                 })
         }
