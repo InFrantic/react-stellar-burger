@@ -42,7 +42,7 @@ function App() {
   }
 
   const handleCloseModals = () => {
-    navigate(-1);
+    navigate('/');
   };
 
   return (

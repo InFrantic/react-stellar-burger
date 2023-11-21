@@ -1,7 +1,6 @@
-import React from "react";
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './forgot-password.module.css';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword, email } from "../../services/action/forgot-password";
 

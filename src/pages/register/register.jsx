@@ -1,46 +1,36 @@
-import React from "react";
+import { useState } from "react";
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './register.module.css';
 import { Link } from 'react-router-dom';
-import { getRegisterUser } from '../../services/action/register'
 import { useDispatch } from 'react-redux';
+import { register } from "../../services/action/user";
 
 export function Register() {
 
     const dispatch = useDispatch();
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [name, setName] = useState('')
 
-    const register = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const user = {
-            name: value.name,
-            email: value.email,
-            password: value.password
-        };
-        dispatch(getRegisterUser(user));
+        dispatch(register(name, password, email));
     }
-
-    const userData = {
-        name: '',
-        email: '',
-        password: ''
-    }
-
-    const [value, setValue] = React.useState(userData)
 
     return (
         <div className={`${styles.register} `}>
             <form
                 name='register'
                 action='#'
-                onSubmit={register}
+                onSubmit={handleSubmit}
                 className={`${styles.form}`}
             >
                 <h3 className={`mb-6 text text_type_main-medium ${styles.text}`} >Регистрация</h3>
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
-                    onChange={e => setValue({ ...value, name: e.target.value })}
-                    value={value.name}
+                    onChange={e => setName(e.target.value)}
+                    value={name}
                     name={'name'}
                     error={false}
                     errorText={'Ошибка'}
@@ -49,15 +39,15 @@ export function Register() {
                 />
                 <EmailInput
                     extraClass={`mb-6`}
-                    onChange={e => setValue({ ...value, email: e.target.value })}
-                    value={value.email}
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
                     name={'email'}
                     isIcon={false}
                 />
                 <PasswordInput
                     extraClass={`mb-6`}
-                    onChange={e => setValue({ ...value, password: e.target.value })}
-                    value={value.password}
+                    onChange={e => setPassword(e.target.value)}
+                    value={password}
                     name={'password'}
                 />
                 <Button

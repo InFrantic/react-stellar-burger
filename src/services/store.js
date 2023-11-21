@@ -5,8 +5,6 @@ import {ingredientDetailsReducer} from "./reducers/ingredient-details";
 import {orderDetailsReducer} from "./reducers/order-details";
 import { forgotPasswordReducer } from './reducers/forgot-password';
 import { resetPasswordReducer } from './reducers/reset-password';
-import { registerUserReducer } from './reducers/register';
-import { loginUserReducer } from './reducers/login';
 import { getUserInfoReducer } from './reducers/user';
    
 export const store = configureStore({
@@ -17,8 +15,6 @@ export const store = configureStore({
         order: orderDetailsReducer,
         forgotPassword: forgotPasswordReducer,
         resetPassword: resetPasswordReducer,
-        register: registerUserReducer,
-        login: loginUserReducer,
         user: getUserInfoReducer
     },
 });

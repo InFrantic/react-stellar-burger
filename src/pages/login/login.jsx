@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './login.module.css';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { getLoginUser } from '../../services/action/login';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { login } from "../../services/action/user";
 
 export function Login() {
 
@@ -12,11 +12,7 @@ export function Login() {
     const [password, setPassword] = useState('')
     const handleSubmit = (e) => {
         e.preventDefault();
-        const user = {
-            email,
-            password
-        }
-        dispatch(getLoginUser(user))
+        dispatch(login(email, password))
     }
 
     return (
