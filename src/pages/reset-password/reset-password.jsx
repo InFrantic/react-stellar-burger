@@ -1,27 +1,31 @@
 import React from "react";
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './reset-password.module.css';
-import { Link, Navigate } from 'react-router-dom';
-import { getResetPasswordSuccess } from "../../services/action/reset-password";
-import { useSelector } from "react-redux";
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { getResetPasswordSuccess, password, token } from "../../services/action/reset-password";
+import { useDispatch, useSelector } from "react-redux";
 
 export function ResetPassword() {
 
-    const login = JSON.parse(sessionStorage.getItem('login'));
-    const recovered = useSelector(state => state.resetPassword.success)
-    const resetPassword = (e) => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const tokenValue = useSelector(store => store.resetPassword.token);
+    const passwordValue = useSelector(store => store.resetPassword.password)
+
+    function handleSubmit(e) {
         e.preventDefault();
-        getResetPasswordSuccess()
+        if (passwordValue && tokenValue) {
+            getResetPasswordSuccess(passwordValue, tokenValue)
+                .then(() => {
+                    localStorage.removeItem("forgotConfirmed");
+                    navigate('/login', { replace: true });
+                })
+        }
     }
 
-    const [value, setValue] = React.useState('')
-    
-    if (login) {
-        return (<Navigate to={'/profile'} />)
-    }
-
-    if (!recovered) {
-        return (<Navigate to={'/forgot-password'} />)
+    const checked = localStorage.getItem("forgotPasswordChecked");
+    if (!checked) {
+      return <Navigate to="/login" replace={true}/>;
     }
 
     return (
@@ -29,21 +33,22 @@ export function ResetPassword() {
             <form
                 name='register'
                 action='#'
-                onSubmit={resetPassword}
+                onSubmit={handleSubmit}
                 className={`${styles.form}`}
             >
                 <h3 className={`mb-6 text text_type_main-medium ${styles.text}`} >Восстановление пароля</h3>
                 <PasswordInput
                     extraClass={`mb-6`}
-                    onChange={e => setValue(e.target.value)}
+                    onChange={e => dispatch(password(e.target.value))}
                     name={'password'}
                     placeholder={'Введите новый пароль'}
+                    value={passwordValue}
                 />
                 <Input
                     type={'text'}
                     placeholder={'Введите код из письма'}
-                    onChange={e => setValue(e.target.value)}
-                    value={value}
+                    onChange={e => dispatch(token(e.target.value))}
+                    value={tokenValue}
                     name={'token'}
                     error={false}
                     errorText={'Ошибка'}

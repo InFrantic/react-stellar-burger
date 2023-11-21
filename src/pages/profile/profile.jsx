@@ -11,7 +11,7 @@ export function Profile() {
     const dispatch = useDispatch();
     const currentName = useSelector(state => state.user.user.name);
     const currentEmail = useSelector(state => state.user.user.email);
-    const login = JSON.parse(sessionStorage.getItem('login'));
+    const login = JSON.parse(localStorage.getItem('login'));
 
     const [value, setValue] = React.useState({
         name: currentName,
@@ -48,7 +48,7 @@ export function Profile() {
 
     const logoutUser = React.useCallback(() => {
         dispatch(letLogoutUser());
-        sessionStorage.setItem('login', JSON.stringify(false));
+        localStorage.setItem('login', JSON.stringify(false));
     }, [dispatch])
 
    React.useEffect(() => {

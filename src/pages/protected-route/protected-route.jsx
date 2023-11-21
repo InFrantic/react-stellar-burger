@@ -4,7 +4,7 @@ import { Navigate, useLocation } from "react-router";
 function ProtectedRoute({ onlyUnAuth = false, component }) {
 
     const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
-    const user = useSelector((store) => store.login.user);
+    const login = JSON.parse(localStorage.getItem('login'));
     const location = useLocation();
     const { from } = location.state || { from: { pathname: "/" } };
 
@@ -12,11 +12,11 @@ function ProtectedRoute({ onlyUnAuth = false, component }) {
         return null;
     }
 
-    if (onlyUnAuth && user) {
+    if (onlyUnAuth && login) {
         return <Navigate to={from} />;
     }
 
-    if (!onlyUnAuth && !user) {
+    if (!onlyUnAuth && !login) {
         return <Navigate to="/login" state={{ from: location }} />;
     }
 

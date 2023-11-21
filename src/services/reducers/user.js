@@ -1,7 +1,7 @@
 import { GET_USER_INFO, PATCH_USER_INFO, SET_AUTH_CHECKED } from "../action/user";
 
 const initialState = {
-  success: false,
+  success: null,
   isAuthChecked: false,
   user: {
     email: '',

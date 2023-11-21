@@ -7,9 +7,7 @@ import { useDispatch } from 'react-redux';
 
 export function Login() {
 
-    // const login = JSON.parse(sessionStorage.getItem('login'));
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const handleSubmit = (e) => {
@@ -20,12 +18,6 @@ export function Login() {
         }
         dispatch(getLoginUser(user))
     }
-    // React.useEffect(() => {
-    //     if (login) {
-    //         navigate('/')
-    //     }
-    // }, [login, navigate])
-
 
     return (
         <div className={`${styles.login}`}>

@@ -1,4 +1,4 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styles from './ingredient-details.module.css';
 import IngredientInfo from './ingredient-info'
 import { useSelector } from "react-redux";
@@ -10,9 +10,6 @@ function IngredientDetails() {
     const ingredients = useSelector(store => store.burgerIngredients.ingredients)
     const currentIngredient = ingredients.find(item => item._id === idCurrentItem);
     const { proteins, calories, fat, carbohydrates, name, image_large } = currentIngredient
-    // const location = useLocation()
-    // const background = location.state && location.state.background;
-    // const testContainer = background ? "" : "container"
 
     return (
         <div className={`${styles.details} pb-5`}>
