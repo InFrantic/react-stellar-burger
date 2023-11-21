@@ -41,6 +41,7 @@ export const logout = () => {
   return (dispatch) => {
     return auth.logout()
       .then(() => {
+        localStorage.removeItem("login");
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         dispatch(clearUser());
@@ -52,6 +53,7 @@ export const login = (password, email) => {
   return (dispatch) => {
     return auth.login(password, email)
       .then((res) => {
+        localStorage.setItem("login", res.login);
         localStorage.setItem("accessToken", res.accessToken);
         localStorage.setItem("refreshToken", res.refreshToken);
         dispatch(setUser(res.user));

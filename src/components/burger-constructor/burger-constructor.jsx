@@ -36,7 +36,7 @@ function BurgerConstructor({ onDropHandler }) {
     }
 
     const navigate = useNavigate();
-    const login = JSON.parse(localStorage.getItem('login'));
+    const login = localStorage.getItem('login');
 
     function handleSubmitOrder() {
         if (!login) {
