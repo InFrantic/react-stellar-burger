@@ -36,10 +36,10 @@ function BurgerConstructor({ onDropHandler }) {
     }
 
     const navigate = useNavigate();
-    const login = localStorage.getItem('login');
-
+    const user = useSelector((store) => store.user.user);
+    
     function handleSubmitOrder() {
-        if (!login) {
+        if (!user) {
             navigate('/login')
         } else {
             const ingredientsOrder = getListIdIngredients();
