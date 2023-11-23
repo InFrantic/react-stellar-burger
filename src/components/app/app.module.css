@@ -1,12 +1,13 @@
 .app {
-  display: flex;
+  position: relative;
   height: 100vh;
   background-color: #131316;
   color: #f2f2f3;
-  flex-direction: column;
+ 
 }
 
 .burgers {
   display: flex;
   align-self: center;
+  justify-content: center;
 }

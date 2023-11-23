@@ -1,30 +1,15 @@
 import styles from "./burger-ingredients.module.css";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsRender from "./ingredients-list";
-import { useState, useMemo, useRef, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import { setIngredientDetails } from '../../services/action/ingredient-details';
-import { useModal } from "../../hooks/useModal";
-import Modal from '../modal/modal';
+import { useState, useMemo, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 function BurgerIngredients() {
     const ingredients = useSelector(store => store.burgerIngredients.ingredients);
-    const dispatch = useDispatch()
 
     const buns = useMemo(() => ingredients.filter(item => item.type === "bun"), [ingredients]);
     const mains = useMemo(() => ingredients.filter(item => item.type === "main"), [ingredients]);
     const sauces = useMemo(() => ingredients.filter(item => item.type === "sauce"), [ingredients]);
-
-    const { isModalOpen, openModal, closeModal } = useModal();
-
-    const handleOpenModal = (item) => {
-        dispatch(setIngredientDetails(item))
-        openModal(true);
-    }
-    const handleCloseModal = (value) => {
-        closeModal(value)
-    };
 
     const [activeTab, setActiveTab] = useState('Bun')
     const bunsRef = useRef();
@@ -79,7 +64,7 @@ function BurgerIngredients() {
                 <p id='bun' ref={bunsRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Булки</p>
                 <div className={`${styles['ingredient-list']}`}>
                     {buns.map((currentItem) => (
-                        <IngredientsRender key={currentItem._id} onClick={() => handleOpenModal(currentItem)}
+                        <IngredientsRender key={currentItem._id} 
                             img={currentItem.image}
                             price={currentItem.price}
                             description={currentItem.name}
@@ -90,7 +75,7 @@ function BurgerIngredients() {
                 <p id='sauce' ref={saucesRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Соусы</p>
                 <div className={`${styles['ingredient-list']}`}>
                     {sauces.map((currentItem) => (
-                        <IngredientsRender key={currentItem._id} onClick={() => handleOpenModal(currentItem)}
+                        <IngredientsRender key={currentItem._id} 
                             img={currentItem.image}
                             price={currentItem.price}
                             description={currentItem.name}
@@ -101,7 +86,7 @@ function BurgerIngredients() {
                 <p id='main' ref={mainsRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Начинка</p>
                 <div className={`${styles['ingredient-list']}`}>
                     {mains.map((currentItem) => (
-                        <IngredientsRender key={currentItem._id} onClick={() => handleOpenModal(currentItem)}
+                        <IngredientsRender key={currentItem._id} 
                             img={currentItem.image}
                             price={currentItem.price}
                             description={currentItem.name}
@@ -110,8 +95,6 @@ function BurgerIngredients() {
                     ))}
                 </div>
             </div>
-            {isModalOpen && <Modal title="Детали ингредиента" onClose={handleCloseModal}>
-                <IngredientDetails></IngredientDetails></Modal>}
         </div>
     )
 }

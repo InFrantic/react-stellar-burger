@@ -1,40 +1,77 @@
-import { DndProvider } from "react-dnd";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import { Route, Routes } from 'react-router-dom';
+import { Login } from '../../pages/login/login';
+import { Home } from '../../pages/home/home';
+import { Register } from '../../pages/register/register';
+import { NotFound } from "../../pages/not-found/not-found";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import Modal from '../modal/modal';
+import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
+import { ResetPassword } from "../../pages/reset-password/reset-password";
+import { Profile } from "../../pages/profile/profile";
+import { OnlyAuth, OnlyUnAuth } from "../../pages/protected-route/protected-route";
 import { getIngred } from "../../services/action/burger-ingredients";
-import { useEffect, useMemo } from "react";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch, useSelector } from "react-redux";
-import { addFilling, chooseBun } from "../../services/action/burger-constructor";
+import {checkUserAuth} from "../../services/action/user";
 
 function App() {
+
   const dispatch = useDispatch();
-  const ingredients = useSelector((store) => store.burgerIngredients.ingredients);
 
   useEffect(() => {
+    dispatch(checkUserAuth());
     dispatch(getIngred());
   }, []);
 
-  const handleDrop = (ingredient) => {
-    if (ingredient.type === "bun") {
-      dispatch(chooseBun(ingredient))
-    } else {
-      dispatch(addFilling(ingredient))
+  const { ingredients, isLoading, hasError } = useSelector(store => store.burgerIngredients);
+  const location = useLocation();
+  const background = location.state && location.state.background;
+  const navigate = useNavigate();
+
+  if (isLoading) {
+    return <div className={`text text_type_main-default`}>Загрузка...</div>
+  } else {
+    if (hasError) {
+      return <div className={`text text_type_main-default`}>Произошла ошибка</div>
+    } else if (ingredients.length === 0) {
+      return <div className={`text text_type_main-default`}>Нет данных</div>
     }
+  }
+
+  const handleCloseModals = () => {
+    navigate('/');
   };
 
   return (
-    <div className={styles.app}>
+    <div className={styles.app} >
       <AppHeader />
-      <main className={styles.burgers}>
-        <DndProvider backend={HTML5Backend}>
-        <BurgerIngredients />
-          <BurgerConstructor onDropHandler={handleDrop} />
-        </DndProvider>
+      <main className={styles.burgers} >
+        <Routes location={background || location}>
+          <Route path="/profile" element={<OnlyAuth component={<Profile />} />} />
+          <Route path='/' element={<Home />} />
+          <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
+          <Route path='/register' element={<OnlyUnAuth component={<Register />} />} />
+          <Route path='/forgot-password' element={<OnlyUnAuth component={<ForgotPassword />} />} />
+          <Route path='/reset-password' element={<OnlyUnAuth component={<ResetPassword />} />} />
+          <Route path='/ingredients/:id' element={<IngredientDetails />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
-    </div >
+      {background && (
+        <Routes>
+          <Route path="/ingredients/:id"
+            element={
+              <Modal onClose={handleCloseModals}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+    </div>
   );
 }
 

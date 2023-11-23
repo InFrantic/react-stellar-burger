@@ -3,15 +3,15 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
-import {ingredientPropType} from "../../utils/prop-types";
-import PropTypes from "prop-types";
+import { ingredientPropType } from "../../utils/prop-types";
+import { Link, useLocation } from "react-router-dom";
 
-export default function IngredientsRender({ currentItem, onClick }) {
+export default function IngredientsRender({ currentItem }) {
 
     const other = useSelector(state => state.filling.other)
     const bun = useSelector(state => state.filling.bun)
 
-    const [{ isDrag }, dragRef] = useDrag({
+    const [, dragRef] = useDrag({
         type: "burgerConstructor",
         item: currentItem,
 
@@ -31,21 +31,29 @@ export default function IngredientsRender({ currentItem, onClick }) {
         }
         return count
     }, [other, bun])
-    
+
+    const location = useLocation()
+    const id = currentItem._id
+
     return (
-        <div className={`${styles["ingredient"]}`} ref={dragRef} onClick={onClick}>
-            <img alt={currentItem.name} src={currentItem.image} className={`${styles["ingredient-img"]} pl-4 pr-4 pb-1`} />
-            <div className={`${styles["ingredient-price"]} pb-1`}>
-                <p className={`${styles["price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}>{currentItem.price}</p>
-                <CurrencyIcon type="primary" />
+        <Link
+            key={id}
+            className={`${styles.link}`}
+            to={`/ingredients/${id}`}
+            state={{ background: location }}
+            >
+            <div className={`${styles["ingredient"]}`} ref={dragRef} >
+                    <img alt={currentItem.name} src={currentItem.image} className={`${styles["ingredient-img"]} pl-4 pr-4 pb-1`} />
+                    <div className={`${styles["ingredient-price"]} pb-1`}>
+                        <p className={`${styles["price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}>{currentItem.price}</p>
+                        <CurrencyIcon type="primary" />
+                    </div>
+                    <p className={`${styles["ingredient-name"]} text text_type_main-default`}>{currentItem.name}</p>
+                    {count > 0 && <Counter count={count} />}
             </div>
-            <p className={`${styles["ingredient-name"]} text text_type_main-default`}>{currentItem.name}</p>
-            {count > 0 && <Counter count={count}/>}
-        </div>
+        </Link >
     )
 }
 
 IngredientsRender.propTypes = {
-    currentItem: ingredientPropType,
-    onClick: PropTypes.func.isRequired,
-  };
+    currentItem: ingredientPropType};
