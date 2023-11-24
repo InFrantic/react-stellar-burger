@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import styles from './profile.module.css';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,7 +52,7 @@ export function Profile() {
             .setItem('login', JSON.stringify(false));
     }, [dispatch])
 
-   useEffect(() => {
+    useEffect(() => {
         if (login) {
             dispatch(getUserInfo());
         }
@@ -62,10 +62,10 @@ export function Profile() {
     return (
         <div className={`${styles.profile}`}>
             <nav className={`mt-30 ${styles.menu}`}>
-                <NavLink className={`text text_type_main-medium ${styles.link}`}>
+                <NavLink className={`text text_type_main-medium ${styles.link}`} to='/profile'>
                     Профиль
                 </NavLink>
-                <NavLink className={`text text_type_main-medium ${styles.link}`} >
+                <NavLink className={`text text_type_main-medium ${styles.link}`} to={"/profile/orders"}>
                     История заказов
                 </NavLink>
                 <button
@@ -79,6 +79,7 @@ export function Profile() {
                 <p className={`mt-20 text text_color_inactive text_type_main-default ${styles.text}`}>В этом разделе вы можете изменить свои персональные данные
                 </p>
             </nav >
+            <Outlet />
             <form
                 name='edit-data'
                 action='#'

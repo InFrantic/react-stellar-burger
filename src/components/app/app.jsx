@@ -29,7 +29,10 @@ function App() {
       <AppHeader />
       <main className={styles.burgers} >
         <Routes location={background || location}>
-          <Route path="/profile" element={<OnlyAuth component={<Profile />} />} />
+          <Route path="/profile" element={<OnlyAuth component={<Profile />} />}>
+          <Route path="/profile/orders" element={<NotFound />} />
+          <Route path="/profile/orders/:number" element={<NotFound />} />
+          </Route>
           <Route path='/' element={<Home />} />
           <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
           <Route path='/register' element={<OnlyUnAuth component={<Register />} />} />
@@ -37,6 +40,8 @@ function App() {
           <Route path='/reset-password' element={<OnlyUnAuth component={<ResetPassword />} />} />
           <Route path='/ingredients/:id' element={<IngredientDetails />} />
           <Route path="*" element={<NotFound />} />
+          {/* <Route path="/feed" element={<NotFound />} /> */}
+          {/* <Route path="/feed/:number" element={<NotFound />} /> */}
         </Routes>
       </main>
       {background && (
