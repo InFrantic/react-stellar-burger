@@ -6,23 +6,44 @@ import { Home } from '../../pages/home/home';
 import { Register } from '../../pages/register/register';
 import { NotFound } from "../../pages/not-found/not-found";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useCallback } from "react";
+import { useEffect } from "react";
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
 import { ResetPassword } from "../../pages/reset-password/reset-password";
 import { Profile } from "../../pages/profile/profile";
 import { OnlyAuth, OnlyUnAuth } from "../../pages/protected-route/protected-route";
+import { getIngred } from "../../services/action/burger-ingredients";
+import { useDispatch, useSelector } from "react-redux";
+import {checkUserAuth} from "../../services/action/user";
 
 function App() {
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkUserAuth());
+    dispatch(getIngred());
+  }, []);
+
+  const { ingredients, isLoading, hasError } = useSelector(store => store.burgerIngredients);
   const location = useLocation();
   const background = location.state && location.state.background;
-  const history = useNavigate();
+  const navigate = useNavigate();
+
+  if (isLoading) {
+    return <div className={`text text_type_main-default`}>Загрузка...</div>
+  } else {
+    if (hasError) {
+      return <div className={`text text_type_main-default`}>Произошла ошибка</div>
+    } else if (ingredients.length === 0) {
+      return <div className={`text text_type_main-default`}>Нет данных</div>
+    }
+  }
 
   const handleCloseModals = () => {
-    history('/')
-  }
+    navigate('/');
+  };
 
   return (
     <div className={styles.app} >
@@ -54,8 +75,7 @@ function App() {
             }
           />
         </Routes>
-      )
-      }
+      )}
     </div>
   );
 }

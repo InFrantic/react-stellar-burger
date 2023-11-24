@@ -1,28 +1,20 @@
 import { baseUrl } from "../../utils/api";
 import { request } from '../../utils/api';
 
-export const GET_PASSWORD_SUCCESS = 'GET_PASSWORD_SUCCESS';
+export const EMAIL = 'EMAIL';
 
-const passwordSuccess = (payload) => ({
-  type: GET_PASSWORD_SUCCESS,
-  payload
-})
-
-export const getPasswordSuccess = () => {
-  const url = `${baseUrl}/password-reset`;
-  const options = {
+export const forgotPassword = (email) => {
+  return request(`${baseUrl}/password-reset`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify({
-      email: ''
+      "email": email,
     })
-  };
-  return (dispatch) => {
-    request(url, options)
-      .then(({ success, message }) => {
-        
-        dispatch(passwordSuccess(success));
-      })
-      .catch(console.warn);
-  }
+  })
+}
+
+export function email(value) {
+  return { type: EMAIL, payload: value }
 }

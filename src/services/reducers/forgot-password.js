@@ -1,15 +1,15 @@
-import { GET_PASSWORD_SUCCESS } from "../action/forgot-password";
+import { EMAIL } from "../action/forgot-password";
 
 const initialState = {
-  success: false
+  email: '',
 }
 
 export const forgotPasswordReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PASSWORD_SUCCESS: {
-      return {  
+    case EMAIL: {
+      return {
         ...state,
-        success: action.payload
+        email: action.payload
       }
     }
     default: {

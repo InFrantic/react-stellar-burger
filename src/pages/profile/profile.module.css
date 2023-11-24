@@ -2,7 +2,7 @@
     max-width: 1240px;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    /* justify-content: start; */
     gap: 60px;
     margin-left: auto;
     margin-right: auto;
@@ -64,6 +64,6 @@
 .profileButtons {
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    /* justify-content: end; */
     align-items: center;
 }

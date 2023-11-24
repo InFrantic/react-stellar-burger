@@ -1,27 +1,24 @@
-import React from "react";
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './forgot-password.module.css';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { getPasswordSuccess } from "../../services/action/forgot-password";
+import { forgotPassword, email } from "../../services/action/forgot-password";
 
-export function ForgotPassword()  {
+export function ForgotPassword() {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const navigate = useNavigate()
-    const success = useSelector(state => state.forgotPassword.success);
-    const login = JSON.parse(sessionStorage.getItem('login'));
-  
-    const [value, setValue] = React.useState('')
-   
-    const handleClick = React.useCallback((e) => {
-      e.preventDefault();
-      dispatch(getPasswordSuccess());
-      success ? navigate('/reset-password') : navigate('/forgot-password')
-    }, [dispatch, navigate, success])
-  
-    if (login) {
-      return (<Navigate to={'/profile'} />)
+    const emailValue = useSelector(store => store.forgotPassword.email)
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        if (emailValue) {
+            forgotPassword(emailValue)
+                .then(() => {
+                    localStorage.setItem("forgotPasswordChecked", true);
+                    navigate('/reset-password', { replace: false });
+                })
+        }
     }
 
     return (
@@ -29,14 +26,14 @@ export function ForgotPassword()  {
             <form
                 name='register'
                 action='#'
-                onSubmit={handleClick}
+                onSubmit={handleSubmit}
                 className={`${styles.form}`}
             >
                 <h3 className={`mb-6 text text_type_main-medium ${styles.text}`} >Сброс пароля</h3>
                 <EmailInput
                     extraClass={`mb-6`}
-                    onChange={e => setValue(e.target.value)}
-                    value={value}
+                    onChange={e => dispatch(email(e.target.value))}
+                    value={emailValue}
                     name={'email'}
                     isIcon={false}
                     error={false}

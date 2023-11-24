@@ -1,15 +1,22 @@
-import { GET_RESET_PASSWORD_SUCCESS } from '../action/reset-password'
+import { PASSWORD, TOKEN } from '../action/reset-password'
 
 const initialState = {
-  success: false
+  password: '',
+  token: '',
 }
 
 export const resetPasswordReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_RESET_PASSWORD_SUCCESS: {
+    case PASSWORD: {
       return {
         ...state,
-        success: action.payload
+        password: action.payload
+      }
+    }
+    case TOKEN: {
+      return {
+        ...state,
+        token: action.payload
       }
     }
     default: {

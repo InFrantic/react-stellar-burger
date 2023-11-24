@@ -1,72 +1,91 @@
-import { baseUrl } from "../../utils/api";
-import { request, refreshToken } from "../../utils/api";
-import { getCookie } from "../../utils/coockie";
+import { auth } from "../../utils/api";
 
-export const GET_USER_INFO = 'GET_USER_INFO';
-export const PATCH_USER_INFO = 'PATCH_USER_INFO';
+export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
+export const SET_USER = "SET_USER";
+export const CLEAR_USER = "CLEAR_USER";
 
-const userInfo = (payload) => ({
-  type: GET_USER_INFO,
-  payload
+export const setAuthChecked = (value) => ({
+  type: SET_AUTH_CHECKED,
+  payload: value,
 });
 
-const newUserInfo = (payload) => ({
-  type: PATCH_USER_INFO,
-  payload
+export const setUser = (user) => ({
+  type: SET_USER,
+  payload: user,
 });
 
-export const getUserInfo = () => {
-  const url = `${baseUrl}/auth/user`;
-  const options = {
-    headers: {
-      authorization: 'Bearer ' + getCookie('access'),
-      'Content-Type': 'application/json'
+export const clearUser = () => ({
+  type: CLEAR_USER,
+});
+
+
+export const getUser = () => {
+  return (dispatch) => {
+    return auth.getUser()
+      .then((res) => {
+        dispatch(setUser(res.user));
+      });
+  };
+};
+
+export const updateUser = (email, name, password) => {
+  return (dispatch) => {
+    return auth.updateUser(email, name, password)
+      .then((res) => {
+        dispatch(setUser(res.user));
+      });
+  };
+};
+
+export const logout = () => {
+  return (dispatch) => {
+    return auth.logout()
+      .then(() => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        dispatch(clearUser());
+      });
+  };
+};
+
+export const login = (password, email) => {
+  return (dispatch) => {
+    return auth.login(password, email)
+      .then((res) => {
+        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem("refreshToken", res.refreshToken);
+        dispatch(setUser(res.user));
+        dispatch(setAuthChecked(true));
+      })
+      .catch(console.warn)
+  };
+};
+
+export const register = (name, password, email) => {
+  return (dispatch) => {
+    return auth.register(name, password, email)
+      .then((res) => {
+        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem("refreshToken", res.refreshToken);
+        dispatch(setUser(res.user));
+        dispatch(setAuthChecked(true));
+      })
+      .catch(console.warn)
+  };
+};
+
+export const checkUserAuth = () => {
+  return (dispatch) => {
+    if (localStorage.getItem("accessToken")) {
+      dispatch(getUser())
+        .catch(() => {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          dispatch(setUser(null));
+        })
+        .finally(() => dispatch(setAuthChecked(true)));
+    } else {
+      dispatch(setAuthChecked(true));
     }
   };
-
-  return (dispatch) => {
-    request(url, options)
-      .then((data) => {
-        const { success } = data;
-        if (success) {
-          dispatch(userInfo(data));
-        }
-      })
-      .catch((err) => {
-        if (err) {
-          refreshToken()
-        }
-      })
-  }
-}
-
-export const setUserInfo = (email, name, password) => {
-  const url = `${baseUrl}/auth/user`;
-  const options = {
-    method: 'PATCH',
-    headers: {
-      authorization: 'Bearer ' + getCookie('access'),
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email,
-      name,
-      password
-    })
-  };
-
-  return (dispatch) => {
-    request(url, options)
-      .then((data) => {
-        const { success } = data;
-        if (success) {
-          dispatch(newUserInfo(data));
-        }
-      })
-      .catch((err) => {
-        if (err) {
-          refreshToken()
-        }
-      })
-  }
 }

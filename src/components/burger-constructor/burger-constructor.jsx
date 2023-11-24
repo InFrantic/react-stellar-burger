@@ -36,10 +36,10 @@ function BurgerConstructor({ onDropHandler }) {
     }
 
     const navigate = useNavigate();
-    const login = JSON.parse(sessionStorage.getItem('login'));
-
+    const user = useSelector((store) => store.user.user);
+    
     function handleSubmitOrder() {
-        if (!login) {
+        if (!user) {
             navigate('/login')
         } else {
             const ingredientsOrder = getListIdIngredients();
@@ -72,7 +72,6 @@ function BurgerConstructor({ onDropHandler }) {
         )
     }
     const order = useSelector(state => state.order.orderNumber)
-    const showIngredientDetails = useSelector(store => store.details.details)
 
     function handleCloseModal() {
         dispatch(clearIngredientDetails())

@@ -1,39 +1,37 @@
-import React, { useEffect } from "react";
-import { NavLink, Outlet } from 'react-router-dom';
+import React from "react";
+import { NavLink } from 'react-router-dom';
 import styles from './profile.module.css';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo, getUserInfo } from '../../services/action/user';
-import { letLogoutUser } from '../../services/action/login';
+import { updateUser, logout } from '../../services/action/user';
 
 export function Profile() {
 
     const dispatch = useDispatch();
-    const currentName = useSelector(state => state.user.user.name);
-    const currentEmail = useSelector(state => state.user.user.email);
-    const login = JSON.parse(sessionStorage.getItem('login'));
+    const name = useSelector(state => state.user.user.name);
+    const email = useSelector(state => state.user.user.email);
 
     const [value, setValue] = React.useState({
-        name: currentName,
-        email: currentEmail,
+        name: name,
+        email: email,
         password: '',
     });
 
-    useEffect(() => {
+    React.useEffect(() => {
         setValue({
-            name: currentName,
-            email: currentEmail,
+            name: name,
+            email: email,
             password: ''
         })
-    }, [currentEmail, currentName])
+    }, [email, name])
 
     const saveInfo = (e) => {
         e.preventDefault();
         const { email, name, password } = value;
-        dispatch(setUserInfo(email, name, password));
+        dispatch(updateUser(email, name, password));
         setValue({
-            name: currentName,
-            email: currentEmail,
+            name: name,
+            email: email,
             password: ''
         })
     }
@@ -47,17 +45,8 @@ export function Profile() {
     }
 
     const logoutUser = React.useCallback(() => {
-        dispatch(letLogoutUser());
-        sessionStorage
-            .setItem('login', JSON.stringify(false));
+        dispatch(logout());
     }, [dispatch])
-
-    useEffect(() => {
-        if (login) {
-            dispatch(getUserInfo());
-        }
-    }, [dispatch, login])
-
 
     return (
         <div className={`${styles.profile}`}>

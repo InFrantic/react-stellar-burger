@@ -1,29 +1,28 @@
-import { GET_USER_INFO, PATCH_USER_INFO } from "../action/user";
+import { SET_USER, SET_AUTH_CHECKED, CLEAR_USER } from "../action/user";
 
 const initialState = {
-  success: false,
-  user: {
-    email: '',
-    name: ''
-  },
+  isAuthChecked: false,
+  user: null
 };
 
 export const getUserInfoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER_INFO: {
+    case SET_USER: {
       return {
         ...state,
-        success: action.payload.success,
-        user: action.payload.user,
+        user: action.payload,
       }
     }
-    case PATCH_USER_INFO: {
+    case SET_AUTH_CHECKED:
       return {
         ...state,
-        success: action.payload.success,
-        user: action.payload.user,
+        isAuthChecked: action.payload
       }
-    }
+    case CLEAR_USER:
+      return {
+        ...state,
+        user: null,
+      }
     default: {
       return state;
     }
