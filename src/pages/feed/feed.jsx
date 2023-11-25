@@ -1,16 +1,58 @@
-import React from "react";
-import { OrdersReady } from "../../components/orders-ready/orders-ready";
+import styles from "./feed.module.css";
+import { useSelector, useDispatch } from 'react-redux';
+import {OrdersReady} from "../../components/orders-ready/orders-ready";
+import { useEffect } from "react";
+import { connect, disconnect } from "../../services/action/feed";
+import Order from "../../components/order/order";
+import { useLocation, Link } from "react-router-dom";
 
 export function Feed() {
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const ORDERS_ALL_URL = "wss://norma.nomoreparties.space/orders/all";
+    useEffect(() => {
+        dispatch(connect(ORDERS_ALL_URL));
+        return () => {
+            dispatch(disconnect(ORDERS_ALL_URL));
+        }
+    }, [dispatch]);
+
+    const { isLoading, Error, orders } = useSelector(store => store.feed);
 
     return (
-        <>
-            <section className={'pl-5 pr-5 half-home'}>
-                <p className="text text_type_main-large pb-5">Лента заказов</p>
-            </section>
-            <section className={'pl-5 pr-5 pt-15 half-home'}>
-                <OrdersReady />
-            </section>
-        </>
+        <div className={styles.global}>
+            <h1 className={`${styles.header} text text_type_main-large pb-5`}>
+                Лента заказов
+            </h1>
+            <main className={`${styles.main} `}>
+                <section className={`${styles.section1} pb-10 custom-scroll`}>
+                    {isLoading && 'Загрузка...'}
+                    {Error && 'Произошла ошибка'}
+                    {!isLoading &&
+                        !Error &&
+                        orders !== null &&
+                        orders.map((order) => (
+                            <Link
+                                className={styles.link}
+                                key={order.number}
+                                to={`${"/feed"}/${order.number}`}
+                                state={{ background: location }} >
+                                <Order key={order._id} order={order} />
+                            </Link>
+                        )
+                        )}
+                </section>
+
+                <section className={`${styles.section2} pb-10`}>
+                    {isLoading && 'Загрузка...'}
+                    {Error && 'Произошла ошибка'}
+                    {!isLoading &&
+                        !Error &&
+                        orders !== null && <OrdersReady />}
+
+                </section>
+
+            </main>
+        </div>
     )
 }

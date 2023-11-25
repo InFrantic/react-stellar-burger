@@ -1,4 +1,3 @@
-import {WebsocketStatus} from "../../utils/ws";
 import {
     FEED_WS_CLOSE,
     FEED_WS_CONNECTING,
@@ -8,29 +7,31 @@ import {
 } from "../action/feed";
 
 const initialState = {
-    status: WebsocketStatus.OFFLINE,
-    data: null,
-    connectingError: null
+    isLoading: false,
+    feedConnected: false,
+    connectingError: null,
+    orders: [],
+    total: null,
+    totalToday: null
 };
 
 export const feedReducer = (state = initialState, action) => {
-    switch (action.type)
-    {
+    switch (action.type) {
         case FEED_WS_CONNECTING:
             return {
                 ...state,
-                status: WebsocketStatus.CONNECTING
+                isLoading: true,
             };
         case FEED_WS_OPEN:
             return {
                 ...state,
-                status: WebsocketStatus.ONLINE,
-                connectingError: ''
+                isLoading: false,
+                feedConnected: true,
             };
         case FEED_WS_CLOSE:
             return {
                 ...state,
-                status: WebsocketStatus.OFFLINE,
+                feedConnected: false,
             };
         case FEED_WS_ERROR:
             return {
@@ -40,7 +41,10 @@ export const feedReducer = (state = initialState, action) => {
         case FEED_WS_MESSAGE:
             return {
                 ...state,
-                data: action.payload,
+                feedConnected: true,
+                orders: action.payload.orders,
+                total: action.payload.total,
+                totalToday: action.payload.totalToday,
             }
         default:
             return state;

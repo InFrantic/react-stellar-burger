@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 
 function BurgerConstructor({ onDropHandler }) {
 
+    const isLoading = useSelector(store => store.order.isLoading);
+
     const [, dropTarget] = useDrop({
         accept: "burgerConstructor",
         drop(ingredient) {
@@ -82,6 +84,7 @@ function BurgerConstructor({ onDropHandler }) {
 
     return (
         <div className={`ml-4 mt-20 ${styles.burgerConstructor}`}>
+            {isLoading && <div>Ваш заказ обрабатывается</div>}
             <div ref={dropTarget} className={`pt-5 pb-5 ${styles.dropContainer}`}>
                 <div className={styles.list}>
                     {bun && <div>

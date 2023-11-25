@@ -11,7 +11,8 @@ export const getOrder = (ingredientsOrder) => {
   return fetch(`${baseUrl}/orders`, {
     method: "POST",
     headers: {
-      "Content-type": 'application/json'
+      "Content-type": 'application/json',
+      authorization: localStorage.getItem('accessToken')
     },
     body: JSON.stringify({
       ingredients: ingredientsOrder

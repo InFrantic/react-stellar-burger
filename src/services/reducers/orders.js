@@ -1,4 +1,3 @@
-import {WebsocketStatus} from "../../utils/ws";
 import {
   ORDERS_WS_CONNECTING,
   ORDERS_WS_ERROR,
@@ -8,36 +7,44 @@ import {
 } from "../action/orders";
 
 const initialState = {
-  status: WebsocketStatus.OFFLINE,
-  data: null,
+  isLoading: false,
+  feedConnected: false,
   connectingError: null,
+  orders: [],
+  total: null,
+  totalToday: null
 }
 
 export const ordersReducer = (state = initialState, action) => {
   switch (action.type) {
     case ORDERS_WS_CONNECTING:
-      return{
+      return {
         ...state,
-        status: WebsocketStatus.CONNECTING,
+        isLoading: true,
       };
     case ORDERS_WS_OPEN:
-      return{
+      return {
         ...state,
-        status: WebsocketStatus.ONLINE,
+        isLoading: false,
+        feedConnected: true,
       };
     case ORDERS_WS_ERROR:
-      return{
+      return {
         ...state,
         connectingError: action.payload,
       };
     case ORDERS_WS_MESSAGE:
-      return{
+      return {
         ...state,
-        data: action.payload,
+        feedConnected: true,
+        orders: action.payload.orders,
+        total: action.payload.total,
+        totalToday: action.payload.totalToday,
       };
     case ORDERS_WS_CLOSE:
-      return{
-        ...initialState
+      return {
+        ...state,
+        feedConnected: false,
       };
     default:
       return state;

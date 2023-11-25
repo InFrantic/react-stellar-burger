@@ -1,17 +1,38 @@
-.feed {
-    max-width: 1240px;
-    display: flex;
-    flex-direction: column;
+.global {
+    width: 1280px;
     margin: 0 auto;
 }
 
-.feedContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 60px;
+.header {
+    width: 100%;
+    padding-left: 18px;
 }
 
-.ordersFeed {
-    max-width: 600px;
-}
+.section1 {
+    width: 100%;
+    max-width: 608px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 852px;
+    overflow-y: auto;
+  }
+
+  .section2 {
+    width: 100%;
+    max-width: 580px;
+  }
+  
+  .main {
+    display: flex;
+    justify-content: center;
+    column-gap: 60px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .link {
+    text-decoration: none;
+    color: rgba(242, 242, 243, 1);
+  }
