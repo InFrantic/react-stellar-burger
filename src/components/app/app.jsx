@@ -15,7 +15,8 @@ import { Profile } from "../../pages/profile/profile";
 import { OnlyAuth, OnlyUnAuth } from "../../pages/protected-route/protected-route";
 import { getIngred } from "../../services/action/burger-ingredients";
 import { useDispatch, useSelector } from "react-redux";
-import {checkUserAuth} from "../../services/action/user";
+import { checkUserAuth } from "../../services/action/user";
+import { Feed } from "../../pages/feed/feed";
 
 function App() {
 
@@ -51,8 +52,8 @@ function App() {
       <main className={styles.burgers} >
         <Routes location={background || location}>
           <Route path="/profile" element={<OnlyAuth component={<Profile />} />}>
-          <Route path="/profile/orders" element={<NotFound />} />
-          <Route path="/profile/orders/:number" element={<NotFound />} />
+            <Route path="/profile/orders" element={<NotFound />} />
+            <Route path="/profile/orders/:number" element={<NotFound />} />
           </Route>
           <Route path='/' element={<Home />} />
           <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
@@ -61,8 +62,10 @@ function App() {
           <Route path='/reset-password' element={<OnlyUnAuth component={<ResetPassword />} />} />
           <Route path='/ingredients/:id' element={<IngredientDetails />} />
           <Route path="*" element={<NotFound />} />
-          {/* <Route path="/feed" element={<NotFound />} /> */}
-          {/* <Route path="/feed/:number" element={<NotFound />} /> */}
+          <Route path="/feed" element={<Feed />} >
+            <Route path="/feed/:number" element={<NotFound />} />
+          </Route>
+
         </Routes>
       </main>
       {background && (

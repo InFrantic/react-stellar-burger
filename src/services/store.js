@@ -6,6 +6,8 @@ import {orderDetailsReducer} from "./reducers/order-details";
 import { forgotPasswordReducer } from './reducers/forgot-password';
 import { resetPasswordReducer } from './reducers/reset-password';
 import { getUserInfoReducer } from './reducers/user';
+import { feedReducer } from "./reducers/feed";
+import { ordersReducer } from "./reducers/orders";
    
 export const store = configureStore({
     reducer: {
@@ -15,6 +17,8 @@ export const store = configureStore({
         order: orderDetailsReducer,
         forgotPassword: forgotPasswordReducer,
         resetPassword: resetPasswordReducer,
-        user: getUserInfoReducer
+        user: getUserInfoReducer,
+        feed: feedReducer,
+        orders: ordersReducer
     },
 });

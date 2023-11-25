@@ -1,4 +1,4 @@
-import {WebsocketStatus} from "../../utils/live-table";
+import {WebsocketStatus} from "../../utils/ws";
 import {
     FEED_WS_CLOSE,
     FEED_WS_CONNECTING,
@@ -6,12 +6,11 @@ import {
     FEED_WS_MESSAGE,
     FEED_WS_OPEN
 } from "../action/feed";
-import {liveTableUpdate} from "./live-table-update";
 
 const initialState = {
     status: WebsocketStatus.OFFLINE,
-    table: [],
-    connectingError: ''
+    data: null,
+    connectingError: null
 };
 
 export const feedReducer = (state = initialState, action) => {
@@ -41,7 +40,7 @@ export const feedReducer = (state = initialState, action) => {
         case FEED_WS_MESSAGE:
             return {
                 ...state,
-                table: liveTableUpdate(state.table, action.payload),
+                data: action.payload,
             }
         default:
             return state;
