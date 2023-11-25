@@ -17,6 +17,8 @@ import { getIngred } from "../../services/action/burger-ingredients";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserAuth } from "../../services/action/user";
 import { Feed } from "../../pages/feed/feed";
+import Orders from "../orders-profile/orders-profile";
+import { ProfilePage } from "../../pages/profile/profile-page";
 
 function App() {
 
@@ -51,8 +53,9 @@ function App() {
       <AppHeader />
       <main className={styles.burgers} >
         <Routes location={background || location}>
-          <Route path="/profile" element={<OnlyAuth component={<Profile />} />}>
-            <Route path="/profile/orders" element={<NotFound />} />
+          <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />}>
+            <Route index element={<OnlyAuth component={<Profile />} />} />
+            <Route path="/profile/orders" element={<Orders />} />
             <Route path="/profile/orders/:number" element={<NotFound />} />
           </Route>
           <Route path='/' element={<Home />} />

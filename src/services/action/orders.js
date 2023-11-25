@@ -6,11 +6,11 @@ export const ORDERS_WS_CLOSE = "ORDERS_WS_CLOSE"
 export const ORDERS_WS_MESSAGE = "ORDERS_WS_MESSAGE"
 export const ORDERS_WS_ERROR = "ORDERS_WS_ERROR"
 
-export const connectFeedOrdersProfile = (url) => ({
+export const connect = (url) => ({
   type: ORDERS_CONNECT,
   payload: url,
 })
 
-export const disconnectFeedOrdersProfile = () => ({
+export const disconnect = () => ({
   type: ORDERS_DISCONNECT,
 })
