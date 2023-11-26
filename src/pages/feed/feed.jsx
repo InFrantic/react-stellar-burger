@@ -1,17 +1,24 @@
 import styles from "./feed.module.css";
 import { useSelector, useDispatch } from 'react-redux';
-import {OrdersReady} from "../../components/orders-ready/orders-ready";
+import { OrdersReady } from "../../components/orders-ready/orders-ready";
 import { useEffect } from "react";
-import { connect } from "../../services/action/feed";
+import { connect, disconnect } from "../../services/action/feed";
 import Order from "../../components/order/order";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useMatch } from "react-router-dom";
 
 export function Feed() {
     const dispatch = useDispatch();
     const location = useLocation();
-    const ordersAllUrl = "wss://norma.nomoreparties.space/orders/all";
+    const ORDERS_ALL_URL = "wss://norma.nomoreparties.space/orders/all";
+    const isFeed = useMatch({ path: "feed", end: false });
+
     useEffect(() => {
-        dispatch(connect(ordersAllUrl));
+        if (isFeed) {
+            dispatch(connect(ORDERS_ALL_URL));
+            return () => {
+                dispatch(disconnect());
+            }
+        }
     }, [dispatch]);
 
     const { isLoading, connectingError, orders } = useSelector(store => store.feed);
@@ -42,9 +49,9 @@ export function Feed() {
 
                 <section className={`${styles.section2} pb-10`}>
                     {isLoading && 'Загрузка...'}
-                    {/* {connectingError && 'Произошла ошибка'} */}
+                    {connectingError && 'Произошла ошибка'}
                     {!isLoading &&
-                        // !connectingError &&
+                        !connectingError &&
                         orders !== null && <OrdersReady />}
 
                 </section>

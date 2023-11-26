@@ -8,7 +8,7 @@ import {
 
 const initialState = {
     isLoading: false,
-    feedConnected: false,
+    feedConnected: null,
     connectingError: null,
     orders: [],
     total: null,

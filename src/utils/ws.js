@@ -1,1 +1,0 @@
-export const BASE_WSS = `wss://norma.nomoreparties.space`;
