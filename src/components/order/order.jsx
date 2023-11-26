@@ -1,5 +1,4 @@
 import styles from "./order.module.css";
-import { v4 as uuidv4 } from 'uuid';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from 'react-redux';
 import { useMemo } from "react";
@@ -58,7 +57,7 @@ export default function Order({ order }) {
                         {orderIngredients.map((ingredient, index) => {
                             if (index < 6) {
                                 return (
-                                    <div className={styles.imgbox} key={uuidv4()}>
+                                    <div className={styles.imgbox} key={ingredient._id}>
                                         <img alt={ingredient.name} src={ingredient.image} className={styles.picture} />
                                         {index === 5 && sliced !== 0 && (<div className={styles.counter}><p className="text text_type_digits-default">{`+${sliced}`}</p></div>
                                         )}

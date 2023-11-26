@@ -1,6 +1,5 @@
 import { useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useMemo } from "react";
 import styles from "./order-content.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -89,7 +88,7 @@ export default function OrderContent() {
             </p>
             <div className={`${styles.cards} custom-scroll mb-10`}>
                 {uniqueOrderIngredients?.map((ingredient) => (
-                    <div className={styles.card} key={uuidv4()}>
+                    <div className={styles.card} key={ingredient._id}>
                         <div className={styles.cardinfo}>
                             <div className={styles.imgbox}>
                                 <img alt={ingredient.name} src={ingredient.image} className={styles.picture}></img>
