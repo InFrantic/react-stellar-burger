@@ -2,7 +2,7 @@ import styles from "./feed.module.css";
 import { useSelector, useDispatch } from 'react-redux';
 import {OrdersReady} from "../../components/orders-ready/orders-ready";
 import { useEffect } from "react";
-import { connect, disconnect } from "../../services/action/feed";
+import { connect } from "../../services/action/feed";
 import Order from "../../components/order/order";
 import { useLocation, Link } from "react-router-dom";
 

@@ -2,7 +2,7 @@ import styles from "./orders-profile.module.css";
 import Order from "../order/order";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { connect, disconnect } from "../../services/action/orders";
+import { connect } from "../../services/action/orders";
 import { useLocation, Link } from "react-router-dom";
 
 export default function Orders() {
