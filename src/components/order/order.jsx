@@ -57,7 +57,7 @@ export default function Order({ order }) {
                         {orderIngredients.map((ingredient, index) => {
                             if (index < 6) {
                                 return (
-                                    <div className={styles.imgbox} key={ingredient._id}>
+                                    <div className={styles.imgbox} key={`${orderIngredients.number}${index}`} index={index}>
                                         <img alt={ingredient.name} src={ingredient.image} className={styles.picture} />
                                         {index === 5 && sliced !== 0 && (<div className={styles.counter}><p className="text text_type_digits-default">{`+${sliced}`}</p></div>
                                         )}
