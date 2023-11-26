@@ -9,7 +9,7 @@ export default function Orders() {
 
     const dispatch = useDispatch();
     const location = useLocation();
-    const { isLoading, Error, orders } = useSelector(store => store.orders);
+    const { isLoading, connectingError, orders } = useSelector(store => store.orders);
 
     const token = localStorage.getItem("accessToken");
     const tokenShot = token.split('Bearer ')[1];
@@ -25,15 +25,15 @@ export default function Orders() {
     return (
         <div className={`${styles.container} custom-scroll`}>
             {isLoading && 'Загрузка...'}
-            {Error && 'Произошла ошибка'}
+            {/* {connectingError && 'Произошла ошибка'} */}
             {!isLoading &&
-                !Error &&
+                // !connectingError &&
                 orders !== null &&
                 [...orders].reverse().map((order) => (
                     <Link
                         className={styles.link}
                         key={order.number}
-                        to={'/profile/orders'}
+                        to={`${'/profile/orders'}/${order.number}`}
                         state={{ background: location }} >
                         <Order key={order._id} order={order} />
                     </Link>

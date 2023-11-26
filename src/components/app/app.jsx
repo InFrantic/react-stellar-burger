@@ -19,6 +19,7 @@ import { checkUserAuth } from "../../services/action/user";
 import { Feed } from "../../pages/feed/feed";
 import Orders from "../orders-profile/orders-profile";
 import { ProfilePage } from "../../pages/profile/profile-page";
+import OrderContent from "../order-content/order-content";
 
 function App() {
 
@@ -45,7 +46,7 @@ function App() {
   }
 
   const handleCloseModals = () => {
-    navigate('/');
+    navigate(-1);
   };
 
   return (
@@ -55,8 +56,7 @@ function App() {
         <Routes location={background || location}>
           <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />}>
             <Route index element={<OnlyAuth component={<Profile />} />} />
-            <Route path="/profile/orders" element={<Orders />} />
-            <Route path="/profile/orders/:number" element={<NotFound />} />
+            <Route path="/profile/orders" element={<OnlyAuth component={<Orders />} />} />
           </Route>
           <Route path='/' element={<Home />} />
           <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
@@ -64,11 +64,10 @@ function App() {
           <Route path='/forgot-password' element={<OnlyUnAuth component={<ForgotPassword />} />} />
           <Route path='/reset-password' element={<OnlyUnAuth component={<ResetPassword />} />} />
           <Route path='/ingredients/:id' element={<IngredientDetails />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/feed/:number" element={<OrderContent />} />
+          <Route path="/profile/orders/:number" element={<OnlyAuth component={<OrderContent />} />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/feed" element={<Feed />} >
-            <Route path="/feed/:number" element={<NotFound />} />
-          </Route>
-
         </Routes>
       </main>
       {background && (
@@ -80,6 +79,19 @@ function App() {
               </Modal>
             }
           />
+          <Route path='/feed/:number'
+            element={
+              <Modal onClose={handleCloseModals}>
+                <OrderContent />
+              </Modal>
+            }
+          />
+          <Route path="/profile/orders/:number"
+            element={
+              <OnlyAuth component=
+                {<Modal onClose={handleCloseModals}>
+                  <OrderContent />
+                </Modal>} />} />
         </Routes>
       )}
     </div>

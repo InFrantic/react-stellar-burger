@@ -11,6 +11,7 @@ import { ordersReducer } from "./reducers/orders";
 import { socketMiddleware } from './middleware/socket-middleware';
 import { FEED_WS_CLOSE, FEED_WS_CONNECTING, FEED_WS_ERROR, FEED_WS_MESSAGE, FEED_WS_OPEN, FEED_CONNECT, FEED_DISCONNECT } from "./action/feed";
 import { ORDERS_CONNECT, ORDERS_WS_CONNECTING, ORDERS_WS_ERROR, ORDERS_WS_OPEN, ORDERS_WS_CLOSE, ORDERS_WS_MESSAGE, ORDERS_DISCONNECT } from "./action/orders";
+import { currentOrderReducer } from "./reducers/currentOrder";
 
 const feedMiddleware = socketMiddleware({
     wsConnect: FEED_CONNECT,
@@ -42,7 +43,8 @@ export const store = configureStore({
         resetPassword: resetPasswordReducer,
         user: getUserInfoReducer,
         feed: feedReducer,
-        orders: ordersReducer
+        orders: ordersReducer,
+        currentOrder: currentOrderReducer
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware().concat(feedMiddleware, profileFeedMiddleware);

@@ -9,15 +9,15 @@ import { useLocation, Link } from "react-router-dom";
 export function Feed() {
     const dispatch = useDispatch();
     const location = useLocation();
-    const ORDERS_ALL_URL = "wss://norma.nomoreparties.space/orders/all";
+    const ordersAllUrl = "wss://norma.nomoreparties.space/orders/all";
     useEffect(() => {
-        dispatch(connect(ORDERS_ALL_URL));
+        dispatch(connect(ordersAllUrl));
         return () => {
-            dispatch(disconnect(ORDERS_ALL_URL));
+            dispatch(disconnect(ordersAllUrl));
         }
     }, [dispatch]);
 
-    const { isLoading, Error, orders } = useSelector(store => store.feed);
+    const { isLoading, connectingError, orders } = useSelector(store => store.feed);
 
     return (
         <div className={styles.global}>
@@ -27,9 +27,9 @@ export function Feed() {
             <main className={`${styles.main} `}>
                 <section className={`${styles.section1} pb-10 custom-scroll`}>
                     {isLoading && 'Загрузка...'}
-                    {Error && 'Произошла ошибка'}
+                    {/* {connectingError && 'Произошла ошибка'} */}
                     {!isLoading &&
-                        !Error &&
+                        // !connectingError &&
                         orders !== null &&
                         orders.map((order) => (
                             <Link
@@ -45,9 +45,9 @@ export function Feed() {
 
                 <section className={`${styles.section2} pb-10`}>
                     {isLoading && 'Загрузка...'}
-                    {Error && 'Произошла ошибка'}
+                    {/* {connectingError && 'Произошла ошибка'} */}
                     {!isLoading &&
-                        !Error &&
+                        // !connectingError &&
                         orders !== null && <OrdersReady />}
 
                 </section>

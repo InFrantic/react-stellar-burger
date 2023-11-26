@@ -2,6 +2,10 @@ import { checkResponse } from './checkres'
 
 export const baseUrl = 'https://norma.nomoreparties.space/api';
 
+export const getOrderWithNumber = (number) => {
+  return request(`${baseUrl}/orders/${number}`);
+};
+
 export const getIngredients = () => {
   return fetch(`${baseUrl}/ingredients`)
     .then(checkResponse)

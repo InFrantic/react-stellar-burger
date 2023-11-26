@@ -17,7 +17,7 @@ export function ProfilePage() {
                 <NavLink className={`text text_type_main-medium ${styles.link}`} to='/profile'>
                     Профиль
                 </NavLink>
-                <NavLink className={`text text_type_main-medium ${styles.link}`} to={"/profile/orders"}>
+                <NavLink className={`text text_type_main-medium ${styles.link}`} to="/profile/orders">
                     История заказов
                 </NavLink>
                 <button
