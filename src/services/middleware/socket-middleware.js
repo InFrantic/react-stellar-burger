@@ -1,5 +1,3 @@
-import { checkUserAuth } from "../action/user";
-
 export const socketMiddleware = (wsActions) => {
     return store => {
         let socket = null;
@@ -39,13 +37,7 @@ export const socketMiddleware = (wsActions) => {
                 socket.onmessage = event => {
                     const { data } = event;
                     const parsedData = JSON.parse(data);
-                    if (parsedData.message === "Invalid or missing token") {
-                        dispatch(checkUserAuth());
-                        dispatch({ type: wsConnect });
-                    }
-                    else {
-                        dispatch({ type: onMessage, payload: parsedData });
-                    }
+                    dispatch({ type: onMessage, payload: parsedData });
                 };
 
                 socket.onclose = event => {
