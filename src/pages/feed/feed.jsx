@@ -12,9 +12,6 @@ export function Feed() {
     const ordersAllUrl = "wss://norma.nomoreparties.space/orders/all";
     useEffect(() => {
         dispatch(connect(ordersAllUrl));
-        return () => {
-            dispatch(disconnect(ordersAllUrl));
-        }
     }, [dispatch]);
 
     const { isLoading, connectingError, orders } = useSelector(store => store.feed);
@@ -27,9 +24,9 @@ export function Feed() {
             <main className={`${styles.main} `}>
                 <section className={`${styles.section1} pb-10 custom-scroll`}>
                     {isLoading && 'Загрузка...'}
-                    {/* {connectingError && 'Произошла ошибка'} */}
+                    {connectingError && 'Произошла ошибка'}
                     {!isLoading &&
-                        // !connectingError &&
+                        !connectingError &&
                         orders !== null &&
                         orders.map((order) => (
                             <Link

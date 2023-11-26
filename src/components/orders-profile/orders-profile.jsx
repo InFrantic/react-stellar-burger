@@ -17,17 +17,14 @@ export default function Orders() {
 
     useEffect(() => {
         dispatch(connect(profileOrdersUrl));
-        return () => {
-            dispatch(disconnect(profileOrdersUrl));
-        }
     }, [dispatch]);
 
     return (
         <div className={`${styles.container} custom-scroll`}>
             {isLoading && 'Загрузка...'}
-            {/* {connectingError && 'Произошла ошибка'} */}
+            {connectingError && 'Произошла ошибка'}
             {!isLoading &&
-                // !connectingError &&
+                !connectingError &&
                 orders !== null &&
                 [...orders].reverse().map((order) => (
                     <Link
