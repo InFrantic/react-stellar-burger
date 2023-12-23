@@ -1,15 +1,42 @@
 import { auth } from "../../utils/api";
 
-export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
-export const SET_USER = "SET_USER";
-export const CLEAR_USER = "CLEAR_USER";
+export const SET_AUTH_CHECKED: "SET_AUTH_CHECKED" = "SET_AUTH_CHECKED";
+export const SET_USER: "SET_USER" = "SET_USER";
+export const CLEAR_USER: "CLEAR_USER" = "CLEAR_USER";
 
-export const setAuthChecked = (value) => ({
+export type TUser = {
+  user: {}
+}
+export type TSetAuthChecked = {
+  value: boolean,
+}
+
+export interface ISetUser {
+  type: typeof SET_USER,
+  payload: TUser
+}
+
+export interface IClearUser {
+  type: typeof CLEAR_USER,
+  payload: void
+}
+
+export interface ISetAuthChecked {
+  type: typeof SET_AUTH_CHECKED,
+  payload: TSetAuthChecked
+}
+
+export type TUserAction =
+  | ISetUser
+  | IClearUser
+  | ISetAuthChecked
+
+export const setAuthChecked = (value: TSetAuthChecked): ISetAuthChecked => ({
   type: SET_AUTH_CHECKED,
   payload: value,
 });
 
-export const setUser = (user) => ({
+export const setUser = (user: TUser): ISetUser => ({
   type: SET_USER,
   payload: user,
 });
@@ -28,7 +55,7 @@ export const getUser = () => {
   };
 };
 
-export const updateUser = (email, name, password) => {
+export const updateUser = (email: string, name: string, password: string) => {
   return (dispatch) => {
     return auth.updateUser(email, name, password)
       .then((res) => {
@@ -48,7 +75,7 @@ export const logout = () => {
   };
 };
 
-export const login = (password, email) => {
+export const login = (password: string, email: string) => {
   return (dispatch) => {
     return auth.login(password, email)
       .then((res) => {
@@ -61,7 +88,7 @@ export const login = (password, email) => {
   };
 };
 
-export const register = (name, password, email) => {
+export const register = (email: string, name: string, password: string) => {
   return (dispatch) => {
     return auth.register(name, password, email)
       .then((res) => {
