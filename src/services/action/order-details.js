@@ -1,12 +1,12 @@
 import {getOrder} from "../../utils/api";
 
-export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
+export const GET_ORDER_LOADING = 'GET_ORDER_LOADING';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 export const CLEAR_ORDER = 'CLEAR_ORDER_FAILED';
 
-export function orderDetailsRequest() {
-  return {type: GET_ORDER_REQUEST};
+export function orderDetailsLoading() {
+  return {type: GET_ORDER_LOADING};
 }
 
 export function orderDetailsSuccess(orderNumber) {
@@ -23,7 +23,7 @@ export function clearOrderDetails() {
 
 export function getOrderDetails(ingredientsOrder) {
   return function (dispatch) {
-    dispatch(orderDetailsRequest());
+    dispatch(orderDetailsLoading());
     getOrder(ingredientsOrder)
       .then(res => {
           dispatch(orderDetailsSuccess(res.order.number));

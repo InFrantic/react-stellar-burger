@@ -6,7 +6,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
 const modalRoot = document.getElementById("react-modals");
 
-function Modal({onClose, title, children}) {
+function Modal({ onClose, title, children }) {
     const handleCloseModal = useCallback(() => {
         onClose(false);
     }, [onClose]);
@@ -24,18 +24,18 @@ function Modal({onClose, title, children}) {
     }, [handleCloseModal]);
 
     return ReactDOM.createPortal(
-            <>
-                <div className={styles.modal}>
-                    <div className={styles.content}>
-                        <h2 className={`${styles.title} text text_type_main-large pb-3 pt-3`}>{title}</h2>
-                        <div onClick={handleCloseModal} className={styles.close}>
-                            <CloseIcon type="primary" className={styles.close} onClick={handleCloseModal}/>
-                        </div>
-                        {children}
+        <>
+            <div className={styles.modal}>
+                <div className={styles.content}>
+                    <h2 className={`${styles.title} text text_type_main-large pb-3 pt-3`}>{title}</h2>
+                    <div onClick={handleCloseModal} className={styles.close}>
+                        <CloseIcon type="primary" className={styles.close} />
                     </div>
-                    <ModalOverlay onClose={handleCloseModal}></ModalOverlay>
+                    {children}
                 </div>
-            </>,
+                <ModalOverlay onClose={handleCloseModal}></ModalOverlay>
+            </div>
+        </>,
         modalRoot
     );
 }
@@ -43,5 +43,5 @@ Modal.propTypes = {
     children: PropTypes.node.isRequired,
     onClose: PropTypes.func.isRequired,
     title: PropTypes.string,
-  };
+};
 export default Modal;
