@@ -10,12 +10,12 @@ export function ForgotPassword() {
     const dispatch = useDispatch();
     const emailValue = useSelector(store => store.forgotPassword.email)
 
-    function handleSubmit(e) {
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (emailValue) {
             forgotPassword(emailValue)
                 .then(() => {
-                    localStorage.setItem("forgotPasswordChecked", true);
+                    localStorage.setItem("forgotPasswordChecked", "true");
                     navigate('/reset-password', { replace: false });
                 })
         }
@@ -36,8 +36,6 @@ export function ForgotPassword() {
                     value={emailValue}
                     name={'email'}
                     isIcon={false}
-                    error={false}
-                    errorText={'Ошибка'}
                 />
                 <Button
                     htmlType='submit'

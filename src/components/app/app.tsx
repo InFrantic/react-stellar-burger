@@ -26,12 +26,10 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // @ts-ignore
     dispatch(checkUserAuth());
-    // @ts-ignore
     dispatch(getIngred());
   }, []);
-// @ts-ignore
+
   const { ingredients, isLoading, hasError } = useSelector(store => store.burgerIngredients);
   const location = useLocation();
   const background = location.state && location.state.background;
