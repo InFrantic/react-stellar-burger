@@ -7,13 +7,10 @@ export const CLEAR_USER: "CLEAR_USER" = "CLEAR_USER";
 export type TUser = {
   user: {}
 }
-export type TSetAuthChecked = {
-  value: boolean,
-}
 
 export interface ISetUser {
   type: typeof SET_USER,
-  payload: TUser
+  payload: TUser | null
 }
 
 export interface IClearUser {
@@ -23,7 +20,7 @@ export interface IClearUser {
 
 export interface ISetAuthChecked {
   type: typeof SET_AUTH_CHECKED,
-  payload: TSetAuthChecked
+  payload: boolean
 }
 
 export type TUserAction =
@@ -31,14 +28,14 @@ export type TUserAction =
   | IClearUser
   | ISetAuthChecked
 
-export const setAuthChecked = (value: TSetAuthChecked): ISetAuthChecked => ({
+export const setAuthChecked = (payload: boolean): ISetAuthChecked => ({
   type: SET_AUTH_CHECKED,
-  payload: value,
+  payload
 });
 
-export const setUser = (user: TUser): ISetUser => ({
+export const setUser = (payload: TUser | null): ISetUser => ({
   type: SET_USER,
-  payload: user,
+  payload
 });
 
 export const clearUser = () => ({
@@ -47,6 +44,7 @@ export const clearUser = () => ({
 
 
 export const getUser = () => {
+  // @ts-ignore
   return (dispatch) => {
     return auth.getUser()
       .then((res) => {
@@ -56,6 +54,7 @@ export const getUser = () => {
 };
 
 export const updateUser = (email: string, name: string, password: string) => {
+  // @ts-ignore
   return (dispatch) => {
     return auth.updateUser(email, name, password)
       .then((res) => {
@@ -65,6 +64,7 @@ export const updateUser = (email: string, name: string, password: string) => {
 };
 
 export const logout = () => {
+  // @ts-ignore
   return (dispatch) => {
     return auth.logout()
       .then(() => {
@@ -76,6 +76,7 @@ export const logout = () => {
 };
 
 export const login = (password: string, email: string) => {
+  // @ts-ignore
   return (dispatch) => {
     return auth.login(password, email)
       .then((res) => {
@@ -89,6 +90,7 @@ export const login = (password: string, email: string) => {
 };
 
 export const register = (email: string, name: string, password: string) => {
+  // @ts-ignore
   return (dispatch) => {
     return auth.register(name, password, email)
       .then((res) => {
@@ -102,6 +104,7 @@ export const register = (email: string, name: string, password: string) => {
 };
 
 export const checkUserAuth = () => {
+  // @ts-ignore
   return (dispatch) => {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())
