@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export const CHOOSE_BUN = 'CHOOSE_BUN';
-export const ADD_FILLING = 'ADD_FILLING';
-export const DELETE_FILLING = 'DELETE_FILLING';
-export const CLEAR_BURGER_CONSTRUCTOR = 'RESET_FILLING';
-export const MOVE_FILLING = 'MOVE_FILLING';
+export const CHOOSE_BUN: 'CHOOSE_BUN' = 'CHOOSE_BUN'; 
+export const ADD_FILLING: 'ADD_FILLING' = 'ADD_FILLING';
+export const DELETE_FILLING: 'DELETE_FILLING' = 'DELETE_FILLING';
+export const CLEAR_BURGER_CONSTRUCTOR: 'RESET_FILLING' = 'RESET_FILLING';
+export const MOVE_FILLING: 'MOVE_FILLING'= 'MOVE_FILLING';
 
 export function chooseBun(ingredientBun) {
   return {type: CHOOSE_BUN, payload: ingredientBun}

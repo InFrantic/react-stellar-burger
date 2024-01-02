@@ -44,7 +44,6 @@ export const clearUser = () => ({
 
 
 export const getUser = () => {
-  // @ts-ignore
   return (dispatch) => {
     return auth.getUser()
       .then((res) => {
@@ -54,7 +53,6 @@ export const getUser = () => {
 };
 
 export const updateUser = (email: string, name: string, password: string) => {
-  // @ts-ignore
   return (dispatch) => {
     return auth.updateUser(email, name, password)
       .then((res) => {
@@ -64,7 +62,6 @@ export const updateUser = (email: string, name: string, password: string) => {
 };
 
 export const logout = () => {
-  // @ts-ignore
   return (dispatch) => {
     return auth.logout()
       .then(() => {
@@ -76,7 +73,6 @@ export const logout = () => {
 };
 
 export const login = (password: string, email: string) => {
-  // @ts-ignore
   return (dispatch) => {
     return auth.login(password, email)
       .then((res) => {
@@ -90,7 +86,6 @@ export const login = (password: string, email: string) => {
 };
 
 export const register = (email: string, name: string, password: string) => {
-  // @ts-ignore
   return (dispatch) => {
     return auth.register(name, password, email)
       .then((res) => {
@@ -104,7 +99,6 @@ export const register = (email: string, name: string, password: string) => {
 };
 
 export const checkUserAuth = () => {
-  // @ts-ignore
   return (dispatch) => {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())

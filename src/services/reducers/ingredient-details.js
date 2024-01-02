@@ -13,7 +13,7 @@ export function ingredientDetailsReducer(state = initialState, action) {
     case
     CLEAR_INGREDIENT_DETAILS:
       return {
-        initialState,
+        details: null,
       };
     default: {
       return state;

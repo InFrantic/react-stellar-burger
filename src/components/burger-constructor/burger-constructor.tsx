@@ -3,7 +3,6 @@ import styles from "./burger-constructor.module.css";
 import { ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ConstructorList } from "./constructor-list";
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails } from "../../services/action/order-details";
 import { optionalFunc } from "../../utils/prop-types";
 import Modal from '../modal/modal';
@@ -12,10 +11,11 @@ import { clearIngredientDetails } from '../../services/action/ingredient-details
 import { clearOrderDetails } from '../../services/action/order-details';
 import { clearBurgerConstructor } from '../../services/action/burger-constructor'
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 function BurgerConstructor({ onDropHandler }) {
 
-    const isLoading = useSelector(store => store.order.isLoading);
+    const isLoading = useAppSelector(store => store.order.isLoading);
 
     const [, dropTarget] = useDrop({
         accept: "burgerConstructor",
@@ -24,8 +24,8 @@ function BurgerConstructor({ onDropHandler }) {
         },
     });
 
-    const dispatch = useDispatch();
-    const selectedIngredients = useSelector(store => store.filling)
+    const dispatch = useAppDispatch();
+    const selectedIngredients = useAppSelector(store => store.filling)
     const bun = selectedIngredients.bun
         , { name, image, price, _id } = { ...bun }
         , other = selectedIngredients.other;
@@ -33,12 +33,12 @@ function BurgerConstructor({ onDropHandler }) {
 
     function getListIdIngredients() {
         const idBun = [_id];
-        const idOther = other.map((item) => item.ingredient._id);
+        const idOther = other.map((item: { ingredient: { _id: any; }; }) => item.ingredient._id);
         return idBun.concat(idOther, idBun)
     }
 
     const navigate = useNavigate();
-    const user = useSelector((store) => store.user.user);
+    const user = useAppSelector((store) => store.user.user);
     
     function handleSubmitOrder() {
         if (!user) {
@@ -51,7 +51,7 @@ function BurgerConstructor({ onDropHandler }) {
 
     function TotalPrice() {
 
-        const { bun, other } = useSelector(store => store.filling)
+        const { bun, other } = useAppSelector(store => store.filling)
         const numberOtherIngredients = other.length
 
         const total = React.useMemo(() => {
@@ -60,9 +60,9 @@ function BurgerConstructor({ onDropHandler }) {
             const costBun = !!(bun) ? bun.price * 2 : 0
 
             if (numberOtherIngredients > 0) {
-                const arrayOtherPrice = other.map((item) => (item.ingredient.price))
+                const arrayOtherPrice = other.map((item: { ingredient: { price: number; }; }) => (item.ingredient.price))
                 const initialValue = 0;
-                sumWithInitial = arrayOtherPrice.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
+                sumWithInitial = arrayOtherPrice.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, initialValue);
             }
 
             return String(costBun + sumWithInitial)
@@ -73,7 +73,7 @@ function BurgerConstructor({ onDropHandler }) {
             <p className="text text_type_digits-medium">{total}</p>
         )
     }
-    const order = useSelector(state => state.order.orderNumber)
+    const order = useAppSelector(state => state.order.orderNumber)
 
     function handleCloseModal() {
         dispatch(clearIngredientDetails())

@@ -14,23 +14,23 @@ import { ResetPassword } from "../../pages/reset-password/reset-password";
 import { Profile } from "../../pages/profile/profile";
 import { OnlyAuth, OnlyUnAuth } from "../../pages/protected-route/protected-route";
 import { getIngred } from "../../services/action/burger-ingredients";
-import { useDispatch, useSelector } from "react-redux";
 import { checkUserAuth } from "../../services/action/user";
 import { Feed } from "../../pages/feed/feed";
 import Orders from "../orders-profile/orders-profile";
 import { ProfilePage } from "../../pages/profile/profile-page";
 import OrderContent from "../order-content/order-content";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 function App() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(checkUserAuth());
     dispatch(getIngred());
   }, []);
 
-  const { ingredients, isLoading, hasError } = useSelector(store => store.burgerIngredients);
+  const { ingredients, isLoading, hasError } = useAppSelector(store => store.burgerIngredients);
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { Action, ActionCreator, ThunkAction, configureStore } from "@reduxjs/toolkit";
 import { ingredientsReducer } from "./reducers/burger-ingredients";
 import { constructorReducer } from "./reducers/burger-constructor";
 import { ingredientDetailsReducer } from "./reducers/ingredient-details";
@@ -12,6 +12,7 @@ import { socketMiddleware } from './middleware/socket-middleware';
 import { FEED_WS_CLOSE, FEED_WS_CONNECTING, FEED_WS_ERROR, FEED_WS_MESSAGE, FEED_WS_OPEN, FEED_CONNECT, FEED_DISCONNECT } from "./action/feed";
 import { ORDERS_CONNECT, ORDERS_WS_CONNECTING, ORDERS_WS_ERROR, ORDERS_WS_OPEN, ORDERS_WS_CLOSE, ORDERS_WS_MESSAGE, ORDERS_DISCONNECT } from "./action/orders";
 import { currentOrderReducer } from "./reducers/currentOrder";
+import { TUserAction } from "./action/user";
 
 const feedMiddleware = socketMiddleware({
     wsConnect: FEED_CONNECT,
@@ -51,3 +52,10 @@ export const store = configureStore({
     }
 });
 
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
+export type TActions =
+| TUserAction
+
+export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TActions>>;
