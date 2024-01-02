@@ -1,21 +1,31 @@
+import { TOrder } from "../../utils/types";
 import {
     FEED_WS_CLOSE,
     FEED_WS_CONNECTING,
     FEED_WS_ERROR,
     FEED_WS_MESSAGE,
-    FEED_WS_OPEN
+    FEED_WS_OPEN,
+    TFeedActions
 } from "../action/feed";
 
-const initialState = {
+type TState = {
+    isLoading: boolean;
+    feedConnected: boolean;
+    connectingError: null | string;
+    orders: TOrder[] | [];
+    total: number | null;
+    totalToday: number | null;
+}
+const initialState: TState = {
     isLoading: false,
-    feedConnected: null,
+    feedConnected: false,
     connectingError: null,
     orders: [],
     total: null,
     totalToday: null
 };
 
-export const feedReducer = (state = initialState, action) => {
+export const feedReducer = (state = initialState, action: TFeedActions):TState  => {
     switch (action.type) {
         case FEED_WS_CONNECTING:
             return {

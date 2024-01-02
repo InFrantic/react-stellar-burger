@@ -1,4 +1,5 @@
 import { auth } from "../../utils/api";
+import { AppThunk } from "../store";
 
 export const SET_AUTH_CHECKED: "SET_AUTH_CHECKED" = "SET_AUTH_CHECKED";
 export const SET_USER: "SET_USER" = "SET_USER";
@@ -43,7 +44,7 @@ export const clearUser = () => ({
 });
 
 
-export const getUser = () => {
+export const getUser = ():AppThunk<Promise<void>> => {
   return (dispatch) => {
     return auth.getUser()
       .then((res) => {
@@ -52,7 +53,7 @@ export const getUser = () => {
   };
 };
 
-export const updateUser = (email: string, name: string, password: string) => {
+export const updateUser = (email: string, name: string, password: string):AppThunk => {
   return (dispatch) => {
     return auth.updateUser(email, name, password)
       .then((res) => {
@@ -61,7 +62,7 @@ export const updateUser = (email: string, name: string, password: string) => {
   };
 };
 
-export const logout = () => {
+export const logout = ():AppThunk => {
   return (dispatch) => {
     return auth.logout()
       .then(() => {
@@ -72,7 +73,7 @@ export const logout = () => {
   };
 };
 
-export const login = (password: string, email: string) => {
+export const login = (password: string, email: string):AppThunk => {
   return (dispatch) => {
     return auth.login(password, email)
       .then((res) => {
@@ -85,7 +86,7 @@ export const login = (password: string, email: string) => {
   };
 };
 
-export const register = (email: string, name: string, password: string) => {
+export const register = (email: string, name: string, password: string):AppThunk => {
   return (dispatch) => {
     return auth.register(name, password, email)
       .then((res) => {
@@ -98,7 +99,7 @@ export const register = (email: string, name: string, password: string) => {
   };
 };
 
-export const checkUserAuth = () => {
+export const checkUserAuth = ():AppThunk => {
   return (dispatch) => {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())

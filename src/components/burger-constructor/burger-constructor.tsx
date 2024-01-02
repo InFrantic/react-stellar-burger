@@ -9,15 +9,24 @@ import Modal from '../modal/modal';
 import OrderDetails from "../order-details/order-details";
 import { clearIngredientDetails } from '../../services/action/ingredient-details';
 import { clearOrderDetails } from '../../services/action/order-details';
-import { clearBurgerConstructor } from '../../services/action/burger-constructor'
+import { addFilling, chooseBun, clearBurgerConstructor } from '../../services/action/burger-constructor'
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { TIngredient } from '../../utils/types'
 
-function BurgerConstructor({ onDropHandler }) {
+function BurgerConstructor() {
 
     const isLoading = useAppSelector(store => store.order.isLoading);
 
-    const [, dropTarget] = useDrop({
+    const onDropHandler = (ingredient:TIngredient) => {
+        if (ingredient.type === "bun") {
+          dispatch(chooseBun(ingredient))
+        } else {
+          dispatch(addFilling(ingredient))
+        }
+      };
+
+    const [, dropTarget] = useDrop<TIngredient, unknown>({
         accept: "burgerConstructor",
         drop(ingredient) {
             onDropHandler(ingredient);
@@ -27,8 +36,8 @@ function BurgerConstructor({ onDropHandler }) {
     const dispatch = useAppDispatch();
     const selectedIngredients = useAppSelector(store => store.filling)
     const bun = selectedIngredients.bun
-        , { name, image, price, _id } = { ...bun }
-        , other = selectedIngredients.other;
+    const { name, image, price, _id } = { ...bun }
+    const other = selectedIngredients.other;
 
 
     function getListIdIngredients() {
@@ -39,7 +48,7 @@ function BurgerConstructor({ onDropHandler }) {
 
     const navigate = useNavigate();
     const user = useAppSelector((store) => store.user.user);
-    
+
     function handleSubmitOrder() {
         if (!user) {
             navigate('/login')
@@ -92,8 +101,8 @@ function BurgerConstructor({ onDropHandler }) {
                             type="top"
                             isLocked={true}
                             text={`${name} (верх)`}
-                            price={price}
-                            thumbnail={image}
+                            price={price!}
+                            thumbnail={image!}
                         />
                     </div>}
                     {(other.length > 0) && <ConstructorList />}
@@ -102,8 +111,8 @@ function BurgerConstructor({ onDropHandler }) {
                             type="bottom"
                             isLocked={true}
                             text={`${name} (низ)`}
-                            price={price}
-                            thumbnail={image}
+                            price={price!}
+                            thumbnail={image!}
                         />
                     </div>}
                 </div>

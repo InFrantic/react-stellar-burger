@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteFilling } from "../../services/action/burger-constructor";
 import { useDrag, useDrop } from "react-dnd";
 import {optionalFunc, optionalNum, optionalString, otherIngredient} from "../../utils/prop-types";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 export function ConstructorItem({ moveCard, index, id, item }) {
-  const dispatch = useDispatch();
-  const { other } = useSelector(store => store.filling)
+  
+  const dispatch = useAppDispatch();
+  const { other } = useAppSelector(store => store.filling)
 
   function deleteCard(idItem) {
     dispatch(deleteFilling(idItem))

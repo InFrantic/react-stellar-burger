@@ -1,18 +1,25 @@
+import { TIngredient } from "../../utils/types";
 import {
   CHOOSE_BUN,
   CLEAR_BURGER_CONSTRUCTOR,
   DELETE_FILLING,
   ADD_FILLING,
-  MOVE_FILLING
+  MOVE_FILLING,
+  TBurgerConstructorActions
 } from "../action/burger-constructor";
 
-const initialState = {
+type TBurgerConstructorState = {
+  bun: null | TIngredient,
+  other: Array <{numberIngredient: string, ingredient: TIngredient}>
+}
+
+const initialState: TBurgerConstructorState = {
   bun: null,
   other: [],
 };
 
 
-export function constructorReducer(state = initialState, action) {
+export function constructorReducer(state = initialState, action:TBurgerConstructorActions):TBurgerConstructorState {
   switch (action.type) {
     case CHOOSE_BUN:
       return {
@@ -23,10 +30,10 @@ export function constructorReducer(state = initialState, action) {
       return {
         ...state,
         other: [...state.other,
-          {
-            numberIngredient: action.payload.numberIngredient,
-            ingredient: action.payload.ingredient,
-          }]
+        {
+          numberIngredient: action.payload.numberIngredient,
+          ingredient: action.payload.ingredient,
+        }]
       };
     case CLEAR_BURGER_CONSTRUCTOR:
       return initialState;
