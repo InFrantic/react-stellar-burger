@@ -1,23 +1,41 @@
 import styles from "./constructor-item.module.css";
 import React from "react";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from 'react-redux';
 import { deleteFilling } from "../../services/action/burger-constructor";
 import { useDrag, useDrop } from "react-dnd";
-import {optionalFunc, optionalNum, optionalString, otherIngredient} from "../../utils/prop-types";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { TIngredient } from "../../utils/types";
+import { Identifier } from "dnd-core";
 
-export function ConstructorItem({ moveCard, index, id, item }) {
-  
+type TConstructorItem = {
+  moveCard: (dragIndex: number, hoverIndex: number, other: Array<{ numberIngredient: string, ingredient: TIngredient }>) => void;
+  index: number;
+  id: string;
+  item: {
+    ingredient: TIngredient;
+    numberIngredient: string;
+  };
+};
+
+type TDropCollectedProps = {
+  handlerId: Identifier | null
+}
+
+type TDragObject = {
+  id: string,
+  index: number
+}
+export function ConstructorItem({ moveCard, index, id, item }: TConstructorItem) {
+
   const dispatch = useAppDispatch();
   const { other } = useAppSelector(store => store.filling)
 
-  function deleteCard(idItem) {
+  function deleteCard(idItem: string) {
     dispatch(deleteFilling(idItem))
   }
 
-  const ref = React.useRef(null)
-  const [{ handlerId }, drop] = useDrop({
+  const ref = React.useRef<HTMLDivElement>(null)
+  const [{ handlerId }, drop] = useDrop<TDragObject, unknown, TDropCollectedProps>({
     accept: "move",
     collect(monitor) {
       return {
@@ -37,7 +55,7 @@ export function ConstructorItem({ moveCard, index, id, item }) {
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
       const clientOffset = monitor.getClientOffset()
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return
       }
@@ -68,15 +86,9 @@ export function ConstructorItem({ moveCard, index, id, item }) {
         text={item.ingredient.name}
         price={item.ingredient.price}
         thumbnail={item.ingredient.image}
-        handleClose={(e) => {
-          deleteCard(item.numberIngredient, e)
+        handleClose={() => {
+          deleteCard(item.numberIngredient)
         }} />
     </div>
   )
 }
-ConstructorItem.propTypes = {
-  moveCard: optionalFunc,
-  index: optionalNum,
-  id: optionalString,
-  item: otherIngredient,
-};
