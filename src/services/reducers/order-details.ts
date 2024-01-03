@@ -1,18 +1,23 @@
-import { CLEAR_ORDER, GET_ORDER_FAILED, GET_ORDER_LOADING, GET_ORDER_SUCCESS, } from "../action/order-details";
+import { CLEAR_ORDER, GET_ORDER_FAILED, GET_ORDER_LOADING, GET_ORDER_SUCCESS, TOrderDetailsAction, } from "../action/order-details";
 
-const initialState = {
+type TOrderDetailsState = {
+  orderNumber: number | null,
+  orderFailed: boolean,
+  isLoading: boolean
+}
+
+const initialState: TOrderDetailsState = {
   orderNumber: null,
   orderFailed: false,
   isLoading: false
 };
 
-export const orderDetailsReducer = (state = initialState, action) => {
+export const orderDetailsReducer = (state = initialState, action: TOrderDetailsAction): TOrderDetailsState => {
   switch (action.type) {
     case GET_ORDER_LOADING: {
       return {
         ...state,
-        isLoading: true,
-        error: null
+        isLoading: true
       };
     }
     case GET_ORDER_SUCCESS: {
@@ -26,7 +31,7 @@ export const orderDetailsReducer = (state = initialState, action) => {
     case GET_ORDER_FAILED: {
       return {
         ...state,
-        orderFailed: action.payload,
+        orderFailed: true,
         isLoading: false
       };
     }

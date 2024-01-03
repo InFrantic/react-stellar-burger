@@ -2,12 +2,14 @@ import styles from "./burger-ingredients.module.css";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsRender from "./ingredients-list";
 import { useState, useMemo, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from "../../services/store";
+import { TIngredient } from "../../utils/types";
 
 function BurgerIngredients() {
-    const ingredients = useSelector(store => store.burgerIngredients.ingredients);
 
-    const buns = useMemo(() => ingredients.filter(item => item.type === "bun"), [ingredients]);
+    const ingredients = useAppSelector(store => store.burgerIngredients.ingredients);
+
+    const buns: TIngredient[] = useMemo(() => ingredients.filter(item => item.type === "bun"), [ingredients]) as TIngredient[];
     const mains = useMemo(() => ingredients.filter(item => item.type === "main"), [ingredients]);
     const sauces = useMemo(() => ingredients.filter(item => item.type === "sauce"), [ingredients]);
 

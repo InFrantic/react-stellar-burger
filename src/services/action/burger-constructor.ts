@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TIngredient } from '../../utils/types';
 
-export const CHOOSE_BUN: 'CHOOSE_BUN' = 'CHOOSE_BUN';
-export const ADD_FILLING: 'ADD_FILLING' = 'ADD_FILLING';
-export const DELETE_FILLING: 'DELETE_FILLING' = 'DELETE_FILLING';
-export const CLEAR_BURGER_CONSTRUCTOR: 'RESET_FILLING' = 'RESET_FILLING';
-export const MOVE_FILLING: 'MOVE_FILLING' = 'MOVE_FILLING';
+export const CHOOSE_BUN = 'CHOOSE_BUN';
+export const ADD_FILLING = 'ADD_FILLING';
+export const DELETE_FILLING = 'DELETE_FILLING';
+export const CLEAR_BURGER_CONSTRUCTOR = 'RESET_FILLING';
+export const MOVE_FILLING = 'MOVE_FILLING';
 
 type TChooseBun = {
   type: typeof CHOOSE_BUN,
@@ -31,7 +31,7 @@ type TClearBurgerConstructor = {
 
 type TMoveFilling = {
   type: typeof MOVE_FILLING,
-  payload:  Array <{numberIngredient: string, ingredient: TIngredient}>
+  payload: Array<{ numberIngredient: string, ingredient: TIngredient }>
 }
 
 export type TBurgerConstructorActions =
@@ -62,6 +62,6 @@ export function clearBurgerConstructor(): TClearBurgerConstructor {
   return { type: CLEAR_BURGER_CONSTRUCTOR }
 }
 
-export function moveFilling(ingredients:  Array <{numberIngredient: string, ingredient: TIngredient}>): TMoveFilling {
+export function moveFilling(ingredients: Array<{ numberIngredient: string, ingredient: TIngredient }>): TMoveFilling {
   return { type: MOVE_FILLING, payload: ingredients }
 }

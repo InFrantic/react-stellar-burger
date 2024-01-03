@@ -1,11 +1,16 @@
-import { SET_USER, SET_AUTH_CHECKED, CLEAR_USER } from "../action/user";
+import { SET_USER, SET_AUTH_CHECKED, CLEAR_USER, TUserAction, TUser } from "../action/user";
 
-const initialState = {
+export type TUserDataState = {
+  user: TUser | null,
+  isAuthChecked: boolean,
+}
+
+const initialState:TUserDataState = {
   isAuthChecked: false,
   user: null
 };
 
-export const getUserInfoReducer = (state = initialState, action) => {
+export const getUserInfoReducer = (state = initialState, action:TUserAction):TUserDataState => {
   switch (action.type) {
     case SET_USER: {
       return {

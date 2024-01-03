@@ -1,12 +1,23 @@
+import { TOrder } from "../../utils/types";
 import {
   ORDERS_WS_CONNECTING,
   ORDERS_WS_ERROR,
   ORDERS_WS_MESSAGE,
   ORDERS_WS_OPEN,
-  ORDERS_WS_CLOSE
+  ORDERS_WS_CLOSE,
+  TOrdersAction
 } from "../action/orders";
 
-const initialState = {
+type TOrdersState = {
+  isLoading: boolean;
+    feedConnected: boolean;
+    connectingError: null | string;
+    orders: TOrder[] | [];
+    total: number | null;
+    totalToday: number | null;
+}
+
+const initialState: TOrdersState = {
   isLoading: false,
   feedConnected: false,
   connectingError: null,
@@ -15,7 +26,7 @@ const initialState = {
   totalToday: null
 }
 
-export const ordersReducer = (state = initialState, action) => {
+export const ordersReducer = (state = initialState, action: TOrdersAction): TOrdersState => {
   switch (action.type) {
     case ORDERS_WS_CONNECTING:
       return {

@@ -11,7 +11,7 @@ import { clearIngredientDetails } from '../../services/action/ingredient-details
 import { clearOrderDetails } from '../../services/action/order-details';
 import { addFilling, chooseBun, clearBurgerConstructor } from '../../services/action/burger-constructor'
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { TIngredient } from '../../utils/types'
 
 function BurgerConstructor() {

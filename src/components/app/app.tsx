@@ -19,7 +19,7 @@ import { Feed } from "../../pages/feed/feed";
 import Orders from "../orders-profile/orders-profile";
 import { ProfilePage } from "../../pages/profile/profile-page";
 import OrderContent from "../order-content/order-content";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 
 function App() {
 

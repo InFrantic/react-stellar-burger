@@ -3,7 +3,7 @@ import React from "react";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { deleteFilling } from "../../services/action/burger-constructor";
 import { useDrag, useDrop } from "react-dnd";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { TIngredient } from "../../utils/types";
 import { Identifier } from "dnd-core";
 

@@ -9,42 +9,41 @@ export type TUser = {
   user: {}
 }
 
-export interface ISetUser {
-  type: typeof SET_USER,
-  payload: TUser | null
-}
-
-export interface IClearUser {
-  type: typeof CLEAR_USER,
-  payload: void
-}
-
-export interface ISetAuthChecked {
+type TSetAuthChecked = {
   type: typeof SET_AUTH_CHECKED,
-  payload: boolean
-}
+  payload: boolean,
+};
+
+type TSetUser = {
+  type: typeof SET_USER,
+  payload: TUser | null,
+};
+
+type TClearUser = {
+  type: typeof CLEAR_USER,
+};
 
 export type TUserAction =
-  | ISetUser
-  | IClearUser
-  | ISetAuthChecked
+  | TSetAuthChecked
+  | TSetUser
+  | TClearUser
 
-export const setAuthChecked = (payload: boolean): ISetAuthChecked => ({
+export const setAuthChecked = (value:boolean): TSetAuthChecked  => ({
   type: SET_AUTH_CHECKED,
-  payload
+  payload: value,
 });
 
-export const setUser = (payload: TUser | null): ISetUser => ({
+export const setUser = (user: TUser | null): TSetUser => ({
   type: SET_USER,
-  payload
+  payload: user
 });
 
-export const clearUser = () => ({
+export const clearUser = ():TClearUser => ({
   type: CLEAR_USER,
 });
 
 
-export const getUser = ():AppThunk<Promise<void>> => {
+export const getUser = ():AppThunk<Promise<unknown>> => {
   return (dispatch) => {
     return auth.getUser()
       .then((res) => {

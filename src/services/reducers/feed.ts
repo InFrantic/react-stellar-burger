@@ -8,7 +8,7 @@ import {
     TFeedActions
 } from "../action/feed";
 
-type TState = {
+type TFeedState = {
     isLoading: boolean;
     feedConnected: boolean;
     connectingError: null | string;
@@ -16,7 +16,7 @@ type TState = {
     total: number | null;
     totalToday: number | null;
 }
-const initialState: TState = {
+const initialState: TFeedState = {
     isLoading: false,
     feedConnected: false,
     connectingError: null,
@@ -25,7 +25,7 @@ const initialState: TState = {
     totalToday: null
 };
 
-export const feedReducer = (state = initialState, action: TFeedActions):TState  => {
+export const feedReducer = (state = initialState, action: TFeedActions): TFeedState => {
     switch (action.type) {
         case FEED_WS_CONNECTING:
             return {

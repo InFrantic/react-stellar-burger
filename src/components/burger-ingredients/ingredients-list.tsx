@@ -1,15 +1,15 @@
 import styles from "./burger-ingredients.module.css";
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from "react-dnd";
-import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import { ingredientPropType } from "../../utils/prop-types";
 import { Link, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../services/store";
 
 export default function IngredientsRender({ currentItem }) {
 
-    const other = useSelector(state => state.filling.other)
-    const bun = useSelector(state => state.filling.bun)
+    const other = useAppSelector(state => state.filling.other)
+    const bun = useAppSelector(state => state.filling.bun)
 
     const [, dragRef] = useDrag({
         type: "burgerConstructor",
