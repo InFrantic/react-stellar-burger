@@ -56,7 +56,7 @@ const reducer = combineReducers({
     currentOrder: currentOrderReducer
 })
 
-export type RootState = ReturnType<typeof reducer>
+export type TRootState = ReturnType<typeof reducer>
 
 export const store = configureStore({
     reducer: reducer,
@@ -65,7 +65,7 @@ export const store = configureStore({
     }
 });
 
-export type AppActions =
+export type TAppActions =
     | TForgotPasswordAction
     | TResetPasswordAction
     | TOrdersAction
@@ -77,7 +77,7 @@ export type AppActions =
     | TBurgerConstructorActions
     | TUserAction
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AppActions>;
-export type AppDispatch<TReturnType = void> = (action: AppActions | AppThunk<TReturnType>) => TReturnType;
-export const useAppDispatch: () => AppDispatch = dispatchHook;
-export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook
+export type TAppThunk<TReturnType = void> = ThunkAction<TReturnType, TRootState, unknown, TAppActions>;
+export type TAppDispatch<TReturnType = void> = (action: TAppActions | TAppThunk<TReturnType>) => TReturnType;
+export const useAppDispatch: () => TAppDispatch = dispatchHook;
+export const useAppSelector: TypedUseSelectorHook<TRootState> = selectorHook
