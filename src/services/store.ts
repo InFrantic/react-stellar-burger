@@ -21,7 +21,7 @@ import { TIngredienDetailsAction } from "./action/ingredient-details";
 import { TOrderDetailsAction } from "./action/order-details";
 import { TResetPasswordAction } from "./action/reset-password";
 import { TForgotPasswordAction } from "./action/forgot-password";
-import {TypedUseSelectorHook, useDispatch as dispatchHook, useSelector as selectorHook,} from "react-redux";
+import { TypedUseSelectorHook, useDispatch as dispatchHook, useSelector as selectorHook, } from "react-redux";
 
 const feedMiddleware = socketMiddleware({
     wsConnect: FEED_CONNECT,
@@ -56,7 +56,7 @@ const reducer = combineReducers({
     currentOrder: currentOrderReducer
 })
 
-export type TRootState = ReturnType<typeof reducer>
+export type RootState = ReturnType<typeof reducer>
 
 export const store = configureStore({
     reducer: reducer,
@@ -65,7 +65,7 @@ export const store = configureStore({
     }
 });
 
-export type TAppActions =
+export type AppActions =
     | TForgotPasswordAction
     | TResetPasswordAction
     | TOrdersAction
@@ -77,7 +77,7 @@ export type TAppActions =
     | TBurgerConstructorActions
     | TUserAction
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, TRootState, unknown, TAppActions>;
-export type AppDispatch<TReturnType = void> = (action: TAppActions | AppThunk<TReturnType>) => TReturnType;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AppActions>;
+export type AppDispatch<TReturnType = void> = (action: AppActions | AppThunk<TReturnType>) => TReturnType;
 export const useAppDispatch: () => AppDispatch = dispatchHook;
-export const useAppSelector: TypedUseSelectorHook<TRootState> = selectorHook
+export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook

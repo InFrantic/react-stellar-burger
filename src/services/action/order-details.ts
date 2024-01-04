@@ -12,7 +12,7 @@ type TGetOrderLoading = {
 
 type TGetOrderSuccess = {
   type: typeof GET_ORDER_SUCCESS,
-  payload: number
+  payload: string
 }
 
 type TGetOrderFailed = {
@@ -33,7 +33,7 @@ export function orderDetailsLoading(): TGetOrderLoading {
   return { type: GET_ORDER_LOADING };
 }
 
-export function orderDetailsSuccess(orderNumber: number): TGetOrderSuccess {
+export function orderDetailsSuccess(orderNumber: string): TGetOrderSuccess {
   return { type: GET_ORDER_SUCCESS, payload: orderNumber };
 }
 
@@ -45,7 +45,7 @@ export function clearOrderDetails(): TGetOrderClear {
   return { type: CLEAR_ORDER };
 }
 
-export function getOrderDetails(ingredientsOrder: string): AppThunk {
+export function getOrderDetails(ingredientsOrder: string[]): AppThunk {
   return function (dispatch) {
     dispatch(orderDetailsLoading());
     getOrder(ingredientsOrder)

@@ -9,15 +9,15 @@ function BurgerIngredients() {
 
     const ingredients = useAppSelector(store => store.burgerIngredients.ingredients);
 
-    const buns: TIngredient[] = useMemo(() => ingredients.filter(item => item.type === "bun"), [ingredients]) as TIngredient[];
+    const buns = useMemo(() => ingredients.filter(item => item.type === "bun"), [ingredients]);
     const mains = useMemo(() => ingredients.filter(item => item.type === "main"), [ingredients]);
     const sauces = useMemo(() => ingredients.filter(item => item.type === "sauce"), [ingredients]);
 
     const [activeTab, setActiveTab] = useState('Bun')
-    const bunsRef = useRef();
-    const saucesRef = useRef();
-    const mainsRef = useRef();
-    const tabsRef = useRef()
+    const bunsRef = useRef<HTMLUListElement>(null!);
+    const saucesRef = useRef<HTMLUListElement>(null!);
+    const mainsRef = useRef<HTMLUListElement>(null!);
+    const tabsRef = useRef<HTMLUListElement>(null!)
 
     function handleScrollIngredients() {
         const tabsBottom = tabsRef.current?.getBoundingClientRect().bottom;
@@ -36,7 +36,7 @@ function BurgerIngredients() {
         }
     }
 
-    function tabScroll(ingredientId) {
+    function tabScroll(ingredientId: string) {
         const element = document.getElementById(ingredientId);
         if (element) element.scrollIntoView({ behavior: "smooth" });
     };

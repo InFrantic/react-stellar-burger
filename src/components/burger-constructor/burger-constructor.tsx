@@ -4,7 +4,6 @@ import { ConstructorElement, Button } from "@ya.praktikum/react-developer-burger
 import { ConstructorList } from "./constructor-list";
 import { useDrop } from "react-dnd";
 import { getOrderDetails } from "../../services/action/order-details";
-import { optionalFunc } from "../../utils/prop-types";
 import Modal from '../modal/modal';
 import OrderDetails from "../order-details/order-details";
 import { clearIngredientDetails } from '../../services/action/ingredient-details';
@@ -41,7 +40,7 @@ function BurgerConstructor() {
 
 
     function getListIdIngredients() {
-        const idBun = [_id];
+        const idBun = [_id!];
         const idOther = other.map((item: { ingredient: { _id: any; }; }) => item.ingredient._id);
         return idBun.concat(idOther, idBun)
     }
@@ -130,7 +129,4 @@ function BurgerConstructor() {
     )
 }
 
-BurgerConstructor.propTypes = {
-    onDropHandler: optionalFunc,
-};
 export default BurgerConstructor

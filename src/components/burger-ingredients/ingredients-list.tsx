@@ -2,11 +2,14 @@ import styles from "./burger-ingredients.module.css";
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from "react-dnd";
 import { useMemo } from "react";
-import { ingredientPropType } from "../../utils/prop-types";
 import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../services/store";
+import { TIngredient } from "../../utils/types";
 
-export default function IngredientsRender({ currentItem }) {
+type TPropsIngredient = {
+    currentItem:TIngredient;}
+
+export default function IngredientsRender({ currentItem }: TPropsIngredient) {
 
     const other = useAppSelector(state => state.filling.other)
     const bun = useAppSelector(state => state.filling.bun)
@@ -55,5 +58,3 @@ export default function IngredientsRender({ currentItem }) {
     )
 }
 
-IngredientsRender.propTypes = {
-    currentItem: ingredientPropType};
