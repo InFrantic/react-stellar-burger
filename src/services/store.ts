@@ -2,7 +2,6 @@ import { configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { ingredientsReducer } from "./reducers/burger-ingredients";
 import { constructorReducer } from "./reducers/burger-constructor";
-import { ingredientDetailsReducer } from "./reducers/ingredient-details";
 import { orderDetailsReducer } from "./reducers/order-details";
 import { forgotPasswordReducer } from './reducers/forgot-password';
 import { resetPasswordReducer } from './reducers/reset-password';
@@ -17,7 +16,6 @@ import { TUserAction } from "./action/user";
 import { TBurgerConstructorActions } from "./action/burger-constructor";
 import { TIngredientsActions } from "./action/burger-ingredients";
 import { TCurrentOrderActions } from "./action/currentOrder";
-import { TIngredienDetailsAction } from "./action/ingredient-details";
 import { TOrderDetailsAction } from "./action/order-details";
 import { TResetPasswordAction } from "./action/reset-password";
 import { TForgotPasswordAction } from "./action/forgot-password";
@@ -46,7 +44,6 @@ const profileFeedMiddleware = socketMiddleware({
 const reducer = combineReducers({
     burgerIngredients: ingredientsReducer,
     filling: constructorReducer,
-    details: ingredientDetailsReducer,
     order: orderDetailsReducer,
     forgotPassword: forgotPasswordReducer,
     resetPassword: resetPasswordReducer,
@@ -70,7 +67,6 @@ export type AppActions =
     | TResetPasswordAction
     | TOrdersAction
     | TOrderDetailsAction
-    | TIngredienDetailsAction
     | TCurrentOrderActions
     | TIngredientsActions
     | TFeedActions
