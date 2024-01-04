@@ -2,8 +2,7 @@ import styles from "./burger-ingredients.module.css";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsRender from "./ingredients-list";
 import { useState, useMemo, useRef } from 'react';
-import { useAppDispatch, useAppSelector } from "../../services/store";
-import { TIngredient } from "../../utils/types";
+import { useAppSelector } from "../../services/store";
 
 function BurgerIngredients() {
 
@@ -14,10 +13,10 @@ function BurgerIngredients() {
     const sauces = useMemo(() => ingredients.filter(item => item.type === "sauce"), [ingredients]);
 
     const [activeTab, setActiveTab] = useState('Bun')
-    const bunsRef = useRef<HTMLUListElement>(null!);
-    const saucesRef = useRef<HTMLUListElement>(null!);
-    const mainsRef = useRef<HTMLUListElement>(null!);
-    const tabsRef = useRef<HTMLUListElement>(null!)
+    const bunsRef = useRef<HTMLParagraphElement>(null);
+    const saucesRef = useRef<HTMLParagraphElement>(null);
+    const mainsRef = useRef<HTMLParagraphElement>(null);
+    const tabsRef = useRef<HTMLDivElement>(null)
 
     function handleScrollIngredients() {
         const tabsBottom = tabsRef.current?.getBoundingClientRect().bottom;
@@ -61,15 +60,17 @@ function BurgerIngredients() {
                     </Tab>
                 </div>
             </div>
+
             <div className={`${styles["scroll"]} custom-scroll`} onScroll={handleScrollIngredients}>
 
                 <p id='bun' ref={bunsRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Булки</p>
                 <div className={`${styles['ingredient-list']}`}>
                     {buns.map((currentItem) => (
-                        <IngredientsRender key={currentItem._id} 
-                            img={currentItem.image}
-                            price={currentItem.price}
-                            description={currentItem.name}
+                        <IngredientsRender
+                            key={currentItem._id}
+                            // img={currentItem.image}
+                            // price={currentItem.price}
+                            // description={currentItem.name}
                             currentItem={currentItem}
                         />
                     ))}
@@ -77,10 +78,11 @@ function BurgerIngredients() {
                 <p id='sauce' ref={saucesRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Соусы</p>
                 <div className={`${styles['ingredient-list']}`}>
                     {sauces.map((currentItem) => (
-                        <IngredientsRender key={currentItem._id} 
-                            img={currentItem.image}
-                            price={currentItem.price}
-                            description={currentItem.name}
+                        <IngredientsRender
+                            key={currentItem._id}
+                            // img={currentItem.image}
+                            // price={currentItem.price}
+                            // description={currentItem.name}
                             currentItem={currentItem}
                         />
                     ))}
@@ -88,10 +90,11 @@ function BurgerIngredients() {
                 <p id='main' ref={mainsRef} className={`${styles['type']} text text_type_main-medium pt-10`}>Начинка</p>
                 <div className={`${styles['ingredient-list']}`}>
                     {mains.map((currentItem) => (
-                        <IngredientsRender key={currentItem._id} 
-                            img={currentItem.image}
-                            price={currentItem.price}
-                            description={currentItem.name}
+                        <IngredientsRender
+                            key={currentItem._id}
+                            // img={currentItem.image}
+                            // price={currentItem.price}
+                            // description={currentItem.name}
                             currentItem={currentItem}
                         />
                     ))}

@@ -14,7 +14,6 @@ export type TIngredient = {
     type: string;
     __v: number;
     _id: string;
-    id?: string;
 };
 
 export type TOrder = {
@@ -43,4 +42,9 @@ export type TwsActions = {
     onError: string | typeof FEED_WS_ERROR | typeof ORDERS_WS_ERROR;
     onMessage: string | typeof FEED_WS_MESSAGE | typeof ORDERS_WS_MESSAGE;
     wsSendMessage?: string
+}
+
+export type TUser = {
+    email: string;
+    name: string;
 }

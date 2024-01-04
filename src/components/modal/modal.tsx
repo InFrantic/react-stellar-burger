@@ -3,8 +3,6 @@ import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect, useCallback } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import PropTypes from "prop-types";
-const modalRoot = document.getElementById("react-modals");
 
 function Modal({ onClose, title, children }) {
     const handleCloseModal = useCallback(() => {
@@ -29,19 +27,15 @@ function Modal({ onClose, title, children }) {
                 <div className={styles.content}>
                     <h2 className={`${styles.title} text text_type_main-large pb-3 pt-3`}>{title}</h2>
                     <div onClick={handleCloseModal} className={styles.close}>
-                        <CloseIcon type="primary" className={styles.close} />
+                        <CloseIcon type="primary" />
                     </div>
                     {children}
                 </div>
                 <ModalOverlay onClose={handleCloseModal}></ModalOverlay>
             </div>
         </>,
-        modalRoot
+        document.getElementById("modal") as HTMLElement
     );
 }
-Modal.propTypes = {
-    children: PropTypes.node.isRequired,
-    onClose: PropTypes.func.isRequired,
-    title: PropTypes.string,
-};
+
 export default Modal;

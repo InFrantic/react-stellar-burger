@@ -2,11 +2,11 @@ import React from "react";
 import { NavLink, Outlet } from 'react-router-dom';
 import styles from './profile.module.css';
 import { logout } from '../../services/action/user';
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../services/store";
 
 export function ProfilePage() {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const logoutUser = React.useCallback(() => {
         dispatch(logout());
     }, [dispatch])

@@ -1,13 +1,10 @@
 import { auth } from "../../utils/api";
+import { TUser } from "../../utils/types";
 import { AppThunk } from "../store";
 
 export const SET_AUTH_CHECKED: "SET_AUTH_CHECKED" = "SET_AUTH_CHECKED";
 export const SET_USER: "SET_USER" = "SET_USER";
 export const CLEAR_USER: "CLEAR_USER" = "CLEAR_USER";
-
-export type TUser = {
-  user: {}
-}
 
 type TSetAuthChecked = {
   type: typeof SET_AUTH_CHECKED,

@@ -2,17 +2,17 @@ import { useState } from "react";
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './register.module.css';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { register } from "../../services/action/user";
+import { useAppDispatch } from "../../services/store";
 
 export function Register() {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(register(name, password, email));
     }

@@ -1,13 +1,14 @@
 import { useParams } from 'react-router-dom';
 import styles from './ingredient-details.module.css';
 import IngredientInfo from './ingredient-info'
-import { useSelector } from "react-redux";
+import { useAppSelector } from '../../services/store';
+import { TIngredient } from '../../utils/types';
 
 function IngredientDetails() {
 
     const params = useParams()
     const idCurrentItem = params.id
-    const ingredients = useSelector(store => store.burgerIngredients.ingredients)
+    const ingredients = useAppSelector(store => store.details.details)
     const currentIngredient = ingredients.find(item => item._id === idCurrentItem);
     const { proteins, calories, fat, carbohydrates, name, image_large } = currentIngredient
 

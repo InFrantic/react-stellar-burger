@@ -1,13 +1,13 @@
 import styles from "./feed.module.css";
-import { useSelector, useDispatch } from 'react-redux';
 import { OrdersReady } from "../../components/orders-ready/orders-ready";
 import { useEffect } from "react";
 import { connect, disconnect } from "../../services/action/feed";
 import Order from "../../components/order/order";
 import { useLocation, Link, useMatch } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 
 export function Feed() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const ORDERS_ALL_URL = "wss://norma.nomoreparties.space/orders/all";
     const isFeed = useMatch({ path: "feed", end: false });
@@ -21,7 +21,7 @@ export function Feed() {
         }
     }, [dispatch]);
 
-    const { isLoading, connectingError, orders } = useSelector(store => store.feed);
+    const { isLoading, connectingError, orders } = useAppSelector(store => store.feed);
 
     return (
         <div className={styles.global}>

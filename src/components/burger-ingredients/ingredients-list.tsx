@@ -7,7 +7,8 @@ import { useAppSelector } from "../../services/store";
 import { TIngredient } from "../../utils/types";
 
 type TPropsIngredient = {
-    currentItem:TIngredient;}
+    currentItem: TIngredient
+}
 
 export default function IngredientsRender({ currentItem }: TPropsIngredient) {
 
@@ -44,15 +45,15 @@ export default function IngredientsRender({ currentItem }: TPropsIngredient) {
             className={`${styles.link}`}
             to={`/ingredients/${id}`}
             state={{ background: location }}
-            >
+        >
             <div className={`${styles["ingredient"]}`} ref={dragRef} >
-                    <img alt={currentItem.name} src={currentItem.image} className={`${styles["ingredient-img"]} pl-4 pr-4 pb-1`} />
-                    <div className={`${styles["ingredient-price"]} pb-1`}>
-                        <p className={`${styles["price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}>{currentItem.price}</p>
-                        <CurrencyIcon type="primary" />
-                    </div>
-                    <p className={`${styles["ingredient-name"]} text text_type_main-default`}>{currentItem.name}</p>
-                    {count > 0 && <Counter count={count} />}
+                <img alt={currentItem.name} src={currentItem.image} className={`${styles["ingredient-img"]} pl-4 pr-4 pb-1`} />
+                <div className={`${styles["ingredient-price"]} pb-1`}>
+                    <p className={`${styles["price"]} pt-2 pb-2 pr-4 text text_type_digits-default`}>{currentItem.price}</p>
+                    <CurrencyIcon type="primary" />
+                </div>
+                <p className={`${styles["ingredient-name"]} text text_type_main-default`}>{currentItem.name}</p>
+                {count > 0 && <Counter count={count} />}
             </div>
         </Link >
     )

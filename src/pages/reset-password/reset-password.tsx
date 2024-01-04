@@ -3,16 +3,16 @@ import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burg
 import styles from './reset-password.module.css';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { getResetPasswordSuccess, password, token } from "../../services/action/reset-password";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 
 export function ResetPassword() {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const tokenValue = useSelector(store => store.resetPassword.token);
-    const passwordValue = useSelector(store => store.resetPassword.password)
+    const dispatch = useAppDispatch();
+    const tokenValue = useAppSelector(store => store.resetPassword.token);
+    const passwordValue = useAppSelector(store => store.resetPassword.password)
 
-    function handleSubmit(e) {
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (passwordValue && tokenValue) {
             getResetPasswordSuccess(passwordValue, tokenValue)

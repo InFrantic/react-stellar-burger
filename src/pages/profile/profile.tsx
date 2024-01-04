@@ -1,14 +1,14 @@
 import React from "react";
 import styles from './profile.module.css';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../services/action/user';
+import { useAppDispatch, useAppSelector } from "../../services/store";
 
 export function Profile() {
 
-    const dispatch = useDispatch();
-    const name = useSelector(state => state.user.user.name);
-    const email = useSelector(state => state.user.user.email);
+    const dispatch = useAppDispatch();
+    const name = useAppSelector(state => state.user.user.name);
+    const email = useAppSelector(state => state.user.user.email);
 
     const [value, setValue] = React.useState({
         name: name,
@@ -24,7 +24,7 @@ export function Profile() {
         })
     }, [email, name])
 
-    const saveInfo = (e) => {
+    const saveInfo = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { email, name, password } = value;
         dispatch(updateUser(email, name, password));

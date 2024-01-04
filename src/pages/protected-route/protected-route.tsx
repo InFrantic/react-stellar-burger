@@ -1,10 +1,17 @@
-import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router";
+import { useAppSelector } from "../../services/store";
 
-function ProtectedRoute({ onlyUnAuth = false, component }) {
+type TPropsProtected = {
+    onlyUnAuth?: boolean;
+    component: JSX.Element
+}
 
-    const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
-    const user = useSelector((store) => store.user.user);
+type TPropsUnAuth = Pick<TPropsProtected, "component">
+
+function ProtectedRoute({ onlyUnAuth = false, component }: TPropsProtected) {
+
+    const isAuthChecked = useAppSelector((store) => store.user.isAuthChecked);
+    const user = useAppSelector((store) => store.user.user);
     const location = useLocation();
     const { from } = location.state || { from: { pathname: "/" } };
 
@@ -24,6 +31,6 @@ function ProtectedRoute({ onlyUnAuth = false, component }) {
 }
 
 export const OnlyAuth = ProtectedRoute;
-export const OnlyUnAuth = ({ component }) => (
+export const OnlyUnAuth = ({ component }: TPropsUnAuth) => (
     <ProtectedRoute onlyUnAuth={true} component={component} />
 );

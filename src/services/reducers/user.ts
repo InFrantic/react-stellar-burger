@@ -1,4 +1,5 @@
-import { SET_USER, SET_AUTH_CHECKED, CLEAR_USER, TUserAction, TUser } from "../action/user";
+import { TUser } from "../../utils/types";
+import { SET_USER, SET_AUTH_CHECKED, CLEAR_USER, TUserAction } from "../action/user";
 
 export type TUserDataState = {
   user: TUser | null,

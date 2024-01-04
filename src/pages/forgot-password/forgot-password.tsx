@@ -1,14 +1,14 @@
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './forgot-password.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword, email } from "../../services/action/forgot-password";
+import { useAppDispatch, useAppSelector } from '../../services/store';
 
 export function ForgotPassword() {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const emailValue = useSelector(store => store.forgotPassword.email)
+    const dispatch = useAppDispatch();
+    const emailValue = useAppSelector(store => store.forgotPassword.email)
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
