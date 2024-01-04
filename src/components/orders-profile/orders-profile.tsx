@@ -1,18 +1,18 @@
 import styles from "./orders-profile.module.css";
 import Order from "../order/order";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
 import { connect, disconnect } from "../../services/action/orders";
 import { useLocation, Link, useMatch } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 
 export default function Orders() {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation();
-    const { isLoading, connectingError, orders } = useSelector(store => store.orders);
+    const { isLoading, connectingError, orders } = useAppSelector(store => store.orders);
 
     const token = localStorage.getItem("accessToken");
-    const tokenShot = token.split('Bearer ')[1];
+    const tokenShot = token?.split('Bearer ')[1];
     const PROFILE_ORDERS_URL = `wss://norma.nomoreparties.space/orders?token=${tokenShot}`;
 
     const isProfile = useMatch({ path: "/profile/orders", end: false });

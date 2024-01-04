@@ -1,19 +1,19 @@
 import { useParams, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useMemo } from "react";
 import styles from "./order-content.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { setCurrentOrder } from "../../services/action/currentOrder";
+import { RootState, useAppDispatch, useAppSelector } from "../../services/store";
 
 export default function OrderContent() {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { number } = useParams();
     const location = useLocation();
 
     const background = location.state?.background;
-    const findOrder = store => {
+    const findOrder = (store: RootState) => {
         let order;
         order = store.feed.orders?.find((order) => order.number == number);
         if (order) {
@@ -23,14 +23,14 @@ export default function OrderContent() {
         if (order) {
             return order;
         }
-        order = store.currentOrder.current?.orders.find((order) => order.number == number);
+        order = store.currentOrder.current?.find((order) => order.number == number);
         if (order) {
             return order;
         }
     };
 
-    const order = useSelector(findOrder);
-    const ingredients = useSelector(store => store.burgerIngredients.ingredients);
+    const order = useAppSelector(findOrder);
+    const ingredients = useAppSelector(store => store.burgerIngredients.ingredients);
 
     const orderIngredients = useMemo(() =>
         order?.ingredients.map((ingredientId) =>
@@ -44,7 +44,7 @@ export default function OrderContent() {
         if (!order) {
             dispatch(setCurrentOrder(number))
         }
-    }, []);
+    }, [dispatch, number, order]);
 
 
     const multiply = (ingredient) => {

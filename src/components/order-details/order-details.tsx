@@ -1,10 +1,10 @@
 import styles from './order-details.module.css';
 import doneImage from '../../images/done.svg'
-import { useSelector } from 'react-redux';
 import PropTypes from "prop-types";
+import { useAppSelector } from '../../services/store';
 
 function OrderDetails() {
-    const orderNumber = useSelector(state => state.order.orderNumber)
+    const orderNumber = useAppSelector(state => state.order.orderNumber)
     return (
         <div className={styles.details}>
             <p className="text text_type_digits-large pb-4">{orderNumber}</p>

@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux';
 import styles from './orders-ready.module.css';
+import { useAppSelector } from '../../services/store';
 
 export const OrdersReady = () => {
 
-    const { orders, total, totalToday } = useSelector(store => store.feed)
+    const { orders, total, totalToday } = useAppSelector(store => store.feed)
     const readyOrders = orders.filter((i) => i.status === 'done')
     const notReadyOrders = orders.filter((i) => i.status !== 'done')
 
@@ -25,7 +25,7 @@ export const OrdersReady = () => {
                     <ul className={` ${styles.boardList}`}>
                         {notReadyOrders.map((order, index) => {
                             if (index < 30) {
-                                return (<li key={order} className={`text text_type_digits-default ${styles.boardItem}`}>{order.number}</li>)
+                                return (<li key={order._id} className={`text text_type_digits-default ${styles.boardItem}`}>{order.number}</li>)
                             }
                         })}
                     </ul>

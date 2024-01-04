@@ -48,3 +48,8 @@ export type TUser = {
     email: string;
     name: string;
 }
+
+export type TOrderWithNumber = {
+    success: boolean;
+    orders: TOrder;
+};

@@ -47,6 +47,6 @@ export const connect = (url: string): TOrdersConnectAction => ({
   payload: url,
 })
 
-export const disconnect = () => ({
+export const disconnect = ():TOrdersDisconnectAction => ({
   type: ORDERS_DISCONNECT
 })

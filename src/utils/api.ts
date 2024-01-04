@@ -1,9 +1,10 @@
 import { checkResponse } from './checkres'
+import { TOrderWithNumber } from './types';
 
 export const baseUrl = 'https://norma.nomoreparties.space/api';
 
-export const getOrderWithNumber = (number) => {
-  return request(`${baseUrl}/orders/${number}`);
+export const getOrderWithNumber = (number: string) => {
+  return request<TOrderWithNumber>(`${baseUrl}/orders/${number}`);
 };
 
 export const getIngredients = () => {
@@ -25,9 +26,9 @@ export const getOrder = (ingredientsOrder) => {
     .then(checkResponse)
 }
 
-export const request = (url, options) => {
+export function request<T>(url: string, options?: RequestInit) {
   return (fetch(url, options)
-    .then(checkResponse))
+    .then(checkResponse<T>))
 }
 
 const refreshToken = () => {
@@ -121,7 +122,7 @@ export const register = (name, password, email) => {
     },
     body: JSON.stringify({
       email,
-     password,
+      password,
       name
     })
   })
