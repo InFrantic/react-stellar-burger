@@ -1,5 +1,5 @@
 import { checkResponse } from './checkres'
-import { TOrderWithNumber } from './types';
+import { TGetIngredients, TGetUser, TLogOut, TMakeOrder, TOrderWithNumber, TRefresh, TRefreshOption, TRegistration } from './types';
 
 export const baseUrl = 'https://norma.nomoreparties.space/api';
 
@@ -8,46 +8,44 @@ export const getOrderWithNumber = (number: string) => {
 };
 
 export const getIngredients = () => {
-  return fetch(`${baseUrl}/ingredients`)
-    .then(checkResponse)
+  return request<TGetIngredients>(`${baseUrl}/ingredients`)
+};
 
-}
-export const getOrder = (ingredientsOrder) => {
-  return fetch(`${baseUrl}/orders`, {
+export const getOrder = (ingredientsOrder: string[]) => {
+  return fetchWithRefresh(`${baseUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-type": 'application/json',
-      authorization: localStorage.getItem('accessToken')
+      Authorization: localStorage.getItem('accessToken') as string
     },
     body: JSON.stringify({
       ingredients: ingredientsOrder
     })
-  })
-    .then(checkResponse)
-}
+  }) as Promise<TMakeOrder>
+};
 
 export function request<T>(url: string, options?: RequestInit) {
   return (fetch(url, options)
     .then(checkResponse<T>))
-}
+};
 
-const refreshToken = () => {
-  return fetch(`${baseUrl}/auth/token`, {
+export const refreshToken = () => {
+  return request<TRefresh>(`${baseUrl}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
+      "token": localStorage.getItem("refreshToken"),
     }),
-  }).then(checkResponse);
+  })
 };
 
-const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (url: string, options: RequestInit & TRefreshOption): Promise<TGetUser | TMakeOrder> => {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
-  } catch (err) {
+  } catch (err: any) {
     if (err.message === "jwt expired") {
       const refreshData = await refreshToken();
       if (!refreshData.success) {
@@ -55,7 +53,7 @@ const fetchWithRefresh = async (url, options) => {
       }
       localStorage.setItem("refreshToken", refreshData.refreshToken);
       localStorage.setItem("accessToken", refreshData.accessToken);
-      options.headers.authorization = refreshData.accessToken;
+      options.headers.Authorization = refreshData.accessToken;
       const res = await fetch(url, options);
       return await checkResponse(res);
     } else {
@@ -64,20 +62,20 @@ const fetchWithRefresh = async (url, options) => {
   }
 };
 
-const logout = () => {
-  return fetchWithRefresh(`${baseUrl}/auth/logout`, {
+export const logout = () => {
+  return request<TLogOut>(`${baseUrl}/auth/logout`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
+      "token": localStorage.getItem("refreshToken")
     }),
   })
 };
 
-const login = (email, password) => {
-  return request(`${baseUrl}/auth/login`, {
+export const login = (email: string, password: string) => {
+  return request<TRegistration>(`${baseUrl}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -89,33 +87,33 @@ const login = (email, password) => {
   })
 };
 
-const getUser = () => {
+export const getUser = () => {
   return fetchWithRefresh(`${baseUrl}/auth/user`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      authorization: localStorage.getItem('accessToken')
+      Authorization: String(localStorage.getItem('accessToken')),
     }
-  })
+  }) as Promise<TGetUser>
 };
 
-const updateUser = (email, name, password) => {
+export const updateUser = (name: string, email: string, password: string) => {
   return fetchWithRefresh(`${baseUrl}/auth/user`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      authorization: localStorage.getItem('accessToken')
+      Authorization: localStorage.getItem('accessToken') as string
     },
     body: JSON.stringify({
       email,
       name,
       password,
     }),
-  })
+  }) as Promise<TGetUser>
 };
 
-export const register = (name, password, email) => {
-  return request(`${baseUrl}/auth/register`, {
+export const register = (email: string, password: string, name: string) => {
+  return request<TRegistration>(`${baseUrl}/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

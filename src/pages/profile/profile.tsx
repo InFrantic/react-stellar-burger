@@ -7,8 +7,8 @@ import { useAppDispatch, useAppSelector } from "../../services/store";
 export function Profile() {
 
     const dispatch = useAppDispatch();
-    const name = useAppSelector(state => state.user.user.name);
-    const email = useAppSelector(state => state.user.user.email);
+    const name = useAppSelector(state => state.user.user?.name) as string;
+    const email = useAppSelector(state => state.user.user?.email) as string;
 
     const [value, setValue] = React.useState({
         name: name,

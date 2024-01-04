@@ -53,3 +53,87 @@ export type TOrderWithNumber = {
     success: boolean;
     orders: TOrder;
 };
+export type MessageLogin = {
+    accessToken: string;
+    refreshToken: string;
+    success: boolean;
+    user: TUser
+}
+
+export type MessageUpdUser = {
+    success: boolean;
+    user: TUser
+}
+
+export type MessageGetUser = {
+    success: boolean;
+    user: TUser
+}
+
+export type MessageLogout = {
+    success: boolean,
+    message: "Successful logout" | string
+}
+
+export type MessageOrder = {
+    success: boolean;
+    orders: Array<TOrder>;
+}
+
+
+export type MessageIngredients = {
+    success: boolean;
+    data: Array<TIngredient>
+}
+
+export type TRefreshOption = {
+    headers: { Authorization: string };
+};
+
+export type TGetUser = Omit<TRegistration, 'accessToken' | 'refreshToken'>
+
+export type TRegistration = {
+    success: boolean;
+    user: TUser;
+    accessToken: string;
+	refreshToken: string;
+}
+
+export type TMakeOrder = {
+    name: string;
+    order: TOrderInDetails;
+    success: boolean;
+};
+
+type TOrderInDetails = Omit<TOrder, 'ingredients'> & TOwner & {
+    ingredients: TIngredient[];
+};
+
+export type TOwner = {
+    name: string;
+    email: string;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type TRefresh = Omit<TRegistration, 'user'>
+
+export type TLogOut = {
+    success: boolean;
+    message: string;
+}
+
+export type TResetPassword = {
+    success: boolean;
+    message: string;
+}
+
+export type TNewPassword = {
+    success: boolean;
+    message: string;
+}
+
+export type TGetIngredients = {
+    success: boolean;
+    data: TIngredient[]; 
+};

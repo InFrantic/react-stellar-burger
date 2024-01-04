@@ -6,22 +6,20 @@ import { TIngredient } from '../../utils/types';
 
 function IngredientDetails() {
 
-    const params = useParams()
-    const idCurrentItem = params.id
-    const ingredients = useAppSelector(store => store.details.details)
-    const currentIngredient = ingredients.find(item => item._id === idCurrentItem);
-    const { proteins, calories, fat, carbohydrates, name, image_large } = currentIngredient
-
+    const { id } = useParams();
+    const ingredients = useAppSelector(store => store.burgerIngredients.ingredients)
+    const ingredient  = ingredients?.find((item: TIngredient) => item._id === id);
+    if (!ingredient) {return null};
     return (
         <div className={`${styles.details} pb-5`}>
             <p className="text text_type_main-large">Детали ингредиента</p>
-            <img src={image_large} alt={name}></img>
-            <p className="text text_type_main-medium pb-4 pt-4">{name}</p>
+            <img src={ingredient.image_large} alt={ingredient.name}></img>
+            <p className="text text_type_main-medium pb-4 pt-4">{ingredient.name}</p>
             <div className={`${styles.info} pt-4`}>
-                <IngredientInfo text='Калории,ккал' info={calories}></IngredientInfo>
-                <IngredientInfo text='Белки, г' info={proteins}></IngredientInfo>
-                <IngredientInfo text='Жиры, г' info={fat}></IngredientInfo>
-                <IngredientInfo text='Углеводы, г' info={carbohydrates}></IngredientInfo>
+                <IngredientInfo text='Калории,ккал' info={ingredient.calories}></IngredientInfo>
+                <IngredientInfo text='Белки, г' info={ingredient.proteins}></IngredientInfo>
+                <IngredientInfo text='Жиры, г' info={ingredient.fat}></IngredientInfo>
+                <IngredientInfo text='Углеводы, г' info={ingredient.carbohydrates}></IngredientInfo>
             </div>
         </div>
     )

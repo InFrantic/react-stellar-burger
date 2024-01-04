@@ -40,7 +40,7 @@ export function setCurrentOrder(number: string): AppThunk {
     return function (dispatch) {
         getOrderWithNumber(number)
             .then(res => {
-                dispatch(setCurrent(res))
+                dispatch(setCurrent(res.orders))
             })
             .catch(error => {
                 dispatch({
