@@ -13,7 +13,7 @@ export function ConstructorList() {
   const dispatch = useAppDispatch();
   const topGap = !bun ? styles.topGap : '';
   
-  const moveCard = React.useCallback((dragIndex, hoverIndex, other) => {
+  const moveCard = React.useCallback((dragIndex: number, hoverIndex: number, other: Array <{numberIngredient: string, ingredient: TIngredient}>) => {
 
     const newOther = update(other, {
       $splice: [
