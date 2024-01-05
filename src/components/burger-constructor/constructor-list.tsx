@@ -12,7 +12,8 @@ export function ConstructorList() {
   const other: Array <{numberIngredient: string, ingredient: TIngredient}> = useAppSelector(store => store.filling.other)
   const dispatch = useAppDispatch();
   const topGap = !bun ? styles.topGap : '';
-  const moveCard = React.useCallback((dragIndex: number, hoverIndex: number, other: Array <{numberIngredient: string, ingredient: TIngredient}>) => {
+  
+  const moveCard = React.useCallback((dragIndex, hoverIndex, other) => {
 
     const newOther = update(other, {
       $splice: [

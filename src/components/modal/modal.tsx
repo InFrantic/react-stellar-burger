@@ -36,7 +36,7 @@ function Modal({ onClose, title, children }: IModal) {
                 <ModalOverlay onClose={handleCloseModal}></ModalOverlay>
             </div>
         </>,
-        document.getElementById("modal") as HTMLElement
+        document.getElementById("react-modals") as HTMLElement
     );
 }
 
