@@ -6,7 +6,6 @@ import { useDrop } from "react-dnd";
 import { getOrderDetails } from "../../services/action/order-details";
 import Modal from '../modal/modal';
 import OrderDetails from "../order-details/order-details";
-import { clearIngredientDetails } from '../../services/action/ingredient-details';
 import { clearOrderDetails } from '../../services/action/order-details';
 import { addFilling, chooseBun, clearBurgerConstructor } from '../../services/action/burger-constructor'
 import { useNavigate } from "react-router-dom";
@@ -84,10 +83,8 @@ function BurgerConstructor() {
     const order = useAppSelector(state => state.order.orderNumber)
 
     function handleCloseModal() {
-        dispatch(clearIngredientDetails())
         dispatch(clearOrderDetails())
         dispatch(clearBurgerConstructor())
-
     }
 
     return (

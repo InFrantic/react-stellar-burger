@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../services/store";
 import { TIngredient } from "../../utils/types";
 import { Identifier } from "dnd-core";
 
-type TConstructorItem = {
+export type TConstructorItem = {
   moveCard: (dragIndex: number, hoverIndex: number, other: Array<{ numberIngredient: string, ingredient: TIngredient }>) => void;
   index: number;
   id: string;
@@ -35,6 +35,7 @@ export function ConstructorItem({ moveCard, index, id, item }: TConstructorItem)
   }
 
   const ref = React.useRef<HTMLDivElement>(null)
+
   const [{ handlerId }, drop] = useDrop<TDragObject, unknown, TDropCollectedProps>({
     accept: "move",
     collect(monitor) {
@@ -76,7 +77,9 @@ export function ConstructorItem({ moveCard, index, id, item }: TConstructorItem)
       isDragging: monitor.isDragging(),
     }),
   })
+
   const opacity = isDragging ? styles.hidden : styles.show
+
   drag(drop(ref))
 
   return (

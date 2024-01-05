@@ -2,7 +2,7 @@ import styles from "./constructor-list.module.css";
 import React from "react";
 import { moveFilling } from "../../services/action/burger-constructor";
 import { ConstructorItem } from "./constructor-item";
-import update, { Spec } from 'immutability-helper'
+import update from 'immutability-helper'
 import { useAppDispatch, useAppSelector } from "../../services/store";
 import { TIngredient } from "../../utils/types";
 

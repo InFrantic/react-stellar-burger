@@ -1,7 +1,7 @@
 import { CLEAR_ORDER, GET_ORDER_FAILED, GET_ORDER_LOADING, GET_ORDER_SUCCESS, TOrderDetailsAction, } from "../action/order-details";
 
 type TOrderDetailsState = {
-  orderNumber: number | null,
+  orderNumber: string  | null,
   orderFailed: boolean,
   isLoading: boolean
 }

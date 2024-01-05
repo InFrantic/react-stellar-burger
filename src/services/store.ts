@@ -75,5 +75,6 @@ export type AppActions =
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AppActions>;
 export type AppDispatch<ReturnType = void> = (action: AppActions | AppThunk<ReturnType>) => ReturnType;
+// @ts-ignore
 export const useAppDispatch: () => AppDispatch = dispatchHook;
 export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook

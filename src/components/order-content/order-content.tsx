@@ -47,10 +47,6 @@ export default function OrderContent() {
         }
     }, [dispatch, number, order]);
 
-    if (!order) {
-        return null;
-    }
-
     const multiply = (ingredient: TIngredient) => {
         let res = orderIngredients?.filter((x) => x._id === ingredient._id);
         return res.length
@@ -69,7 +65,6 @@ export default function OrderContent() {
     if (!order) {
         return null;
     }
-
 
     return (
         <div className={background ? styles.container : styles.page}>

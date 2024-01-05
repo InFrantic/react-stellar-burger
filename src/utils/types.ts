@@ -148,3 +148,7 @@ export type IModal = {
     title?: string;
     children: ReactNode;
 }
+
+export type TPropsModalOverlay = {
+    onClose: () => void;
+  };
