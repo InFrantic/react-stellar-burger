@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { FEED_CONNECT, FEED_DISCONNECT, FEED_WS_CLOSE, FEED_WS_CONNECTING, FEED_WS_ERROR, FEED_WS_MESSAGE, FEED_WS_OPEN } from "../services/action/feed";
 import { ORDERS_CONNECT, ORDERS_DISCONNECT, ORDERS_WS_CLOSE, ORDERS_WS_CONNECTING, ORDERS_WS_ERROR, ORDERS_WS_MESSAGE, ORDERS_WS_OPEN } from "../services/action/orders";
 
@@ -96,7 +97,7 @@ export type TRegistration = {
     success: boolean;
     user: TUser;
     accessToken: string;
-	refreshToken: string;
+    refreshToken: string;
 }
 
 export type TMakeOrder = {
@@ -135,5 +136,15 @@ export type TNewPassword = {
 
 export type TGetIngredients = {
     success: boolean;
-    data: TIngredient[]; 
+    data: TIngredient[];
 };
+
+export type TCardOrder = {
+    order: TOrder;
+}
+
+export type IModal = {
+    onClose: () => void;
+    title?: string;
+    children: ReactNode;
+}

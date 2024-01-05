@@ -5,6 +5,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { setCurrentOrder } from "../../services/action/currentOrder";
 import { RootState, useAppDispatch, useAppSelector } from "../../services/store";
+import { TIngredient } from "../../utils/types";
 
 export default function OrderContent() {
 
@@ -33,26 +34,29 @@ export default function OrderContent() {
     const ingredients = useAppSelector(store => store.burgerIngredients.ingredients);
 
     const orderIngredients = useMemo(() =>
-        order?.ingredients.map((ingredientId) =>
-            ingredients?.find((ingredient) =>
+        order?.ingredients.map((ingredientId: string) =>
+            ingredients?.find((ingredient: TIngredient) =>
                 ingredientId === ingredient._id
             ))
-        , [order?.ingredients, ingredients]);
+        , [ingredients, order]) as TIngredient[];
 
 
     useEffect(() => {
         if (!order) {
-            dispatch(setCurrentOrder(number))
+            dispatch(setCurrentOrder(number!))
         }
     }, [dispatch, number, order]);
 
+    if (!order) {
+        return null;
+    }
 
-    const multiply = (ingredient) => {
+    const multiply = (ingredient: TIngredient) => {
         let res = orderIngredients?.filter((x) => x._id === ingredient._id);
         return res.length
     }
 
-    const getUnique = (arr) =>
+    const getUnique = (arr: TIngredient[]) =>
         arr?.filter((el, ind) => ind === arr.indexOf(el));
 
 

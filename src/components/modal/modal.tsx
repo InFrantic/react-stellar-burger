@@ -3,14 +3,16 @@ import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect, useCallback } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
+import { IModal } from "../../utils/types";
 
-function Modal({ onClose, title, children }) {
+function Modal({ onClose, title, children }: IModal) {
+
     const handleCloseModal = useCallback(() => {
-        onClose(false);
+        onClose();
     }, [onClose]);
 
     useEffect(() => {
-        const handleEscape = (event) => {
+        const handleEscape = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
                 handleCloseModal();
             }

@@ -1,13 +1,14 @@
 import styles from "./order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from 'react-redux';
 import { useMemo } from "react";
 import { useMatch } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useAppSelector } from "../../services/store";
+import { TCardOrder } from "../../utils/types";
 
-export default function Order({ order }) {
+export default function Order({ order }: TCardOrder) {
     
-    const ingredients = useSelector(store => store.burgerIngredients.ingredients);
+    const ingredients = useAppSelector(store => store.burgerIngredients.ingredients);
     const isProfileInfo = useMatch(`/profile/orders`);
     
     const orderIngredients = useMemo(() =>
@@ -25,7 +26,7 @@ export default function Order({ order }) {
 
     const orderPrice = () => {
         return orderIngredients?.reduce((acc, i) =>
-            acc + i.price, 0);
+            acc + i!.price, 0);
         } 
 
     return (
@@ -57,8 +58,8 @@ export default function Order({ order }) {
                         {orderIngredients.map((ingredient, index) => {
                             if (index < 6) {
                                 return (
-                                    <div className={styles.imgbox} key={`${orderIngredients.number}${index}`} index={index}>
-                                        <img alt={ingredient.name} src={ingredient.image} className={styles.picture} />
+                                    <div className={styles.imgbox} key={`${ingredient!._id}${index}`}>
+                                        <img alt={ingredient!.name} src={ingredient!.image} className={styles.picture} />
                                         {index === 5 && sliced !== 0 && (<div className={styles.counter}><p className="text text_type_digits-default">{`+${sliced}`}</p></div>
                                         )}
                                     </div>
